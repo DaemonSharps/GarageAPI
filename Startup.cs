@@ -12,11 +12,13 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace GarageAPI
 {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -46,10 +48,13 @@ namespace GarageAPI
                         Version = "1.0"
                     });
                 setup.CustomSchemaIds(type => type.ToString());
+                var filePath = Path.Combine(AppContext.BaseDirectory, "GarageAPI.xml");
+                setup.IncludeXmlComments(filePath);
             });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -69,8 +74,9 @@ namespace GarageAPI
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapDefaultControllerRoute();
             });
         }
     }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

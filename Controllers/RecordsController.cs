@@ -11,12 +11,19 @@ using System.Threading.Tasks;
 
 namespace GarageAPI.Controllers
 {
+    /// <summary>
+    /// Контроллер api записей
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class RecordsController : ControllerBase
     {
         private readonly IRecordsService _recordsService;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="recordsService">Сервис записей</param>
         public RecordsController(IRecordsService recordsService)
         {
             _recordsService = recordsService;

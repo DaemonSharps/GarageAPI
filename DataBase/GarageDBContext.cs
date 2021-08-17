@@ -7,22 +7,47 @@ using System.Threading.Tasks;
 
 namespace GarageAPI.DataBase
 {
+    /// <summary>
+    /// Контекст БД
+    /// </summary>
     public class GarageDBContext: DbContext
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="options"></param>
         public GarageDBContext(DbContextOptions<GarageDBContext> options) 
             : base(options) 
         {
             Database.EnsureCreated();
         }
 
+        #region TABLES
+        /// <summary>
+        /// Пользователи
+        /// </summary>
         public DbSet<Customer> Customers { get; set; }
 
+        /// <summary>
+        /// Статусы пользователей
+        /// </summary>
         public DbSet<CustomerState> CustomerStates { get; set; }
 
+        /// <summary>
+        /// Записи
+        /// </summary>
         public DbSet<Record> Records { get; set; }
 
+        /// <summary>
+        /// Статусы записей
+        /// </summary>
         public DbSet<RecordState> RecordStates { get; set; }
+        #endregion
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="builder"></param>
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<Customer>(customer =>

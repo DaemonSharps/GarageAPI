@@ -8,16 +8,32 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace GarageAPI.Services
-{
+{ 
+    /// <summary>
+    /// Сервис для обработки записей
+    /// </summary>
     public class RecordsService : IRecordsService
     {
         private readonly GarageDBContext _garageDBContext;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="garageDBContext">Контекст БД</param>
         public RecordsService(GarageDBContext garageDBContext)
         {
             _garageDBContext = garageDBContext;
         }
 
+        /// <summary>
+        /// Создание записи
+        /// </summary>
+        /// <param name="customerId">Id пользователя</param>
+        /// <param name="time">Время записи</param>
+        /// <param name="date">Дата записи</param>
+        /// <param name="place">Номер места в гараже</param>
+        /// <param name="stateId">Статус записи</param>
+        /// <returns></returns>
         public async Task<Record> CreateRecord(long customerId, string time, DateTime date, int place, long stateId)
         {
             var newRecord = new Record
@@ -35,6 +51,11 @@ namespace GarageAPI.Services
             return newRecord;
         }
 
+        /// <summary>
+        /// Получить запись
+        /// </summary>
+        /// <param name="id">Id записи</param>
+        /// <returns>Запись</returns>
         public async Task<Record> GetRecord(long id)
         {
             return await _garageDBContext
@@ -44,6 +65,16 @@ namespace GarageAPI.Services
                 .FirstOrDefaultAsync(r => r.Id == id);
         }
 
+        /// <summary>
+        /// Получить записи по фильтру
+        /// </summary>
+        /// <param name="date">Дата</param>
+        /// <param name="page">Страница</param>
+        /// <param name="perPage">Записей на страницу</param>
+        /// <param name="stateId">Id записи</param>
+        /// <param name="customerId">Id пользователя</param>
+        /// <returns>Список записей</returns>
+        /// <exception cref="ArgumentException"/>
         public async Task<Record[]> GetRecordsByFilter(DateTime date, long page, long perPage, long stateId = 0, long customerId = 0)
         {
             if (date == null || page == 0 || perPage == 0)
@@ -74,6 +105,11 @@ namespace GarageAPI.Services
             return await recordQuerry.ToArrayAsync();
         }
 
+        /// <summary>
+        /// Обновить запись
+        /// </summary>
+        /// <param name="newRecord">Новая запись</param>
+        /// <returns>Обновленная запись</returns>
         public async Task<Record> UpdateRecord(Record newRecord)
         {
             var oldRecord = await GetRecord(newRecord.Id);
