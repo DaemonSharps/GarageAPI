@@ -6,8 +6,12 @@ using System.Threading.Tasks;
 
 namespace GarageAPI.DataBase.Tables
 {
-    public class RecordState: StateBase
+    public class StateBase
     {
-        public List<Record> Records { get; set; } = new List<Record>();
+        public long Id { get; set; }
+
+        [Required]
+        [MaxLength(100)]
+        public string Name { get; set; }
     }
 }

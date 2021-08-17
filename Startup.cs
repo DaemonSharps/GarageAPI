@@ -1,4 +1,6 @@
 using GarageAPI.DataBase;
+using GarageAPI.Services;
+using GarageAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -31,6 +33,8 @@ namespace GarageAPI
 
             services.AddDbContext<GarageDBContext>(builder =>
                     builder.UseMySql(Configuration.GetConnectionString("DefaultConnection")), ServiceLifetime.Transient);
+
+            services.AddTransient<IRecordsService, RecordsService>();
 
             services.AddSwaggerGen(setup =>
             {
