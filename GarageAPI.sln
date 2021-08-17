@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31515.178
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GarageAPI", "GarageAPI.csproj", "{2795878D-EA91-4D41-AFE2-0C85039E89E7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2795878D-EA91-4D41-AFE2-0C85039E89E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2795878D-EA91-4D41-AFE2-0C85039E89E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2795878D-EA91-4D41-AFE2-0C85039E89E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2795878D-EA91-4D41-AFE2-0C85039E89E7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0214AA6C-5671-4EBD-87F5-1707F3B75428}
+	EndGlobalSection
+EndGlobal
