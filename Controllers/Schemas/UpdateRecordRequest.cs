@@ -6,38 +6,13 @@ using System.Threading.Tasks;
 namespace GarageAPI.Controllers.Schemas
 {
     /// <summary>
-    /// Запрос для обновления записей
+    /// Запрос создания записи
     /// </summary>
-    public class UpdateRecordRequest
+    public class UpdateRecordRequest : CreateRecordRequest
     {
         /// <summary>
         /// Id записи
         /// </summary>
-        public virtual long RecordId { get; set; }
-
-        /// <summary>
-        /// Новое Id пользователя
-        /// </summary>
-        public long CustomerId { get; set; }
-
-        /// <summary>
-        /// Новое время записи
-        /// </summary>
-        public string Time { get; set; }
-
-        /// <summary>
-        /// Новая дата записи год-день-месяц
-        /// </summary>
-        public DateTime Date { get; set; }
-
-        /// <summary>
-        /// Новое место посадки
-        /// </summary>
-        public int PlaceNumber { get; set; }
-
-        /// <summary>
-        /// Новый Id статуса записи
-        /// </summary>
-        public long RecordStateId { get; set; }
+        public long RecordId { get; set; }
     }
 }
