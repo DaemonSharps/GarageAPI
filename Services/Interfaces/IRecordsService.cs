@@ -32,7 +32,7 @@ namespace GarageAPI.Services.Interfaces
         /// <param name="customerId">Id пользователя</param>
         /// <returns>Список записей</returns>
         /// <exception cref="ArgumentException"/>
-        Task<Record[]> GetRecordsByFilter(DateTime date, long page, long perPage, long stateId = 0, long customerId = 0);
+        Task<Record[]> GetRecordsByFilter(int page, int perPage, DateTime date, long stateId = 0, long customerId = 0);
 
         /// <summary>
         /// Получить запись

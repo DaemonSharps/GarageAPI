@@ -16,6 +16,7 @@ namespace GarageAPI.Controllers
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
+    [Produces("application/json")]
     public class RecordsController : ControllerBase
     {
         private readonly IRecordsService _recordsService;
@@ -32,21 +33,21 @@ namespace GarageAPI.Controllers
         /// <summary>
         /// Получить записи по фильтру
         /// </summary>
-        /// <returns></returns>
         [HttpGet]
         [SwaggerResponse(200, "Records find", typeof(List<Record>))]
+        [SwaggerResponse(400, Type = typeof(string))]
         public async Task<IActionResult> Get([FromQuery] GetRecordsByFilterRequest request)
         {
             try
             {
                 var records = await _recordsService.GetRecordsByFilter(
-                request.Date,
                 request.Page,
                 request.PerPage,
+                request.Date,
                 request.StateId,
                 request.CustomerId);
 
-                if (records == null)
+                if (records == null || records.Length == 0)
                     return NotFound();
 
                 foreach (var record in records)
@@ -71,9 +72,9 @@ namespace GarageAPI.Controllers
         /// <summary>
         /// Обновить запись
         /// </summary>
-        /// <returns></returns>
         [HttpPut]
         [SwaggerResponse(200, "Updated record", typeof(Record))]
+        [SwaggerResponse(400, Type = typeof(string))]
         public async Task<IActionResult> Put([FromBody] UpdateRecordRequest request)
         {
             try
@@ -105,9 +106,9 @@ namespace GarageAPI.Controllers
         /// <summary>
         /// Создать запись
         /// </summary>
-        /// <returns></returns>
         [HttpPost]
         [SwaggerResponse(200, "Created record", typeof(Record))]
+        [SwaggerResponse(400, Type = typeof(string))]
         public async Task<IActionResult> Post([FromBody] CreateRecordRequest request)
         {
             try

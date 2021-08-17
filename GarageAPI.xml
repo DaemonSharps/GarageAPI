@@ -4,6 +4,28 @@
         <name>GarageAPI</name>
     </assembly>
     <members>
+        <member name="T:GarageAPI.Controllers.CustomersController">
+            <summary>
+            Контроллер api пользователей
+            </summary>
+        </member>
+        <member name="M:GarageAPI.Controllers.CustomersController.#ctor(GarageAPI.Services.Interfaces.ICustomerService)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:GarageAPI.Controllers.CustomersController.Post(GarageAPI.Controllers.Schemas.GetOrSetCustomerRequest)">
+            <summary>
+            Создать или получить существующего пользователя
+            </summary>
+            <param name="request">Запрос</param>
+        </member>
+        <member name="M:GarageAPI.Controllers.CustomersController.Get(GarageAPI.Controllers.Schemas.GetCustomersByFilterRequest)">
+            <summary>
+            Получить пользователей по фильтру
+            </summary>
+            <param name="request">Запрос с фильтром</param>
+        </member>
         <member name="T:GarageAPI.Controllers.RecordsController">
             <summary>
             Контроллер api записей
@@ -19,19 +41,16 @@
             <summary>
             Получить записи по фильтру
             </summary>
-            <returns></returns>
         </member>
         <member name="M:GarageAPI.Controllers.RecordsController.Put(GarageAPI.Controllers.Schemas.UpdateRecordRequest)">
             <summary>
             Обновить запись
             </summary>
-            <returns></returns>
         </member>
         <member name="M:GarageAPI.Controllers.RecordsController.Post(GarageAPI.Controllers.Schemas.CreateRecordRequest)">
             <summary>
             Создать запись
             </summary>
-            <returns></returns>
         </member>
         <member name="T:GarageAPI.Controllers.Schemas.CreateRecordRequest">
             <summary>
@@ -41,6 +60,56 @@
         <member name="P:GarageAPI.Controllers.Schemas.CreateRecordRequest.RecordId">
             <summary>
             Id записи
+            </summary>
+        </member>
+        <member name="T:GarageAPI.Controllers.Schemas.GetCustomersByFilterRequest">
+            <summary>
+            Запрос для получения пользователей по фильтру
+            </summary>
+        </member>
+        <member name="P:GarageAPI.Controllers.Schemas.GetCustomersByFilterRequest.Page">
+            <summary>
+            Номер страницы
+            </summary>
+        </member>
+        <member name="P:GarageAPI.Controllers.Schemas.GetCustomersByFilterRequest.PerPage">
+            <summary>
+            Пользователей на страницу
+            </summary>
+        </member>
+        <member name="T:GarageAPI.Controllers.Schemas.GetOrSetCustomerRequest">
+            <summary>
+            Запрос для получения или создания пользователя
+            </summary>
+        </member>
+        <member name="P:GarageAPI.Controllers.Schemas.GetOrSetCustomerRequest.FirstName">
+            <summary>
+            Имя
+            </summary>
+        </member>
+        <member name="P:GarageAPI.Controllers.Schemas.GetOrSetCustomerRequest.SecondName">
+            <summary>
+            Фамилия
+            </summary>
+        </member>
+        <member name="P:GarageAPI.Controllers.Schemas.GetOrSetCustomerRequest.LastName">
+            <summary>
+            Отчество
+            </summary>
+        </member>
+        <member name="P:GarageAPI.Controllers.Schemas.GetOrSetCustomerRequest.Email">
+            <summary>
+            Почта
+            </summary>
+        </member>
+        <member name="P:GarageAPI.Controllers.Schemas.GetOrSetCustomerRequest.VisitCount">
+            <summary>
+            Количество посещений
+            </summary>
+        </member>
+        <member name="P:GarageAPI.Controllers.Schemas.GetOrSetCustomerRequest.CustomerStateId">
+            <summary>
+            Id статуса
             </summary>
         </member>
         <member name="T:GarageAPI.Controllers.Schemas.GetRecordsByFilterRequest">
@@ -275,6 +344,97 @@
             Имя статуса
             </summary>
         </member>
+        <member name="T:GarageAPI.Helpers.DataHelper">
+            <summary>
+            Помошник в работе с данными
+            </summary>
+        </member>
+        <member name="M:GarageAPI.Helpers.DataHelper.IsDefault``1(``0)">
+            <summary>
+            Проверка на дефолтное значение
+            </summary>
+            <typeparam name="T">Структура</typeparam>
+            <param name="value">Переменная</param>
+            <returns>True если value имеет дефолтное значение, иначе - false</returns>
+        </member>
+        <member name="T:GarageAPI.Services.Interfaces.CustomerService">
+            <summary>
+            Сервис для обработки пользователей
+            </summary>
+        </member>
+        <member name="M:GarageAPI.Services.Interfaces.CustomerService.#ctor(GarageAPI.DataBase.GarageDBContext)">
+            <summary>
+            
+            </summary>
+            <param name="garageDBContext">Контекст БД</param>
+        </member>
+        <member name="M:GarageAPI.Services.Interfaces.CustomerService.GetCustomer(System.Int64)">
+            <summary>
+            Получить пользователя
+            </summary>
+            <param name="id">Id пользователя</param>
+            <returns>Пользователь</returns>
+        </member>
+        <member name="M:GarageAPI.Services.Interfaces.CustomerService.GetCustomersByFilter(System.Int32,System.Int32,System.String,System.String,System.String,System.String,System.Nullable{System.Int64},System.Int64)">
+            <summary>
+            Поиск пользователей по фильтру
+            </summary>
+            <returns>Список пользователей</returns>
+        </member>
+        <member name="M:GarageAPI.Services.Interfaces.CustomerService.CreateCustomer(System.String,System.String,System.String,System.String,System.Int64)">
+            <summary>
+            Создать пользователя
+            </summary>
+            <param name="email">Почта</param>
+            <param name="firstName">Имя</param>
+            <param name="secondName">Фамилия</param>
+            <param name="lastName">Отчество</param>
+            <param name="stateId">Id статуса</param>
+            <returns>Созданный пользователь</returns>
+        </member>
+        <member name="M:GarageAPI.Services.Interfaces.CustomerService.UpdateCustomer(GarageAPI.DataBase.Tables.Customer)">
+            <summary>
+            Обновить пользователя
+            </summary>
+            <param name="newCustomer">Обновленный пользователь</param>
+            <returns>Обновленный пользователь</returns>
+        </member>
+        <member name="T:GarageAPI.Services.Interfaces.ICustomerService">
+            <summary>
+            Сервис для обработки пользователей
+            </summary>
+        </member>
+        <member name="M:GarageAPI.Services.Interfaces.ICustomerService.GetCustomer(System.Int64)">
+            <summary>
+            Получить пользователя
+            </summary>
+            <param name="id">Id пользователя</param>
+            <returns>Пользователь</returns>
+        </member>
+        <member name="M:GarageAPI.Services.Interfaces.ICustomerService.GetCustomersByFilter(System.Int32,System.Int32,System.String,System.String,System.String,System.String,System.Nullable{System.Int64},System.Int64)">
+            <summary>
+            Поиск пользователей по фильтру
+            </summary>
+            <returns>Список пользователей</returns>
+        </member>
+        <member name="M:GarageAPI.Services.Interfaces.ICustomerService.CreateCustomer(System.String,System.String,System.String,System.String,System.Int64)">
+            <summary>
+            Создать пользователя
+            </summary>
+            <param name="email">Почта</param>
+            <param name="firstName">Имя</param>
+            <param name="secondName">Фамилия</param>
+            <param name="lastName">Отчество</param>
+            <param name="stateId">Id статуса</param>
+            <returns>Созданный пользователь</returns>
+        </member>
+        <member name="M:GarageAPI.Services.Interfaces.ICustomerService.UpdateCustomer(GarageAPI.DataBase.Tables.Customer)">
+            <summary>
+            Обновить пользователя
+            </summary>
+            <param name="customer">Обновленный пользователь</param>
+            <returns>Обновленный пользователь</returns>
+        </member>
         <member name="T:GarageAPI.Services.Interfaces.IRecordsService">
             <summary>
             Сервис для обработки записей
@@ -291,7 +451,7 @@
             <param name="stateId">Статус записи</param>
             <returns></returns>
         </member>
-        <member name="M:GarageAPI.Services.Interfaces.IRecordsService.GetRecordsByFilter(System.DateTime,System.Int64,System.Int64,System.Int64,System.Int64)">
+        <member name="M:GarageAPI.Services.Interfaces.IRecordsService.GetRecordsByFilter(System.Int32,System.Int32,System.DateTime,System.Int64,System.Int64)">
             <summary>
             Получить записи по фильтру
             </summary>
@@ -346,7 +506,7 @@
             <param name="id">Id записи</param>
             <returns>Запись</returns>
         </member>
-        <member name="M:GarageAPI.Services.RecordsService.GetRecordsByFilter(System.DateTime,System.Int64,System.Int64,System.Int64,System.Int64)">
+        <member name="M:GarageAPI.Services.RecordsService.GetRecordsByFilter(System.Int32,System.Int32,System.DateTime,System.Int64,System.Int64)">
             <summary>
             Получить записи по фильтру
             </summary>

@@ -37,6 +37,7 @@ namespace GarageAPI
                     builder.UseMySql(Configuration.GetConnectionString("DefaultConnection")), ServiceLifetime.Transient);
 
             services.AddTransient<IRecordsService, RecordsService>();
+            services.AddTransient<ICustomerService, CustomerService>();
 
             services.AddSwaggerGen(setup =>
             {

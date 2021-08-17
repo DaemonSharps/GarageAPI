@@ -1,5 +1,6 @@
 ﻿using GarageAPI.DataBase;
 using GarageAPI.DataBase.Tables;
+using GarageAPI.Helpers;
 using GarageAPI.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -75,15 +76,11 @@ namespace GarageAPI.Services
         /// <param name="customerId">Id пользователя</param>
         /// <returns>Список записей</returns>
         /// <exception cref="ArgumentException"/>
-        public async Task<Record[]> GetRecordsByFilter(DateTime date, long page, long perPage, long stateId = 0, long customerId = 0)
+        public async Task<Record[]> GetRecordsByFilter(int page, int perPage, DateTime date, long stateId = 0, long customerId = 0)
         {
             if (date == null || page == 0 || perPage == 0)
             {
-                throw new ArgumentException(
-                    $"Invalid request parameters " +
-                    $"date:{date:yyyy:dd:MM}, " +
-                    $"page:{page}, " +
-                    $"perPage:{perPage}");
+                throw new ArgumentException("Invalid request parameters ");
             }
 
             var recordQuerry = _garageDBContext
@@ -102,6 +99,10 @@ namespace GarageAPI.Services
             if (customerId != 0)
                 recordQuerry = recordQuerry.Where(r => r.CustomerId == customerId);
 
+            recordQuerry = recordQuerry
+                .Skip((page - 1) * perPage)
+                .Take(perPage);
+
             return await recordQuerry.ToArrayAsync();
         }
 
@@ -117,28 +118,22 @@ namespace GarageAPI.Services
                 throw new NullReferenceException("Can`t find record to update");
 
 
-            oldRecord.CustomerId = !IsDefault(newRecord.CustomerId) 
+            oldRecord.CustomerId = !DataHelper.IsDefault(newRecord.CustomerId) 
                 ? newRecord.CustomerId 
                 : oldRecord.CustomerId;
-            oldRecord.Date = !IsDefault(newRecord.Date)
+            oldRecord.Date = !DataHelper.IsDefault(newRecord.Date)
                 ? newRecord.Date
                 : oldRecord.Date;
-            oldRecord.PlaceNumber = !IsDefault(newRecord.PlaceNumber)
+            oldRecord.PlaceNumber = !DataHelper.IsDefault(newRecord.PlaceNumber)
                 ? newRecord.PlaceNumber
                 : oldRecord.PlaceNumber;
-            oldRecord.RecordStateId = !IsDefault(newRecord.RecordStateId)
+            oldRecord.RecordStateId = !DataHelper.IsDefault(newRecord.RecordStateId)
                 ? newRecord.RecordStateId
                 : oldRecord.RecordStateId;
 
             await _garageDBContext.SaveChangesAsync();
 
             return oldRecord;
-        }
-
-        private bool IsDefault<T>(T value) where T : struct
-        {
-            object obj = Activator.CreateInstance(value.GetType());
-            return obj.Equals(value);
         }
     }
 }

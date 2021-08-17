@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -18,12 +19,14 @@ namespace GarageAPI.Controllers.Schemas
         /// <summary>
         /// Страница
         /// </summary>
-        public long Page { get; set; }
+        [Required]
+        public int Page { get; set; }
 
         /// <summary>
         /// Результатов на страницу
         /// </summary>
-        public long PerPage { get; set; }
+        [Required]
+        public int PerPage { get; set; }
 
         /// <summary>
         /// Id Статуса записи
