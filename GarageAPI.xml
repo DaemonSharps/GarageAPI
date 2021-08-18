@@ -54,12 +54,32 @@
         </member>
         <member name="T:GarageAPI.Controllers.Schemas.CreateRecordRequest">
             <summary>
-            Запрос создания записи
+            Запрос для обновления записей
             </summary>
         </member>
-        <member name="P:GarageAPI.Controllers.Schemas.CreateRecordRequest.RecordId">
+        <member name="P:GarageAPI.Controllers.Schemas.CreateRecordRequest.CustomerId">
             <summary>
-            Id записи
+            Новое Id пользователя
+            </summary>
+        </member>
+        <member name="P:GarageAPI.Controllers.Schemas.CreateRecordRequest.Time">
+            <summary>
+            Новое время записи
+            </summary>
+        </member>
+        <member name="P:GarageAPI.Controllers.Schemas.CreateRecordRequest.Date">
+            <summary>
+            Новая дата записи год-день-месяц
+            </summary>
+        </member>
+        <member name="P:GarageAPI.Controllers.Schemas.CreateRecordRequest.PlaceNumber">
+            <summary>
+            Новое место посадки
+            </summary>
+        </member>
+        <member name="P:GarageAPI.Controllers.Schemas.CreateRecordRequest.RecordStateId">
+            <summary>
+            Новый Id статуса записи
             </summary>
         </member>
         <member name="T:GarageAPI.Controllers.Schemas.GetCustomersByFilterRequest">
@@ -144,37 +164,12 @@
         </member>
         <member name="T:GarageAPI.Controllers.Schemas.UpdateRecordRequest">
             <summary>
-            Запрос для обновления записей
+            Запрос создания записи
             </summary>
         </member>
         <member name="P:GarageAPI.Controllers.Schemas.UpdateRecordRequest.RecordId">
             <summary>
             Id записи
-            </summary>
-        </member>
-        <member name="P:GarageAPI.Controllers.Schemas.UpdateRecordRequest.CustomerId">
-            <summary>
-            Новое Id пользователя
-            </summary>
-        </member>
-        <member name="P:GarageAPI.Controllers.Schemas.UpdateRecordRequest.Time">
-            <summary>
-            Новое время записи
-            </summary>
-        </member>
-        <member name="P:GarageAPI.Controllers.Schemas.UpdateRecordRequest.Date">
-            <summary>
-            Новая дата записи год-день-месяц
-            </summary>
-        </member>
-        <member name="P:GarageAPI.Controllers.Schemas.UpdateRecordRequest.PlaceNumber">
-            <summary>
-            Новое место посадки
-            </summary>
-        </member>
-        <member name="P:GarageAPI.Controllers.Schemas.UpdateRecordRequest.RecordStateId">
-            <summary>
-            Новый Id статуса записи
             </summary>
         </member>
         <member name="T:GarageAPI.DataBase.GarageDBContext">

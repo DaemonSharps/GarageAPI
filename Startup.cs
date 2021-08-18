@@ -39,6 +39,8 @@ namespace GarageAPI
             services.AddTransient<IRecordsService, RecordsService>();
             services.AddTransient<ICustomerService, CustomerService>();
 
+            services.AddCors();
+
             services.AddSwaggerGen(setup =>
             {
                 setup.SwaggerDoc(
@@ -72,7 +74,13 @@ namespace GarageAPI
             });
 
             app.UseAuthorization();
-
+            app.UseCors(options => 
+            {
+                options
+                .WithOrigins("https://vgarage.vercel.app", "http://localhost:3000")
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+            });
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapDefaultControllerRoute();
