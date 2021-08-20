@@ -130,6 +130,9 @@ namespace GarageAPI.Services
             oldRecord.RecordStateId = !DataHelper.IsDefault(newRecord.RecordStateId)
                 ? newRecord.RecordStateId
                 : oldRecord.RecordStateId;
+            oldRecord.Time = !string.IsNullOrEmpty(newRecord.Time)
+                ? newRecord.Time
+                : oldRecord.Time;
 
             await _garageDBContext.SaveChangesAsync();
 

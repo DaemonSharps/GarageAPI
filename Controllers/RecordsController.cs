@@ -98,6 +98,7 @@ namespace GarageAPI.Controllers
                 {
                     record = new Record
                     {
+                        Id = record.Id,
                         CustomerId = request.CustomerId,
                         Time = request.Time,
                         Date = request.Date, 
