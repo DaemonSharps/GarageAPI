@@ -42,14 +42,9 @@
             Получить записи по фильтру
             </summary>
         </member>
-        <member name="M:GarageAPI.Controllers.RecordsController.Put(GarageAPI.Controllers.Schemas.UpdateRecordRequest)">
-            <summary>
-            Обновить запись
-            </summary>
-        </member>
         <member name="M:GarageAPI.Controllers.RecordsController.Post(GarageAPI.Controllers.Schemas.CreateRecordRequest)">
             <summary>
-            Создать запись
+            Создать или обновить запись
             </summary>
         </member>
         <member name="T:GarageAPI.Controllers.Schemas.CreateRecordRequest">

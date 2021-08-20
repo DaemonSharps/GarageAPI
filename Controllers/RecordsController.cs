@@ -70,41 +70,7 @@ namespace GarageAPI.Controllers
         }
 
         /// <summary>
-        /// Обновить запись
-        /// </summary>
-        [HttpPut]
-        [SwaggerResponse(200, "Updated record", typeof(Record))]
-        [SwaggerResponse(400, Type = typeof(string))]
-        public async Task<IActionResult> Put([FromBody] UpdateRecordRequest request)
-        {
-            try
-            {
-                var newRecord = new Record
-                {
-                    Id = request.RecordId,
-                    CustomerId = request.CustomerId,
-                    Date = request.Date,
-                    PlaceNumber = request.PlaceNumber,
-                    RecordStateId = request.RecordStateId,
-                    Time = request.Time
-                };
-
-                var result = await _recordsService.UpdateRecord(newRecord);
-
-                result.RecordState.Records = null;
-                result.Customer.Records = null;
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            
-        }
-
-        /// <summary>
-        /// Создать запись
+        /// Создать или обновить запись
         /// </summary>
         [HttpPost]
         [SwaggerResponse(200, "Created record", typeof(Record))]
@@ -113,14 +79,34 @@ namespace GarageAPI.Controllers
         {
             try
             {
-                var record = await _recordsService.CreateRecord(
-                request.CustomerId,
-                request.Time,
-                request.Date,
-                request.PlaceNumber,
-                request.RecordStateId);
+                var record = (await _recordsService
+                    .GetRecordsByFilter(1, 10, request.Date, 1, request.CustomerId))
+                    .SingleOrDefault();
+                var action = "get";
 
-                return Ok(record);
+                if (record == null)
+                {
+                    record = await _recordsService.CreateRecord(
+                            request.CustomerId,
+                            request.Time,
+                            request.Date,
+                            request.PlaceNumber,
+                            request.RecordStateId);
+                    action = "create";
+                }
+
+                record.RecordState.Records = null;
+                record.Customer.Records = null;
+
+                return Ok(new
+                {
+                    action, 
+                    record
+                });
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
             }
             catch (Exception ex)
             {

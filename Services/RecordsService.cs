@@ -49,7 +49,7 @@ namespace GarageAPI.Services
 
             await _garageDBContext.SaveChangesAsync();
 
-            return newRecord;
+            return await GetRecord(newRecord.Id);
         }
 
         /// <summary>
