@@ -73,7 +73,7 @@ namespace GarageAPI.Controllers
         /// Создать или обновить запись
         /// </summary>
         [HttpPost]
-        [SwaggerResponse(200, "Created record", typeof(Record))]
+        [SwaggerResponse(200, Type =  typeof(Record))]
         [SwaggerResponse(400, Type = typeof(string))]
         public async Task<IActionResult> Post([FromBody] CreateRecordRequest request)
         {
@@ -93,6 +93,18 @@ namespace GarageAPI.Controllers
                             request.PlaceNumber,
                             request.RecordStateId);
                     action = "create";
+                }
+                else
+                {
+                    record = new Record
+                    {
+                        CustomerId = request.CustomerId,
+                        Time = request.Time,
+                        Date = request.Date, 
+                        PlaceNumber = request.PlaceNumber,
+                        RecordStateId = request.RecordStateId
+                    }; 
+                    record = await _recordsService.UpdateRecord(record);
                 }
 
                 record.RecordState.Records = null;
