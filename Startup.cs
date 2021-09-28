@@ -34,7 +34,7 @@ namespace GarageAPI
             services.AddControllers();
 
             services.AddDbContext<GarageDBContext>(builder =>
-                    builder.UseMySql(Configuration.GetConnectionString("DefaultConnection")), ServiceLifetime.Transient);
+                    builder.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")), ServiceLifetime.Transient);
 
             services.AddTransient<IRecordsService, RecordsService>();
             services.AddTransient<ICustomerService, CustomerService>();
