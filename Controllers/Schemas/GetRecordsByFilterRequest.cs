@@ -12,8 +12,14 @@ namespace GarageAPI.Controllers.Schemas
     public class GetRecordsByFilterRequest
     {
         /// <summary>
-        /// Дата записи год-день-месяц
+        /// Дата записи от год-день-месяц
         /// </summary>
+        public DateTime? DateFrom { get; set; }
+
+        /// <summary>
+        /// Дата записи до год-день-месяц или конкретная дата заявок если передана только она
+        /// </summary>
+        [Required]
         public DateTime Date { get; set; }
 
         /// <summary>

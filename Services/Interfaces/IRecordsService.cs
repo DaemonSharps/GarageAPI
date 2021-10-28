@@ -25,14 +25,15 @@ namespace GarageAPI.Services.Interfaces
         /// <summary>
         /// Получить записи по фильтру
         /// </summary>
-        /// <param name="date">Дата</param>
+        /// <param name="dateFrom">Дата от</param>
+        /// <param name="dateTo">Дата до</param>
         /// <param name="page">Страница</param>
         /// <param name="perPage">Записей на страницу</param>
         /// <param name="stateId">Id записи</param>
         /// <param name="customerId">Id пользователя</param>
         /// <returns>Список записей</returns>
         /// <exception cref="ArgumentException"/>
-        Task<Record[]> GetRecordsByFilter(int page, int perPage, DateTime date, long stateId = 0, long customerId = 0);
+        Task<Record[]> GetRecordsByFilter(int page, int perPage, DateTime dateFrom, DateTime dateTo, long stateId = 0, long customerId = 0);
 
         /// <summary>
         /// Получить запись

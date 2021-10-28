@@ -40,9 +40,12 @@ namespace GarageAPI.Controllers
         {
             try
             {
+                var dateFrom = request.DateFrom ?? request.Date;
+
                 var records = await _recordsService.GetRecordsByFilter(
                 request.Page,
                 request.PerPage,
+                dateFrom,
                 request.Date,
                 request.StateId,
                 request.CustomerId);
@@ -56,7 +59,7 @@ namespace GarageAPI.Controllers
                     record.Customer.Records = null;
                 }
 
-                return Ok(records);
+                return Ok(records.OrderBy(r => r.Date).ToArray());
             }
             catch (ArgumentException ex)
             {
@@ -80,7 +83,7 @@ namespace GarageAPI.Controllers
             try
             {
                 var record = (await _recordsService
-                    .GetRecordsByFilter(1, 10, request.Date, 1, request.CustomerId))
+                    .GetRecordsByFilter(1, 10, request.Date, request.Date, 1, request.CustomerId))
                     .SingleOrDefault();
                 var action = "get";
 

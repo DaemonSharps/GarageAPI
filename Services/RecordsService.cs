@@ -76,21 +76,23 @@ namespace GarageAPI.Services
         /// <param name="customerId">Id пользователя</param>
         /// <returns>Список записей</returns>
         /// <exception cref="ArgumentException"/>
-        public async Task<Record[]> GetRecordsByFilter(int page, int perPage, DateTime date, long stateId = 0, long customerId = 0)
+        public async Task<Record[]> GetRecordsByFilter(int page, int perPage, DateTime dateFrom, DateTime dateTo, long stateId = 0, long customerId = 0)
         {
-            if (date == null || page == 0 || perPage == 0)
+            if (dateFrom == null || dateTo == null || page == 0 || perPage == 0)
             {
                 throw new ArgumentException("Invalid request parameters ");
             }
+
+            dateFrom = new DateTime(dateFrom.Year, dateFrom.Month, dateFrom.Day);
+            dateTo = new DateTime(dateTo.Year, dateTo.Month, dateTo.Day + 1);
 
             var recordQuerry = _garageDBContext
                 .Records
                 .Include(r => r.Customer)
                 .Include(r => r.RecordState)
-                .Where(r => 
-                    r.Date.Year == date.Year
-                    && r.Date.Month == date.Month
-                    && r.Date.Day == date.Day);
+                .Where(r =>
+                    r.Date >= dateFrom
+                    && r.Date <= dateTo);
 
 
             if (stateId != 0)

@@ -132,9 +132,14 @@
             Запрос для получения записей по фильтру
             </summary>
         </member>
+        <member name="P:GarageAPI.Controllers.Schemas.GetRecordsByFilterRequest.DateFrom">
+            <summary>
+            Дата записи от год-день-месяц
+            </summary>
+        </member>
         <member name="P:GarageAPI.Controllers.Schemas.GetRecordsByFilterRequest.Date">
             <summary>
-            Дата записи год-день-месяц
+            Дата записи до год-день-месяц или конкретная дата заявок если передана только она
             </summary>
         </member>
         <member name="P:GarageAPI.Controllers.Schemas.GetRecordsByFilterRequest.Page">
@@ -441,11 +446,12 @@
             <param name="stateId">Статус записи</param>
             <returns></returns>
         </member>
-        <member name="M:GarageAPI.Services.Interfaces.IRecordsService.GetRecordsByFilter(System.Int32,System.Int32,System.DateTime,System.Int64,System.Int64)">
+        <member name="M:GarageAPI.Services.Interfaces.IRecordsService.GetRecordsByFilter(System.Int32,System.Int32,System.DateTime,System.DateTime,System.Int64,System.Int64)">
             <summary>
             Получить записи по фильтру
             </summary>
-            <param name="date">Дата</param>
+            <param name="dateFrom">Дата от</param>
+            <param name="dateTo">Дата до</param>
             <param name="page">Страница</param>
             <param name="perPage">Записей на страницу</param>
             <param name="stateId">Id записи</param>
@@ -496,7 +502,7 @@
             <param name="id">Id записи</param>
             <returns>Запись</returns>
         </member>
-        <member name="M:GarageAPI.Services.RecordsService.GetRecordsByFilter(System.Int32,System.Int32,System.DateTime,System.Int64,System.Int64)">
+        <member name="M:GarageAPI.Services.RecordsService.GetRecordsByFilter(System.Int32,System.Int32,System.DateTime,System.DateTime,System.Int64,System.Int64)">
             <summary>
             Получить записи по фильтру
             </summary>
