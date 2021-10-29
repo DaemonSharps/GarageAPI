@@ -34,16 +34,19 @@ namespace GarageAPI.Controllers
         /// </summary>
         /// <param name="request">Запрос</param>
         [HttpPost]
-        [SwaggerResponse(200, Type = typeof(Customer))]
-        [SwaggerResponse(400, Type =typeof(string))]
+        [SwaggerResponse(200, Type = typeof(ResultModel<Customer>))]
+        [SwaggerResponse(400, Type = typeof(string))]
         public async Task<IActionResult> Post([FromBody] GetOrSetCustomerRequest request)
         {
             try
             {
+                var model = new ResultModel<Customer>
+                {
+                    Action = nameof(ModelActions.Get)
+                };
                 var customer = (await _customerService
                 .GetCustomersByFilter(1, 10, request.Email))
                 .SingleOrDefault();
-                var action = "get";
 
                 if (customer == null)
                 {
@@ -55,15 +58,12 @@ namespace GarageAPI.Controllers
                         request.LastName,
                         1);
 
-                    action = "create";
+                    model.Action = nameof(ModelActions.Create);
                 }
 
                 customer.CustomerState.Customers = null;
-                return Ok(new 
-                { 
-                    action,
-                    customer
-                });
+                model.Result = customer;
+                return Ok(model);
             }
             catch (ArgumentException ex)
             {
@@ -80,7 +80,7 @@ namespace GarageAPI.Controllers
         /// </summary>
         /// <param name="request">Запрос с фильтром</param>
         [HttpGet]
-        [SwaggerResponse(200, Type = typeof(Customer[]))]
+        [SwaggerResponse(200, Type = typeof(List<Customer>))]
         [SwaggerResponse(400, Type = typeof(string))]
         public async Task<IActionResult> Get([FromQuery] GetCustomersByFilterRequest request)
         {

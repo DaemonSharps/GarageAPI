@@ -36,7 +36,7 @@ namespace GarageAPI.Controllers
         [HttpGet]
         [SwaggerResponse(200, "Records find", typeof(List<Record>))]
         [SwaggerResponse(400, Type = typeof(string))]
-        public async Task<IActionResult> Get([FromQuery] GetRecordsByFilterRequest request)
+        public async Task<IActionResult> Get([FromQuery] GetRecordsByFilterRequest request)  
         {
             try
             {
@@ -76,16 +76,19 @@ namespace GarageAPI.Controllers
         /// Создать или обновить запись
         /// </summary>
         [HttpPost]
-        [SwaggerResponse(200, Type =  typeof(Record))]
+        [SwaggerResponse(200, Type =  typeof(ResultModel<Record>))]
         [SwaggerResponse(400, Type = typeof(string))]
         public async Task<IActionResult> Post([FromBody] CreateRecordRequest request)
         {
             try
             {
+                var model = new ResultModel<Record>
+                {
+                    Action = nameof(ModelActions.Get)
+                };
                 var record = (await _recordsService
                     .GetRecordsByFilter(1, 10, request.Date, request.Date, 1, request.CustomerId))
                     .SingleOrDefault();
-                var action = "get";
 
                 if (record == null)
                 {
@@ -95,7 +98,7 @@ namespace GarageAPI.Controllers
                             request.Date,
                             request.PlaceNumber,
                             request.RecordStateId);
-                    action = "create";
+                    model.Action = nameof(ModelActions.Create);
                 }
                 else
                 {
@@ -114,11 +117,8 @@ namespace GarageAPI.Controllers
                 record.RecordState.Records = null;
                 record.Customer.Records = null;
 
-                return Ok(new
-                {
-                    action, 
-                    record
-                });
+                model.Result = record;
+                return Ok(model);
             }
             catch (ArgumentException ex)
             {
