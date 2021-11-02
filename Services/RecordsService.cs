@@ -92,7 +92,7 @@ namespace GarageAPI.Services
                 .Include(r => r.RecordState)
                 .Where(r =>
                     r.Date >= dateFrom
-                    && r.Date <= dateTo);
+                    && r.Date < dateTo);
 
 
             if (stateId != 0)
