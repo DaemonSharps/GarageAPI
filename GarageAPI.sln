@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31515.178
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GarageAPI", "GarageAPI.csproj", "{2795878D-EA91-4D41-AFE2-0C85039E89E7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GarageAPI", "src\GarageAPI.csproj", "{0D9AC10E-1E10-4811-92B5-464554819686}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2795878D-EA91-4D41-AFE2-0C85039E89E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2795878D-EA91-4D41-AFE2-0C85039E89E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2795878D-EA91-4D41-AFE2-0C85039E89E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2795878D-EA91-4D41-AFE2-0C85039E89E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D9AC10E-1E10-4811-92B5-464554819686}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D9AC10E-1E10-4811-92B5-464554819686}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D9AC10E-1E10-4811-92B5-464554819686}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D9AC10E-1E10-4811-92B5-464554819686}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
