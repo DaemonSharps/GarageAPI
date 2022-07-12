@@ -18,7 +18,6 @@ using System.Threading.Tasks;
 
 namespace GarageAPI
 {
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -67,14 +66,14 @@ namespace GarageAPI
 
             app.UseSwagger();
             app.UseRouting();
-            app.UseSwaggerUI(opt => 
+            app.UseSwaggerUI(opt =>
             {
-                opt.SwaggerEndpoint("/swagger/v1.0/swagger.json","Garage API");
+                opt.SwaggerEndpoint("/swagger/v1.0/swagger.json", "Garage API");
                 opt.RoutePrefix = string.Empty;
             });
 
             app.UseAuthorization();
-            app.UseCors(options => 
+            app.UseCors(options =>
             {
                 options
                 .WithOrigins("https://vgarage.vercel.app", "http://localhost:3000")
@@ -87,5 +86,4 @@ namespace GarageAPI
             });
         }
     }
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }
