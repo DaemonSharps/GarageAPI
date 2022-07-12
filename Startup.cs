@@ -85,7 +85,7 @@ public class Startup
         app.UseCors(options =>
         {
             options
-            .WithOrigins("https://vgarage.vercel.app", "http://localhost:3000")
+            .WithOrigins(Configuration.GetSection("Cors:Origins").Get<string[]>())
             .AllowAnyHeader()
             .AllowAnyMethod();
         });
