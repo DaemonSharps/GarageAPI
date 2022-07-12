@@ -10,16 +10,15 @@ namespace GarageAPI.DataBase
     /// <summary>
     /// Контекст БД
     /// </summary>
-    public class GarageDBContext: DbContext
+    public class GarageDBContext : DbContext
     {
         /// <summary>
         /// 
         /// </summary>
         /// <param name="options"></param>
-        public GarageDBContext(DbContextOptions<GarageDBContext> options) 
-            : base(options) 
+        public GarageDBContext(DbContextOptions<GarageDBContext> options)
+            : base(options)
         {
-            Database.EnsureCreated();
         }
 
         #region TABLES
@@ -84,12 +83,12 @@ namespace GarageAPI.DataBase
             builder.Entity<Customer>().HasData(
             new Customer[]
             {
-                new Customer 
-                { 
+                new Customer
+                {
                     Id=1,
                     FirstName = "Арсений",
                     SecondName = "Васильев",
-                    LastName = "",
+                    LastName = "Тестовый",
                     CustomerStateId = 1,
                     Email = "ar-seny@mail.ru",
                     VisitCount = 0

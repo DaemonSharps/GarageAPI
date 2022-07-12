@@ -9,7 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace GarageAPI.Services
-{ 
+{
     /// <summary>
     /// Сервис для обработки записей
     /// </summary>
@@ -78,7 +78,7 @@ namespace GarageAPI.Services
         /// <exception cref="ArgumentException"/>
         public async Task<Record[]> GetRecordsByFilter(int page, int perPage, DateTime dateFrom, DateTime dateTo, long stateId = 0, long customerId = 0)
         {
-            if (dateFrom == null || dateTo == null || page == 0 || perPage == 0)
+            if (page == 0 || perPage == 0)
             {
                 throw new ArgumentException("Invalid request parameters ");
             }
@@ -120,8 +120,8 @@ namespace GarageAPI.Services
                 throw new NullReferenceException("Can`t find record to update");
 
 
-            oldRecord.CustomerId = !DataHelper.IsDefault(newRecord.CustomerId) 
-                ? newRecord.CustomerId 
+            oldRecord.CustomerId = !DataHelper.IsDefault(newRecord.CustomerId)
+                ? newRecord.CustomerId
                 : oldRecord.CustomerId;
             oldRecord.Date = !DataHelper.IsDefault(newRecord.Date)
                 ? newRecord.Date
