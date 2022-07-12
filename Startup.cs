@@ -50,7 +50,7 @@ namespace GarageAPI
                         Version = "1.0"
                     });
                 setup.CustomSchemaIds(type => type.ToString());
-                var filePath = Path.Combine(AppContext.BaseDirectory, "GarageAPI.xml");
+                var filePath = Path.Combine(AppContext.BaseDirectory, "GarageApiDocumentation.xml");
                 setup.IncludeXmlComments(filePath);
             });
         }

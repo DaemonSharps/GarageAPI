@@ -364,4 +364,4 @@ FodyWeavers.xsd
 *.local.*
 
 # documentation - auto generated
-GarageAPI.xml
+GarageApiDocumentation.xml
