@@ -5,6 +5,12 @@ VisualStudioVersion = 16.0.31515.178
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GarageAPI", "src\GarageAPI.csproj", "{0D9AC10E-1E10-4811-92B5-464554819686}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{E297D658-39F8-44F6-BCCA-60E393022CC6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Integration", "Integration", "{5D74CEC1-0D2B-44DB-BA34-3D6DE93B87B2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GarageApiIntegration", "Test\Integration\GarageApiIntegration\GarageApiIntegration.csproj", "{2BBF7E86-4C10-4952-9285-8768DBD5F565}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,11 +21,19 @@ Global
 		{0D9AC10E-1E10-4811-92B5-464554819686}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0D9AC10E-1E10-4811-92B5-464554819686}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0D9AC10E-1E10-4811-92B5-464554819686}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2BBF7E86-4C10-4952-9285-8768DBD5F565}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BBF7E86-4C10-4952-9285-8768DBD5F565}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2BBF7E86-4C10-4952-9285-8768DBD5F565}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2BBF7E86-4C10-4952-9285-8768DBD5F565}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0214AA6C-5671-4EBD-87F5-1707F3B75428}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5D74CEC1-0D2B-44DB-BA34-3D6DE93B87B2} = {E297D658-39F8-44F6-BCCA-60E393022CC6}
+		{2BBF7E86-4C10-4952-9285-8768DBD5F565} = {5D74CEC1-0D2B-44DB-BA34-3D6DE93B87B2}
 	EndGlobalSection
 EndGlobal
