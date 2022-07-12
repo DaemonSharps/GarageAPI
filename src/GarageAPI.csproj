@@ -22,4 +22,12 @@
 			<PrivateAssets>all</PrivateAssets>
 		</PackageReference>
 	</ItemGroup>
+	<ItemGroup>
+	  <None Remove="GarageApiDocumentation.xml" />
+	</ItemGroup>
+	<ItemGroup>
+	  <EmbeddedResource Include="GarageApiDocumentation.xml">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	</ItemGroup>
 </Project>
