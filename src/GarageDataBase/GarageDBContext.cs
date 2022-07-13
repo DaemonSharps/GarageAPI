@@ -1,7 +1,7 @@
-﻿using GarageAPI.DataBase.Tables;
+﻿using GarageDataBase.Tables;
 using Microsoft.EntityFrameworkCore;
 
-namespace GarageAPI.DataBase;
+namespace GarageDataBase;
 
 /// <summary>
 /// Контекст БД

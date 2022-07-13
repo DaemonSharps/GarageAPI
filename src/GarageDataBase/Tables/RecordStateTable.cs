@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace GarageAPI.DataBase.Tables;
+﻿namespace GarageDataBase.Tables;
 
 /// <summary>
 /// Статус записи

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-namespace GarageAPI.DataBase.Tables;
+namespace GarageDataBase.Tables;
 
 /// <summary>
 /// Пользователь

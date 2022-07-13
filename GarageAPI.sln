@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GarageApiIntegration", "Tes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GarageAPI", "src\GarageApi\GarageAPI.csproj", "{165857D7-2F38-4AAE-9383-3758CB73059C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GarageBataBase", "src\GarageDataBase\GarageBataBase.csproj", "{93B7D319-D1A1-46EB-9551-2C3872887C92}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GarageDataBase", "src\GarageDataBase\GarageDataBase.csproj", "{93B7D319-D1A1-46EB-9551-2C3872887C92}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
