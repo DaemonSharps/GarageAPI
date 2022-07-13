@@ -40,7 +40,7 @@ namespace GarageAPI.Controllers
             {
                 var customer = (await _customerService
                 .GetCustomersByFilter(1, 10, request.Email))
-                .SingleOrDefault() as Customer;
+                .SingleOrDefault();
 
                 if (customer == null)
                 {
