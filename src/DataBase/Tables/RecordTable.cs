@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-using RecordDTO = GarageAPI.Controllers.Schemas.Record;
+﻿using GarageAPI.Controllers.Schemas;
 
 namespace GarageAPI.DataBase.Tables;
 
 /// <summary>
 /// Запись
 /// </summary>
-public class Record : RecordDTO
+public class RecordTable : Record
 {
     /// <summary>
     /// Id записи
