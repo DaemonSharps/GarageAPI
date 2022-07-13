@@ -3,10 +3,9 @@ using GarageAPI.DataBase.Tables;
 using GarageAPI.Helpers;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CustomerDTO = GarageAPI.Controllers.Schemas.Customer;
+using GarageAPI.Controllers.Schemas;
 
 namespace GarageAPI.Services.Interfaces
 {
@@ -17,10 +16,6 @@ namespace GarageAPI.Services.Interfaces
     {
         private readonly GarageDBContext _garageBDContext;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="garageDBContext">Контекст БД</param>
         public CustomerService(GarageDBContext garageDBContext)
         {
             _garageBDContext = garageDBContext;
@@ -43,7 +38,7 @@ namespace GarageAPI.Services.Interfaces
         /// Поиск пользователей по фильтру
         /// </summary>
         /// <returns>Список пользователей</returns>
-        public async Task<CustomerDTO[]> GetCustomersByFilter(
+        public async Task<Customer[]> GetCustomersByFilter(
             int page,
             int perPage,
             string email = null,
@@ -92,7 +87,7 @@ namespace GarageAPI.Services.Interfaces
         /// <param name="lastName">Отчество</param>
         /// <param name="stateId">Id статуса</param>
         /// <returns>Созданный пользователь</returns>
-        public async Task<CustomerDTO> CreateCustomer(
+        public async Task<Customer> CreateCustomer(
             string email,
             string firstName,
             string secondName,
