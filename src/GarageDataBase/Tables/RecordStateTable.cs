@@ -5,7 +5,7 @@ namespace GarageAPI.DataBase.Tables;
 /// <summary>
 /// Статус записи
 /// </summary>
-public class RecordState : StateBase
+public class RecordStateTable : StateBase
 {
     /// <summary>
     /// Список записей с этим статусом

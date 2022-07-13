@@ -5,7 +5,7 @@ namespace GarageAPI.DataBase.Tables;
 /// <summary>
 /// Статус пользователя
 /// </summary>
-public class CustomerState : StateBase
+public class CustomerStateTable : StateBase
 {
     /// <summary>
     /// Пользователи с этим статусом

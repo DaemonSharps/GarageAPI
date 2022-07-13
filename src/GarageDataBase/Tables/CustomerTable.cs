@@ -55,7 +55,7 @@ public class CustomerTable
     /// Статус пользователя
     /// </summary>
     [JsonIgnore]
-    public CustomerState CustomerState { get; set; }
+    public CustomerStateTable CustomerState { get; set; }
 
     /// <summary>
     /// Записи пользователя

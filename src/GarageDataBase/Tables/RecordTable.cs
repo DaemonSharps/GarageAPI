@@ -53,5 +53,5 @@ public class RecordTable
     /// Статус записи
     /// </summary>
     [JsonIgnore]
-    public RecordState RecordState { get; set; }
+    public RecordStateTable RecordState { get; set; }
 }
