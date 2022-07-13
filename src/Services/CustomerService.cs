@@ -3,9 +3,9 @@ using GarageAPI.DataBase.Tables;
 using GarageAPI.Helpers;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using GarageAPI.Controllers.Schemas;
 
 namespace GarageAPI.Services.Interfaces
 {
@@ -16,10 +16,6 @@ namespace GarageAPI.Services.Interfaces
     {
         private readonly GarageDBContext _garageBDContext;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="garageDBContext">Контекст БД</param>
         public CustomerService(GarageDBContext garageDBContext)
         {
             _garageBDContext = garageDBContext;
@@ -61,8 +57,8 @@ namespace GarageAPI.Services.Interfaces
                 .Customers
                 .Include(c => c.CustomerState)
                 .AsQueryable();
-                
-            if(!string.IsNullOrEmpty(email))
+
+            if (!string.IsNullOrEmpty(email))
                 customersQuerry = customersQuerry.Where(c => c.Email == email);
             if (!string.IsNullOrEmpty(firstName))
                 customersQuerry = customersQuerry.Where(c => c.FirstName == firstName);
@@ -98,8 +94,8 @@ namespace GarageAPI.Services.Interfaces
             string lastName,
             long stateId)
         {
-            var customer = new Customer
-            { 
+            var customer = new CustomerTable
+            {
                 CustomerStateId = stateId,
                 VisitCount = 0,
                 FirstName = firstName,
@@ -123,7 +119,7 @@ namespace GarageAPI.Services.Interfaces
         /// </summary>
         /// <param name="newCustomer">Обновленный пользователь</param>
         /// <returns>Обновленный пользователь</returns>
-        public async Task<Customer> UpdateCustomer(Customer newCustomer)
+        public async Task<Customer> UpdateCustomer(CustomerTable newCustomer)
         {
             var oldCustomer = await GetCustomer(newCustomer.Id);
 

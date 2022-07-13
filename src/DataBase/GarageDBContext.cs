@@ -25,7 +25,7 @@ namespace GarageAPI.DataBase
         /// <summary>
         /// Пользователи
         /// </summary>
-        public DbSet<Customer> Customers { get; set; }
+        public DbSet<CustomerTable> Customers { get; set; }
 
         /// <summary>
         /// Статусы пользователей
@@ -49,7 +49,7 @@ namespace GarageAPI.DataBase
         /// <param name="builder"></param>
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<Customer>(customer =>
+            builder.Entity<CustomerTable>(customer =>
             {
                 customer.HasIndex(c => c.Email).IsUnique();
             });
@@ -80,10 +80,10 @@ namespace GarageAPI.DataBase
                 new CustomerState { Id=2, Name="Banned"}
             });
 
-            builder.Entity<Customer>().HasData(
-            new Customer[]
+            builder.Entity<CustomerTable>().HasData(
+            new CustomerTable[]
             {
-                new Customer
+                new CustomerTable
                 {
                     Id=1,
                     FirstName = "Арсений",

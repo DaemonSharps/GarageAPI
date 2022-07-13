@@ -1,7 +1,5 @@
 ﻿using GarageAPI.Controllers.Schemas;
-using GarageAPI.DataBase.Tables;
 using GarageAPI.Services.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
@@ -54,8 +52,6 @@ namespace GarageAPI.Controllers
                         request.LastName,
                         1);
                 }
-
-                customer.CustomerState.Customers = null;
                 return Ok(customer);
             }
             catch (ArgumentException ex)
@@ -92,11 +88,6 @@ namespace GarageAPI.Controllers
 
                 if (customers == null || customers.Length == 0)
                     return NotFound();
-
-                foreach (var customer in customers)
-                {
-                    customer.CustomerState.Customers = null;
-                }
 
                 return Ok(customers);
             }

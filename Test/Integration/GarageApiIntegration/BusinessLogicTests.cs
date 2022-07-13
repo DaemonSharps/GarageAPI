@@ -4,6 +4,7 @@ using GarageAPI;
 using GarageAPI.Controllers.Schemas;
 using GarageAPI.DataBase.Tables;
 using GarageApiIntegration.Common;
+using Tables = GarageAPI.DataBase.Tables;
 
 namespace GarageApiIntegration;
 
@@ -24,7 +25,7 @@ public class BusinessLogicTests : ApiTestBase
         };
         var result = await Client.PostAsJsonAsync("/api/customers", request);
         result.EnsureSuccessStatusCode();
-        var customer = await result.Content.ReadFromJsonAsync<Customer>();
+        var customer = await result.Content.ReadFromJsonAsync<CustomerTable>();
         Assert.NotNull(customer);
         Assert.Equal(request.Email, customer.Email);
         Assert.Equal(request.FirstName, customer.FirstName);
@@ -32,7 +33,7 @@ public class BusinessLogicTests : ApiTestBase
         Assert.Equal(request.SecondName, customer.SecondName);
         Assert.Equal(request.CustomerStateId, customer.CustomerStateId);
 
-        var result4 = await Client.GetFromJsonAsync<List<Customer>>($"/api/customers?Email={customer.Email}&Page=1&PerPage=10");
+        var result4 = await Client.GetFromJsonAsync<List<CustomerTable>>($"/api/customers?Email={customer.Email}&Page=1&PerPage=10");
         var customer2 = Assert.Single(result4);
 
         Assert.Equal(customer2.Email, customer.Email);
@@ -51,17 +52,23 @@ public class BusinessLogicTests : ApiTestBase
         };
         var result2 = await Client.PostAsJsonAsync("/api/records", createRecordRequest);
         result2.EnsureSuccessStatusCode();
-        var record = await result2.Content.ReadFromJsonAsync<GarageAPI.DataBase.Tables.Record>();
+        var record = await result2.Content.ReadFromJsonAsync<Tables.Record>();
         Assert.NotNull(record);
         Assert.Equal(createRecordRequest.Date, record.Date);
         Assert.Equal(createRecordRequest.CustomerId, record.CustomerId);
         Assert.Equal(createRecordRequest.PlaceNumber, record.PlaceNumber);
         Assert.Equal(createRecordRequest.RecordStateId, record.RecordStateId);
         Assert.Equal(createRecordRequest.Time, record.Time);
+        var recordCustomer = record.Customer;
+        Assert.Equal(recordCustomer.Email, customer.Email);
+        Assert.Equal(recordCustomer.FirstName, customer.FirstName);
+        Assert.Equal(recordCustomer.LastName, customer.LastName);
+        Assert.Equal(recordCustomer.SecondName, customer.SecondName);
+        Assert.Equal(recordCustomer.CustomerStateId, customer.CustomerStateId);
 
         var date = createRecordRequest.Date.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
         var querry = $"?CustomerId={customer.Id}&Date={date}&Page=1&PerPage=10";
-        var result3 = await Client.GetFromJsonAsync<List<GarageAPI.DataBase.Tables.Record>>($"/api/records" + querry);
+        var result3 = await Client.GetFromJsonAsync<List<Tables.Record>>($"/api/records" + querry);
         Assert.NotNull(result3);
         var record2 = Assert.Single(result3);
         Assert.Equal(record2.Date, record.Date);
@@ -69,6 +76,12 @@ public class BusinessLogicTests : ApiTestBase
         Assert.Equal(record2.PlaceNumber, record.PlaceNumber);
         Assert.Equal(record2.RecordStateId, record.RecordStateId);
         Assert.Equal(record2.Time, record.Time);
+        var recordCustomer2 = record2.Customer;
+        Assert.Equal(recordCustomer2.Email, customer.Email);
+        Assert.Equal(recordCustomer2.FirstName, customer.FirstName);
+        Assert.Equal(recordCustomer2.LastName, customer.LastName);
+        Assert.Equal(recordCustomer2.SecondName, customer.SecondName);
+        Assert.Equal(recordCustomer2.CustomerStateId, customer.CustomerStateId);
     }
 
     [Fact]
@@ -84,7 +97,7 @@ public class BusinessLogicTests : ApiTestBase
         };
         var result = await Client.PostAsJsonAsync("/api/customers", request);
         result.EnsureSuccessStatusCode();
-        var customer = await result.Content.ReadFromJsonAsync<Customer>();
+        var customer = await result.Content.ReadFromJsonAsync<CustomerTable>();
         Assert.NotNull(customer);
         Assert.Equal(request.Email, customer.Email);
         Assert.Equal(request.FirstName, customer.FirstName);
@@ -102,17 +115,23 @@ public class BusinessLogicTests : ApiTestBase
         };
         var result2 = await Client.PostAsJsonAsync("/api/records", createRecordRequest);
         result2.EnsureSuccessStatusCode();
-        var record = await result2.Content.ReadFromJsonAsync<GarageAPI.DataBase.Tables.Record>();
+        var record = await result2.Content.ReadFromJsonAsync<Tables.Record>();
         Assert.NotNull(record);
         Assert.Equal(createRecordRequest.Date, record.Date);
         Assert.Equal(createRecordRequest.CustomerId, record.CustomerId);
         Assert.Equal(createRecordRequest.PlaceNumber, record.PlaceNumber);
         Assert.Equal(createRecordRequest.RecordStateId, record.RecordStateId);
         Assert.Equal(createRecordRequest.Time, record.Time);
+        var recordCustomer = record.Customer;
+        Assert.Equal(recordCustomer.Email, customer.Email);
+        Assert.Equal(recordCustomer.FirstName, customer.FirstName);
+        Assert.Equal(recordCustomer.LastName, customer.LastName);
+        Assert.Equal(recordCustomer.SecondName, customer.SecondName);
+        Assert.Equal(recordCustomer.CustomerStateId, customer.CustomerStateId);
 
         var date = createRecordRequest.Date.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
         var querry = $"?CustomerId={customer.Id}&Date={date}&Page=1&PerPage=10";
-        var result3 = await Client.GetFromJsonAsync<List<GarageAPI.DataBase.Tables.Record>>($"/api/records" + querry);
+        var result3 = await Client.GetFromJsonAsync<List<Tables.Record>>($"/api/records" + querry);
         Assert.NotNull(result3);
         var record2 = Assert.Single(result3);
         Assert.Equal(record2.Date, record.Date);
@@ -120,6 +139,12 @@ public class BusinessLogicTests : ApiTestBase
         Assert.Equal(record2.PlaceNumber, record.PlaceNumber);
         Assert.Equal(record2.RecordStateId, record.RecordStateId);
         Assert.Equal(record2.Time, record.Time);
+        var recordCustomer2 = record2.Customer;
+        Assert.Equal(recordCustomer2.Email, customer.Email);
+        Assert.Equal(recordCustomer2.FirstName, customer.FirstName);
+        Assert.Equal(recordCustomer2.LastName, customer.LastName);
+        Assert.Equal(recordCustomer2.SecondName, customer.SecondName);
+        Assert.Equal(recordCustomer2.CustomerStateId, customer.CustomerStateId);
     }
 
     [Fact]
@@ -138,19 +163,20 @@ public class BusinessLogicTests : ApiTestBase
             };
             var result2 = await Client.PostAsJsonAsync("/api/records", createRecordRequest);
             result2.EnsureSuccessStatusCode();
-            var record = await result2.Content.ReadFromJsonAsync<GarageAPI.DataBase.Tables.Record>();
+            var record = await result2.Content.ReadFromJsonAsync<Tables.Record>();
             Assert.NotNull(record);
             Assert.Equal(createRecordRequest.Date, record.Date);
             Assert.Equal(createRecordRequest.CustomerId, record.CustomerId);
             Assert.Equal(createRecordRequest.PlaceNumber, record.PlaceNumber);
             Assert.Equal(createRecordRequest.RecordStateId, record.RecordStateId);
             Assert.Equal(createRecordRequest.Time, record.Time);
+            Assert.NotNull(record.Customer);
         }
 
         var dateFromRequest = dateFrom.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
         var dateToRequest = dateFrom.AddDays(3).ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
         var querry = $"?CustomerId=1&DateFrom={dateFromRequest}&Date={dateToRequest}&Page=1&PerPage=10";
-        var result3 = await Client.GetFromJsonAsync<List<GarageAPI.DataBase.Tables.Record>>($"/api/records" + querry);
+        var result3 = await Client.GetFromJsonAsync<List<Tables.Record>>($"/api/records" + querry);
         Assert.NotNull(result3);
         Assert.Equal(3, result3.Count);
     }
