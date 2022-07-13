@@ -58,6 +58,12 @@ public class BusinessLogicTests : ApiTestBase
         Assert.Equal(createRecordRequest.PlaceNumber, record.PlaceNumber);
         Assert.Equal(createRecordRequest.RecordStateId, record.RecordStateId);
         Assert.Equal(createRecordRequest.Time, record.Time);
+        var recordCustomer = record.Customer;
+        Assert.Equal(recordCustomer.Email, customer.Email);
+        Assert.Equal(recordCustomer.FirstName, customer.FirstName);
+        Assert.Equal(recordCustomer.LastName, customer.LastName);
+        Assert.Equal(recordCustomer.SecondName, customer.SecondName);
+        Assert.Equal(recordCustomer.CustomerStateId, customer.CustomerStateId);
 
         var date = createRecordRequest.Date.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
         var querry = $"?CustomerId={customer.Id}&Date={date}&Page=1&PerPage=10";
@@ -69,6 +75,12 @@ public class BusinessLogicTests : ApiTestBase
         Assert.Equal(record2.PlaceNumber, record.PlaceNumber);
         Assert.Equal(record2.RecordStateId, record.RecordStateId);
         Assert.Equal(record2.Time, record.Time);
+        var recordCustomer2 = record2.Customer;
+        Assert.Equal(recordCustomer2.Email, customer.Email);
+        Assert.Equal(recordCustomer2.FirstName, customer.FirstName);
+        Assert.Equal(recordCustomer2.LastName, customer.LastName);
+        Assert.Equal(recordCustomer2.SecondName, customer.SecondName);
+        Assert.Equal(recordCustomer2.CustomerStateId, customer.CustomerStateId);
     }
 
     [Fact]
@@ -109,6 +121,12 @@ public class BusinessLogicTests : ApiTestBase
         Assert.Equal(createRecordRequest.PlaceNumber, record.PlaceNumber);
         Assert.Equal(createRecordRequest.RecordStateId, record.RecordStateId);
         Assert.Equal(createRecordRequest.Time, record.Time);
+        var recordCustomer = record.Customer;
+        Assert.Equal(recordCustomer.Email, customer.Email);
+        Assert.Equal(recordCustomer.FirstName, customer.FirstName);
+        Assert.Equal(recordCustomer.LastName, customer.LastName);
+        Assert.Equal(recordCustomer.SecondName, customer.SecondName);
+        Assert.Equal(recordCustomer.CustomerStateId, customer.CustomerStateId);
 
         var date = createRecordRequest.Date.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
         var querry = $"?CustomerId={customer.Id}&Date={date}&Page=1&PerPage=10";
@@ -120,6 +138,12 @@ public class BusinessLogicTests : ApiTestBase
         Assert.Equal(record2.PlaceNumber, record.PlaceNumber);
         Assert.Equal(record2.RecordStateId, record.RecordStateId);
         Assert.Equal(record2.Time, record.Time);
+        var recordCustomer2 = record2.Customer;
+        Assert.Equal(recordCustomer2.Email, customer.Email);
+        Assert.Equal(recordCustomer2.FirstName, customer.FirstName);
+        Assert.Equal(recordCustomer2.LastName, customer.LastName);
+        Assert.Equal(recordCustomer2.SecondName, customer.SecondName);
+        Assert.Equal(recordCustomer2.CustomerStateId, customer.CustomerStateId);
     }
 
     [Fact]
@@ -145,6 +169,7 @@ public class BusinessLogicTests : ApiTestBase
             Assert.Equal(createRecordRequest.PlaceNumber, record.PlaceNumber);
             Assert.Equal(createRecordRequest.RecordStateId, record.RecordStateId);
             Assert.Equal(createRecordRequest.Time, record.Time);
+            Assert.NotNull(record.Customer);
         }
 
         var dateFromRequest = dateFrom.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
