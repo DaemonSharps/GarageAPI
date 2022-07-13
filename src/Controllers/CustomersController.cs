@@ -34,16 +34,12 @@ namespace GarageAPI.Controllers
         /// </summary>
         /// <param name="request">Запрос</param>
         [HttpPost]
-        [SwaggerResponse(200, Type = typeof(ResultModel<Customer>))]
+        [SwaggerResponse(200, Type = typeof(Customer))]
         [SwaggerResponse(400, Type = typeof(string))]
         public async Task<IActionResult> Post([FromBody] GetOrSetCustomerRequest request)
         {
             try
             {
-                var model = new ResultModel<Customer>
-                {
-                    Action = nameof(ModelActions.Get)
-                };
                 var customer = (await _customerService
                 .GetCustomersByFilter(1, 10, request.Email))
                 .SingleOrDefault();
@@ -57,13 +53,10 @@ namespace GarageAPI.Controllers
                         request.SecondName,
                         request.LastName,
                         1);
-
-                    model.Action = nameof(ModelActions.Create);
                 }
 
                 customer.CustomerState.Customers = null;
-                model.Result = customer;
-                return Ok(model);
+                return Ok(customer);
             }
             catch (ArgumentException ex)
             {

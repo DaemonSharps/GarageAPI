@@ -36,7 +36,7 @@ namespace GarageAPI.Controllers
         [HttpGet]
         [SwaggerResponse(200, "Records find", typeof(List<Record>))]
         [SwaggerResponse(400, Type = typeof(string))]
-        public async Task<IActionResult> Get([FromQuery] GetRecordsByFilterRequest request)  
+        public async Task<IActionResult> Get([FromQuery] GetRecordsByFilterRequest request)
         {
             try
             {
@@ -69,23 +69,19 @@ namespace GarageAPI.Controllers
             {
                 return BadRequest(ex.Message);
             }
-            
+
         }
 
         /// <summary>
         /// Создать или обновить запись
         /// </summary>
         [HttpPost]
-        [SwaggerResponse(200, Type =  typeof(ResultModel<Record>))]
+        [SwaggerResponse(200, Type = typeof(Record))]
         [SwaggerResponse(400, Type = typeof(string))]
         public async Task<IActionResult> Post([FromBody] CreateRecordRequest request)
         {
             try
             {
-                var model = new ResultModel<Record>
-                {
-                    Action = nameof(ModelActions.Get)
-                };
                 var record = (await _recordsService
                     .GetRecordsByFilter(1, 10, request.Date, request.Date, 1, request.CustomerId))
                     .SingleOrDefault();
@@ -98,7 +94,6 @@ namespace GarageAPI.Controllers
                             request.Date,
                             request.PlaceNumber,
                             request.RecordStateId);
-                    model.Action = nameof(ModelActions.Create);
                 }
                 else
                 {
@@ -107,18 +102,17 @@ namespace GarageAPI.Controllers
                         Id = record.Id,
                         CustomerId = request.CustomerId,
                         Time = request.Time,
-                        Date = request.Date, 
+                        Date = request.Date,
                         PlaceNumber = request.PlaceNumber,
                         RecordStateId = request.RecordStateId
-                    }; 
+                    };
                     record = await _recordsService.UpdateRecord(record);
                 }
 
                 record.RecordState.Records = null;
                 record.Customer.Records = null;
 
-                model.Result = record;
-                return Ok(model);
+                return Ok(record);
             }
             catch (ArgumentException ex)
             {
