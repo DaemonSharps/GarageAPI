@@ -1,15 +1,11 @@
 ﻿using GarageAPI.Controllers.Schemas;
-using GarageAPI.DataBase.Tables;
 using GarageAPI.Services.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Tables = GarageAPI.DataBase.Tables;
-using CustomerDTO = GarageAPI.Controllers.Schemas.Customer;
 
 namespace GarageAPI.Controllers
 {
@@ -36,7 +32,7 @@ namespace GarageAPI.Controllers
         /// </summary>
         /// <param name="request">Запрос</param>
         [HttpPost]
-        [SwaggerResponse(200, Type = typeof(CustomerDTO))]
+        [SwaggerResponse(200, Type = typeof(Customer))]
         [SwaggerResponse(400, Type = typeof(string))]
         public async Task<IActionResult> Post([FromBody] GetOrSetCustomerRequest request)
         {
@@ -44,7 +40,7 @@ namespace GarageAPI.Controllers
             {
                 var customer = (await _customerService
                 .GetCustomersByFilter(1, 10, request.Email))
-                .SingleOrDefault() as CustomerDTO;
+                .SingleOrDefault() as Customer;
 
                 if (customer == null)
                 {
@@ -73,7 +69,7 @@ namespace GarageAPI.Controllers
         /// </summary>
         /// <param name="request">Запрос с фильтром</param>
         [HttpGet]
-        [SwaggerResponse(200, Type = typeof(List<Tables.Customer>))]
+        [SwaggerResponse(200, Type = typeof(List<Customer>))]
         [SwaggerResponse(400, Type = typeof(string))]
         public async Task<IActionResult> Get([FromQuery] GetCustomersByFilterRequest request)
         {
@@ -92,11 +88,6 @@ namespace GarageAPI.Controllers
 
                 if (customers == null || customers.Length == 0)
                     return NotFound();
-
-                foreach (var customer in customers)
-                {
-                    customer.CustomerState.Customers = null;
-                }
 
                 return Ok(customers);
             }

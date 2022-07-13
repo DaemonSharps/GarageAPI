@@ -43,7 +43,7 @@ namespace GarageAPI.Services.Interfaces
         /// Поиск пользователей по фильтру
         /// </summary>
         /// <returns>Список пользователей</returns>
-        public async Task<Customer[]> GetCustomersByFilter(
+        public async Task<CustomerDTO[]> GetCustomersByFilter(
             int page,
             int perPage,
             string email = null,

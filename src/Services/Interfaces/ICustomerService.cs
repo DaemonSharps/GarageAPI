@@ -23,7 +23,7 @@ public interface ICustomerService
     /// Поиск пользователей по фильтру
     /// </summary>
     /// <returns>Список пользователей</returns>
-    Task<Customer[]> GetCustomersByFilter(
+    Task<CustomerDTO[]> GetCustomersByFilter(
         int page,
         int perPage,
         string email,
