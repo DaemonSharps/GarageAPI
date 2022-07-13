@@ -17,7 +17,7 @@ public interface ICustomerService
     /// </summary>
     /// <param name="id">Id пользователя</param>
     /// <returns>Пользователь</returns>
-    Task<CustomerTable> GetCustomer(long id);
+    Task<Customer> GetCustomer(long id);
 
     /// <summary>
     /// Поиск пользователей по фильтру
@@ -54,5 +54,5 @@ public interface ICustomerService
     /// </summary>
     /// <param name="customer">Обновленный пользователь</param>
     /// <returns>Обновленный пользователь</returns>
-    Task<CustomerTable> UpdateCustomer(CustomerTable customer);
+    Task<Customer> UpdateCustomer(CustomerTable customer);
 }
