@@ -52,12 +52,6 @@ public class RecordsController : ControllerBase
             if (records == null || records.Length == 0)
                 return NotFound();
 
-            foreach (var record in records)
-            {
-                record.RecordState.Records = null;
-                record.Customer.Records = null;
-            }
-
             return Ok(records.OrderBy(r => r.Date).ToArray());
         }
         catch (ArgumentException ex)
@@ -107,9 +101,6 @@ public class RecordsController : ControllerBase
                 };
                 record = await _recordsService.UpdateRecord(record);
             }
-
-            record.RecordState.Records = null;
-            record.Customer.Records = null;
 
             return Ok(record);
         }

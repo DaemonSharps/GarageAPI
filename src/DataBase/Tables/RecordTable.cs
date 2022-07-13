@@ -1,4 +1,5 @@
-﻿using GarageAPI.Controllers.Schemas;
+﻿using System.Text.Json.Serialization;
+using GarageAPI.Controllers.Schemas;
 
 namespace GarageAPI.DataBase.Tables;
 
@@ -20,5 +21,6 @@ public class RecordTable : Record
     /// <summary>
     /// Статус записи
     /// </summary>
+    [JsonIgnore]
     public RecordState RecordState { get; set; }
 }
