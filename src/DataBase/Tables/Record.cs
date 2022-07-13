@@ -20,7 +20,7 @@ public class Record : RecordDTO
     /// <summary>
     /// Записавшийся пользователь
     /// </summary>
-    public Customer Customer { get; set; }
+    public CustomerTable Customer { get; set; }
 
     /// <summary>
     /// Статус записи

@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CustomerDTO = GarageAPI.Controllers.Schemas.Customer;
+using GarageAPI.Controllers.Schemas;
 
 namespace GarageAPI.Services.Interfaces;
 
@@ -17,13 +17,13 @@ public interface ICustomerService
     /// </summary>
     /// <param name="id">Id пользователя</param>
     /// <returns>Пользователь</returns>
-    Task<Customer> GetCustomer(long id);
+    Task<CustomerTable> GetCustomer(long id);
 
     /// <summary>
     /// Поиск пользователей по фильтру
     /// </summary>
     /// <returns>Список пользователей</returns>
-    Task<CustomerDTO[]> GetCustomersByFilter(
+    Task<Customer[]> GetCustomersByFilter(
         int page,
         int perPage,
         string email,
@@ -42,7 +42,7 @@ public interface ICustomerService
     /// <param name="lastName">Отчество</param>
     /// <param name="stateId">Id статуса</param>
     /// <returns>Созданный пользователь</returns>
-    Task<CustomerDTO> CreateCustomer(
+    Task<Customer> CreateCustomer(
         string email,
         string firstName,
         string secondName,
@@ -54,5 +54,5 @@ public interface ICustomerService
     /// </summary>
     /// <param name="customer">Обновленный пользователь</param>
     /// <returns>Обновленный пользователь</returns>
-    Task<Customer> UpdateCustomer(Customer customer);
+    Task<CustomerTable> UpdateCustomer(CustomerTable customer);
 }

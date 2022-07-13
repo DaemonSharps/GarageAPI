@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
-using CustomerDTO = GarageAPI.Controllers.Schemas.Customer;
+using GarageAPI.Controllers.Schemas;
 
 namespace GarageAPI.DataBase.Tables;
 
 /// <summary>
 /// Пользователь
 /// </summary>
-public class Customer : CustomerDTO
+public class CustomerTable : Customer
 {
     /// <summary>
     /// Статус пользователя

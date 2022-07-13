@@ -9,11 +9,11 @@ namespace GarageAPI.DataBase.Tables
     /// <summary>
     /// Статус пользователя
     /// </summary>
-    public class CustomerState: StateBase
+    public class CustomerState : StateBase
     {
         /// <summary>
         /// Пользователи с этим статусом
         /// </summary>
-        public List<Customer> Customers { get; set; } = new List<Customer>();
+        public List<CustomerTable> Customers { get; set; } = new List<CustomerTable>();
     }
 }

@@ -2,6 +2,7 @@
 using System.Net.Http.Json;
 using GarageAPI;
 using GarageAPI.Controllers.Schemas;
+using GarageAPI.DataBase.Tables;
 using GarageApiIntegration.Common;
 using Tables = GarageAPI.DataBase.Tables;
 
@@ -24,7 +25,7 @@ public class BusinessLogicTests : ApiTestBase
         };
         var result = await Client.PostAsJsonAsync("/api/customers", request);
         result.EnsureSuccessStatusCode();
-        var customer = await result.Content.ReadFromJsonAsync<Tables.Customer>();
+        var customer = await result.Content.ReadFromJsonAsync<CustomerTable>();
         Assert.NotNull(customer);
         Assert.Equal(request.Email, customer.Email);
         Assert.Equal(request.FirstName, customer.FirstName);
@@ -32,7 +33,7 @@ public class BusinessLogicTests : ApiTestBase
         Assert.Equal(request.SecondName, customer.SecondName);
         Assert.Equal(request.CustomerStateId, customer.CustomerStateId);
 
-        var result4 = await Client.GetFromJsonAsync<List<Tables.Customer>>($"/api/customers?Email={customer.Email}&Page=1&PerPage=10");
+        var result4 = await Client.GetFromJsonAsync<List<CustomerTable>>($"/api/customers?Email={customer.Email}&Page=1&PerPage=10");
         var customer2 = Assert.Single(result4);
 
         Assert.Equal(customer2.Email, customer.Email);
@@ -96,7 +97,7 @@ public class BusinessLogicTests : ApiTestBase
         };
         var result = await Client.PostAsJsonAsync("/api/customers", request);
         result.EnsureSuccessStatusCode();
-        var customer = await result.Content.ReadFromJsonAsync<Tables.Customer>();
+        var customer = await result.Content.ReadFromJsonAsync<CustomerTable>();
         Assert.NotNull(customer);
         Assert.Equal(request.Email, customer.Email);
         Assert.Equal(request.FirstName, customer.FirstName);

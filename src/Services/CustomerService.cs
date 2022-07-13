@@ -31,7 +31,7 @@ namespace GarageAPI.Services.Interfaces
         /// </summary>
         /// <param name="id">Id пользователя</param>
         /// <returns>Пользователь</returns>
-        public async Task<Customer> GetCustomer(long id)
+        public async Task<CustomerTable> GetCustomer(long id)
         {
             return await _garageBDContext
                 .Customers
@@ -99,7 +99,7 @@ namespace GarageAPI.Services.Interfaces
             string lastName,
             long stateId)
         {
-            var customer = new Customer
+            var customer = new CustomerTable
             {
                 CustomerStateId = stateId,
                 VisitCount = 0,
@@ -124,7 +124,7 @@ namespace GarageAPI.Services.Interfaces
         /// </summary>
         /// <param name="newCustomer">Обновленный пользователь</param>
         /// <returns>Обновленный пользователь</returns>
-        public async Task<Customer> UpdateCustomer(Customer newCustomer)
+        public async Task<CustomerTable> UpdateCustomer(CustomerTable newCustomer)
         {
             var oldCustomer = await GetCustomer(newCustomer.Id);
 
