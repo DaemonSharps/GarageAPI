@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
+	<ItemGroup>
+		<None Remove="Tables\" />
+		<None Remove="Microsoft.EntityFrameworkCore" />
+	</ItemGroup>
+	<ItemGroup>
+		<Folder Include="Tables\" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.7" />
+	</ItemGroup>
+</Project>
