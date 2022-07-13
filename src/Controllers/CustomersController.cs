@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Tables = GarageAPI.DataBase.Tables;
+using CustomerDTO = GarageAPI.Controllers.Schemas.Customer;
 
 namespace GarageAPI.Controllers
 {
@@ -35,7 +36,7 @@ namespace GarageAPI.Controllers
         /// </summary>
         /// <param name="request">Запрос</param>
         [HttpPost]
-        [SwaggerResponse(200, Type = typeof(Tables.Customer))]
+        [SwaggerResponse(200, Type = typeof(CustomerDTO))]
         [SwaggerResponse(400, Type = typeof(string))]
         public async Task<IActionResult> Post([FromBody] GetOrSetCustomerRequest request)
         {
@@ -43,7 +44,7 @@ namespace GarageAPI.Controllers
             {
                 var customer = (await _customerService
                 .GetCustomersByFilter(1, 10, request.Email))
-                .SingleOrDefault();
+                .SingleOrDefault() as CustomerDTO;
 
                 if (customer == null)
                 {
@@ -55,8 +56,6 @@ namespace GarageAPI.Controllers
                         request.LastName,
                         1);
                 }
-
-                customer.CustomerState.Customers = null;
                 return Ok(customer);
             }
             catch (ArgumentException ex)

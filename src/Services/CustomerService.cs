@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CustomerDTO = GarageAPI.Controllers.Schemas.Customer;
 
 namespace GarageAPI.Services.Interfaces
 {
@@ -61,8 +62,8 @@ namespace GarageAPI.Services.Interfaces
                 .Customers
                 .Include(c => c.CustomerState)
                 .AsQueryable();
-                
-            if(!string.IsNullOrEmpty(email))
+
+            if (!string.IsNullOrEmpty(email))
                 customersQuerry = customersQuerry.Where(c => c.Email == email);
             if (!string.IsNullOrEmpty(firstName))
                 customersQuerry = customersQuerry.Where(c => c.FirstName == firstName);
@@ -91,7 +92,7 @@ namespace GarageAPI.Services.Interfaces
         /// <param name="lastName">Отчество</param>
         /// <param name="stateId">Id статуса</param>
         /// <returns>Созданный пользователь</returns>
-        public async Task<Customer> CreateCustomer(
+        public async Task<CustomerDTO> CreateCustomer(
             string email,
             string firstName,
             string secondName,
@@ -99,7 +100,7 @@ namespace GarageAPI.Services.Interfaces
             long stateId)
         {
             var customer = new Customer
-            { 
+            {
                 CustomerStateId = stateId,
                 VisitCount = 0,
                 FirstName = firstName,
