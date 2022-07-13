@@ -69,11 +69,12 @@ namespace GarageAPI.Services
         /// <summary>
         /// Получить записи по фильтру
         /// </summary>
-        /// <param name="date">Дата</param>
         /// <param name="page">Страница</param>
         /// <param name="perPage">Записей на страницу</param>
         /// <param name="stateId">Id записи</param>
         /// <param name="customerId">Id пользователя</param>
+        /// <param name="dateFrom">Дата "от"</param>
+        /// <param name="dateTo">Дата "до"</param>
         /// <returns>Список записей</returns>
         /// <exception cref="ArgumentException"/>
         public async Task<Record[]> GetRecordsByFilter(int page, int perPage, DateTime dateFrom, DateTime dateTo, long stateId = 0, long customerId = 0)
