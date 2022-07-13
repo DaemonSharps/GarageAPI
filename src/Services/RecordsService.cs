@@ -35,9 +35,9 @@ namespace GarageAPI.Services
         /// <param name="place">Номер места в гараже</param>
         /// <param name="stateId">Статус записи</param>
         /// <returns></returns>
-        public async Task<Record> CreateRecord(long customerId, string time, DateTime date, int place, long stateId)
+        public async Task<RecordTable> CreateRecord(long customerId, string time, DateTime date, int place, long stateId)
         {
-            var newRecord = new Record
+            var newRecord = new RecordTable
             {
                 CustomerId = customerId,
                 Date = date,
@@ -57,7 +57,7 @@ namespace GarageAPI.Services
         /// </summary>
         /// <param name="id">Id записи</param>
         /// <returns>Запись</returns>
-        public async Task<Record> GetRecord(long id)
+        public async Task<RecordTable> GetRecord(long id)
         {
             return await _garageDBContext
                 .Records
@@ -77,7 +77,7 @@ namespace GarageAPI.Services
         /// <param name="dateTo">Дата "до"</param>
         /// <returns>Список записей</returns>
         /// <exception cref="ArgumentException"/>
-        public async Task<Record[]> GetRecordsByFilter(int page, int perPage, DateTime dateFrom, DateTime dateTo, long stateId = 0, long customerId = 0)
+        public async Task<RecordTable[]> GetRecordsByFilter(int page, int perPage, DateTime dateFrom, DateTime dateTo, long stateId = 0, long customerId = 0)
         {
             if (page == 0 || perPage == 0)
             {
@@ -114,7 +114,7 @@ namespace GarageAPI.Services
         /// </summary>
         /// <param name="newRecord">Новая запись</param>
         /// <returns>Обновленная запись</returns>
-        public async Task<Record> UpdateRecord(Record newRecord)
+        public async Task<RecordTable> UpdateRecord(RecordTable newRecord)
         {
             var oldRecord = await GetRecord(newRecord.Id);
             if (oldRecord == null)

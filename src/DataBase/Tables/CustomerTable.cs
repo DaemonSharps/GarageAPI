@@ -19,5 +19,5 @@ public class CustomerTable : Customer
     /// Записи пользователя
     /// </summary>
     [JsonIgnore]
-    public List<Record> Records { get; set; } = new List<Record>();
+    public List<RecordTable> Records { get; set; } = new List<RecordTable>();
 }

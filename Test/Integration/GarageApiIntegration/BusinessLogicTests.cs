@@ -52,7 +52,7 @@ public class BusinessLogicTests : ApiTestBase
         };
         var result2 = await Client.PostAsJsonAsync("/api/records", createRecordRequest);
         result2.EnsureSuccessStatusCode();
-        var record = await result2.Content.ReadFromJsonAsync<Tables.Record>();
+        var record = await result2.Content.ReadFromJsonAsync<RecordTable>();
         Assert.NotNull(record);
         Assert.Equal(createRecordRequest.Date, record.Date);
         Assert.Equal(createRecordRequest.CustomerId, record.CustomerId);
@@ -68,7 +68,7 @@ public class BusinessLogicTests : ApiTestBase
 
         var date = createRecordRequest.Date.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
         var querry = $"?CustomerId={customer.Id}&Date={date}&Page=1&PerPage=10";
-        var result3 = await Client.GetFromJsonAsync<List<Tables.Record>>($"/api/records" + querry);
+        var result3 = await Client.GetFromJsonAsync<List<RecordTable>>($"/api/records" + querry);
         Assert.NotNull(result3);
         var record2 = Assert.Single(result3);
         Assert.Equal(record2.Date, record.Date);
@@ -115,7 +115,7 @@ public class BusinessLogicTests : ApiTestBase
         };
         var result2 = await Client.PostAsJsonAsync("/api/records", createRecordRequest);
         result2.EnsureSuccessStatusCode();
-        var record = await result2.Content.ReadFromJsonAsync<Tables.Record>();
+        var record = await result2.Content.ReadFromJsonAsync<RecordTable>();
         Assert.NotNull(record);
         Assert.Equal(createRecordRequest.Date, record.Date);
         Assert.Equal(createRecordRequest.CustomerId, record.CustomerId);
@@ -131,7 +131,7 @@ public class BusinessLogicTests : ApiTestBase
 
         var date = createRecordRequest.Date.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
         var querry = $"?CustomerId={customer.Id}&Date={date}&Page=1&PerPage=10";
-        var result3 = await Client.GetFromJsonAsync<List<Tables.Record>>($"/api/records" + querry);
+        var result3 = await Client.GetFromJsonAsync<List<RecordTable>>($"/api/records" + querry);
         Assert.NotNull(result3);
         var record2 = Assert.Single(result3);
         Assert.Equal(record2.Date, record.Date);
@@ -163,7 +163,7 @@ public class BusinessLogicTests : ApiTestBase
             };
             var result2 = await Client.PostAsJsonAsync("/api/records", createRecordRequest);
             result2.EnsureSuccessStatusCode();
-            var record = await result2.Content.ReadFromJsonAsync<Tables.Record>();
+            var record = await result2.Content.ReadFromJsonAsync<RecordTable>();
             Assert.NotNull(record);
             Assert.Equal(createRecordRequest.Date, record.Date);
             Assert.Equal(createRecordRequest.CustomerId, record.CustomerId);
@@ -176,7 +176,7 @@ public class BusinessLogicTests : ApiTestBase
         var dateFromRequest = dateFrom.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
         var dateToRequest = dateFrom.AddDays(3).ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
         var querry = $"?CustomerId=1&DateFrom={dateFromRequest}&Date={dateToRequest}&Page=1&PerPage=10";
-        var result3 = await Client.GetFromJsonAsync<List<Tables.Record>>($"/api/records" + querry);
+        var result3 = await Client.GetFromJsonAsync<List<RecordTable>>($"/api/records" + querry);
         Assert.NotNull(result3);
         Assert.Equal(3, result3.Count);
     }
