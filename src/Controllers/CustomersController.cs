@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Tables = GarageAPI.DataBase.Tables;
 
 namespace GarageAPI.Controllers
 {
@@ -34,7 +35,7 @@ namespace GarageAPI.Controllers
         /// </summary>
         /// <param name="request">Запрос</param>
         [HttpPost]
-        [SwaggerResponse(200, Type = typeof(Customer))]
+        [SwaggerResponse(200, Type = typeof(Tables.Customer))]
         [SwaggerResponse(400, Type = typeof(string))]
         public async Task<IActionResult> Post([FromBody] GetOrSetCustomerRequest request)
         {
@@ -73,7 +74,7 @@ namespace GarageAPI.Controllers
         /// </summary>
         /// <param name="request">Запрос с фильтром</param>
         [HttpGet]
-        [SwaggerResponse(200, Type = typeof(List<Customer>))]
+        [SwaggerResponse(200, Type = typeof(List<Tables.Customer>))]
         [SwaggerResponse(400, Type = typeof(string))]
         public async Task<IActionResult> Get([FromQuery] GetCustomersByFilterRequest request)
         {
