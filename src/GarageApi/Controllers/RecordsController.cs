@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using GarageDataBase.Extentions;
+using GarageDataBase.DTO;
 
 namespace GarageAPI.Controllers;
 
@@ -22,7 +23,7 @@ public class RecordsController : ControllerBase
     /// Получить записи по фильтру
     /// </summary>
     [HttpGet]
-    [SwaggerResponse(200, "Records find", typeof(List<RecordTable>))]
+    [SwaggerResponse(200, "Records find", typeof(List<Record>))]
     [SwaggerResponse(400, Type = typeof(string))]
     public async Task<IActionResult> Get([FromQuery] GetRecordsByFilterRequest request, [FromServices] GarageDataBase.GarageDBContext dBContext)
     {
@@ -57,7 +58,7 @@ public class RecordsController : ControllerBase
     /// Создать или обновить запись
     /// </summary>
     [HttpPost]
-    [SwaggerResponse(200, Type = typeof(RecordTable))]
+    [SwaggerResponse(200, Type = typeof(Record))]
     [SwaggerResponse(400, Type = typeof(string))]
     public async Task<IActionResult> Post([FromBody] CreateRecordRequest request, [FromServices] GarageDataBase.GarageDBContext dBContext)
     {
