@@ -7,11 +7,17 @@
 	<ItemGroup>
 		<None Remove="Tables\" />
 		<None Remove="Microsoft.EntityFrameworkCore" />
+		<None Remove="Mapping\" />
+		<None Remove="AutoMapper.EF6" />
+		<None Remove="AutoMapper" />
 	</ItemGroup>
 	<ItemGroup>
 		<Folder Include="Tables\" />
+		<Folder Include="Mapping\" />
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.7" />
+		<PackageReference Include="AutoMapper.EF6" Version="2.1.1" />
+		<PackageReference Include="AutoMapper" Version="11.0.1" />
 	</ItemGroup>
 </Project>

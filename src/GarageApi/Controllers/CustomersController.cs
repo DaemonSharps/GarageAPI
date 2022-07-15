@@ -1,5 +1,6 @@
 ﻿using GarageAPI.Controllers.Schemas;
 using GarageAPI.Services.Interfaces;
+using GarageDataBase.Extentions;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
@@ -34,23 +35,20 @@ namespace GarageAPI.Controllers
         [HttpPost]
         [SwaggerResponse(200, Type = typeof(Customer))]
         [SwaggerResponse(400, Type = typeof(string))]
-        public async Task<IActionResult> Post([FromBody] GetOrSetCustomerRequest request)
+        public async Task<IActionResult> Post([FromBody] GetOrSetCustomerRequest request, [FromServices] GarageDataBase.GarageDBContext context)
         {
             try
             {
-                var customer = (await _customerService
-                .GetCustomersByFilter(1, 10, request.Email))
-                .SingleOrDefault();
+                var customer = await context.GetCustomerBy(c => c.Email == request.Email);
 
                 if (customer == null)
                 {
-                    customer = await _customerService
+                    customer = await context
                         .CreateCustomer(
                         request.Email,
                         request.FirstName,
                         request.SecondName,
-                        request.LastName,
-                        1);
+                        request.LastName);
                 }
                 return Ok(customer);
             }

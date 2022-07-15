@@ -4,6 +4,7 @@ using GarageAPI;
 using GarageAPI.Controllers.Schemas;
 using GarageDataBase.Tables;
 using GarageApiIntegration.Common;
+using Customer2 = GarageDataBase.DTO.Customer;
 
 namespace GarageApiIntegration;
 
@@ -24,13 +25,13 @@ public class BusinessLogicTests : ApiTestBase
         };
         var result = await Client.PostAsJsonAsync("/api/customers", request);
         result.EnsureSuccessStatusCode();
-        var customer = await result.Content.ReadFromJsonAsync<CustomerTable>();
+        var customer = await result.Content.ReadFromJsonAsync<Customer2>();
         Assert.NotNull(customer);
         Assert.Equal(request.Email, customer.Email);
         Assert.Equal(request.FirstName, customer.FirstName);
         Assert.Equal(request.LastName, customer.LastName);
         Assert.Equal(request.SecondName, customer.SecondName);
-        Assert.Equal(request.CustomerStateId, customer.CustomerStateId);
+        Assert.Equal("Clear", customer.Status);
 
         var result4 = await Client.GetFromJsonAsync<List<CustomerTable>>($"/api/customers?Email={customer.Email}&Page=1&PerPage=10");
         var customer2 = Assert.Single(result4);
@@ -39,7 +40,7 @@ public class BusinessLogicTests : ApiTestBase
         Assert.Equal(customer2.FirstName, customer.FirstName);
         Assert.Equal(customer2.LastName, customer.LastName);
         Assert.Equal(customer2.SecondName, customer.SecondName);
-        Assert.Equal(customer2.CustomerStateId, customer.CustomerStateId);
+        Assert.Equal(1, customer2.CustomerStateId);
 
         var createRecordRequest = new CreateRecordRequest
         {
@@ -63,7 +64,7 @@ public class BusinessLogicTests : ApiTestBase
         Assert.Equal(recordCustomer.FirstName, customer.FirstName);
         Assert.Equal(recordCustomer.LastName, customer.LastName);
         Assert.Equal(recordCustomer.SecondName, customer.SecondName);
-        Assert.Equal(recordCustomer.CustomerStateId, customer.CustomerStateId);
+        Assert.Equal(1, recordCustomer.CustomerStateId);
 
         var date = createRecordRequest.Date.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
         var querry = $"?CustomerId={customer.Id}&Date={date}&Page=1&PerPage=10";
@@ -80,7 +81,7 @@ public class BusinessLogicTests : ApiTestBase
         Assert.Equal(recordCustomer2.FirstName, customer.FirstName);
         Assert.Equal(recordCustomer2.LastName, customer.LastName);
         Assert.Equal(recordCustomer2.SecondName, customer.SecondName);
-        Assert.Equal(recordCustomer2.CustomerStateId, customer.CustomerStateId);
+        Assert.Equal(1, recordCustomer2.CustomerStateId);
     }
 
     [Fact]
@@ -96,13 +97,13 @@ public class BusinessLogicTests : ApiTestBase
         };
         var result = await Client.PostAsJsonAsync("/api/customers", request);
         result.EnsureSuccessStatusCode();
-        var customer = await result.Content.ReadFromJsonAsync<CustomerTable>();
+        var customer = await result.Content.ReadFromJsonAsync<Customer2>();
         Assert.NotNull(customer);
         Assert.Equal(request.Email, customer.Email);
         Assert.Equal(request.FirstName, customer.FirstName);
         Assert.Equal(request.LastName, customer.LastName);
         Assert.Equal(request.SecondName, customer.SecondName);
-        Assert.Equal(request.CustomerStateId, customer.CustomerStateId);
+        Assert.Equal("Clear", customer.Status);
 
         var createRecordRequest = new CreateRecordRequest
         {
@@ -126,7 +127,7 @@ public class BusinessLogicTests : ApiTestBase
         Assert.Equal(recordCustomer.FirstName, customer.FirstName);
         Assert.Equal(recordCustomer.LastName, customer.LastName);
         Assert.Equal(recordCustomer.SecondName, customer.SecondName);
-        Assert.Equal(recordCustomer.CustomerStateId, customer.CustomerStateId);
+        Assert.Equal(1, recordCustomer.CustomerStateId);
 
         var date = createRecordRequest.Date.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
         var querry = $"?CustomerId={customer.Id}&Date={date}&Page=1&PerPage=10";
@@ -143,7 +144,7 @@ public class BusinessLogicTests : ApiTestBase
         Assert.Equal(recordCustomer2.FirstName, customer.FirstName);
         Assert.Equal(recordCustomer2.LastName, customer.LastName);
         Assert.Equal(recordCustomer2.SecondName, customer.SecondName);
-        Assert.Equal(recordCustomer2.CustomerStateId, customer.CustomerStateId);
+        Assert.Equal(1, recordCustomer2.CustomerStateId);
     }
 
     [Fact]
