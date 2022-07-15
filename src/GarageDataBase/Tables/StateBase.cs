@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace GarageAPI.DataBase.Tables;
+namespace GarageDataBase.Tables;
 
 /// <summary>
 /// Класс родитель для статусов

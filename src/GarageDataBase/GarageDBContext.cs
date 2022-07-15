@@ -1,7 +1,7 @@
-﻿using GarageAPI.DataBase.Tables;
+﻿using GarageDataBase.Tables;
 using Microsoft.EntityFrameworkCore;
 
-namespace GarageAPI.DataBase;
+namespace GarageDataBase;
 
 /// <summary>
 /// Контекст БД
@@ -26,7 +26,7 @@ public class GarageDBContext : DbContext
     /// <summary>
     /// Статусы пользователей
     /// </summary>
-    public DbSet<CustomerState> CustomerStates { get; set; }
+    public DbSet<CustomerStateTable> CustomerStates { get; set; }
 
     /// <summary>
     /// Записи
@@ -36,7 +36,7 @@ public class GarageDBContext : DbContext
     /// <summary>
     /// Статусы записей
     /// </summary>
-    public DbSet<RecordState> RecordStates { get; set; }
+    public DbSet<RecordStateTable> RecordStates { get; set; }
     #endregion
 
     /// <summary>
@@ -50,30 +50,30 @@ public class GarageDBContext : DbContext
             customer.HasIndex(c => c.Email).IsUnique();
         });
 
-        builder.Entity<CustomerState>(cs =>
+        builder.Entity<CustomerStateTable>(cs =>
         {
             cs.HasIndex(c => c.Name).IsUnique();
         });
 
-        builder.Entity<RecordState>(rs =>
+        builder.Entity<RecordStateTable>(rs =>
         {
             rs.HasIndex(s => s.Name).IsUnique();
         });
 
         #region SEED DATA
-        builder.Entity<RecordState>().HasData(
-        new RecordState[]
+        builder.Entity<RecordStateTable>().HasData(
+        new RecordStateTable[]
         {
-            new RecordState { Id=1, Name="Approved"},
-            new RecordState { Id=2, Name="Waiting"},
-            new RecordState { Id=3, Name="Rejected"}
+            new RecordStateTable { Id=1, Name="Approved"},
+            new RecordStateTable { Id=2, Name="Waiting"},
+            new RecordStateTable { Id=3, Name="Rejected"}
         });
 
-        builder.Entity<CustomerState>().HasData(
-        new CustomerState[]
+        builder.Entity<CustomerStateTable>().HasData(
+        new CustomerStateTable[]
         {
-            new CustomerState { Id=1, Name="Clear"},
-            new CustomerState { Id=2, Name="Banned"}
+            new CustomerStateTable { Id=1, Name="Clear"},
+            new CustomerStateTable { Id=2, Name="Banned"}
         });
 
         builder.Entity<CustomerTable>().HasData(

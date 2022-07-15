@@ -1,13 +1,18 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
-namespace GarageAPI.Controllers.Schemas;
+namespace GarageDataBase.Tables;
 
 /// <summary>
 /// Запись
 /// </summary>
-public class Record
+public class RecordTable
 {
+    /// <summary>
+    /// Id записи
+    /// </summary>
+    public long Id { get; set; }
+
     /// <summary>
     /// Id пользователя
     /// </summary>
@@ -38,5 +43,15 @@ public class Record
     /// </summary>
     [Required]
     public long RecordStateId { get; set; }
-}
 
+    /// <summary>
+    /// Записавшийся пользователь
+    /// </summary>
+    public CustomerTable Customer { get; set; }
+
+    /// <summary>
+    /// Статус записи
+    /// </summary>
+    [JsonIgnore]
+    public RecordStateTable RecordState { get; set; }
+}

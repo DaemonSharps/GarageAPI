@@ -1,5 +1,6 @@
 ﻿using GarageAPI.Controllers.Schemas;
-using GarageAPI.Services.Interfaces;
+using GarageDataBase.DTO;
+using GarageDataBase.Extentions;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
@@ -17,16 +18,6 @@ namespace GarageAPI.Controllers
     [Produces("application/json")]
     public class CustomersController : ControllerBase
     {
-        private readonly ICustomerService _customerService;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public CustomersController(ICustomerService customerService)
-        {
-            _customerService = customerService;
-        }
-
         /// <summary>
         /// Создать или получить существующего пользователя
         /// </summary>
@@ -34,29 +25,22 @@ namespace GarageAPI.Controllers
         [HttpPost]
         [SwaggerResponse(200, Type = typeof(Customer))]
         [SwaggerResponse(400, Type = typeof(string))]
-        public async Task<IActionResult> Post([FromBody] GetOrSetCustomerRequest request)
+        public async Task<IActionResult> Post([FromBody] GetOrSetCustomerRequest request, [FromServices] GarageDataBase.GarageDBContext context)
         {
             try
             {
-                var customer = (await _customerService
-                .GetCustomersByFilter(1, 10, request.Email))
-                .SingleOrDefault();
+                var customer = await context.GetCustomerBy(c => c.Email == request.Email);
 
                 if (customer == null)
                 {
-                    customer = await _customerService
+                    customer = await context
                         .CreateCustomer(
                         request.Email,
                         request.FirstName,
                         request.SecondName,
-                        request.LastName,
-                        1);
+                        request.LastName);
                 }
                 return Ok(customer);
-            }
-            catch (ArgumentException ex)
-            {
-                return BadRequest(ex.Message);
             }
             catch (Exception ex)
             {
@@ -71,25 +55,23 @@ namespace GarageAPI.Controllers
         [HttpGet]
         [SwaggerResponse(200, Type = typeof(List<Customer>))]
         [SwaggerResponse(400, Type = typeof(string))]
-        public async Task<IActionResult> Get([FromQuery] GetCustomersByFilterRequest request)
+        public async Task<IActionResult> Get([FromQuery] GetCustomersByFilterRequest request, [FromServices] GarageDataBase.GarageDBContext dBContext)
         {
             try
             {
-                var customers = await _customerService
-                .GetCustomersByFilter(
-                request.Page,
-                request.PerPage,
-                request.Email,
-                request.FirstName,
-                request.SecondName,
-                request.LastName,
-                request.VisitCount,
-                request.CustomerStateId);
+                var customers = await dBContext.GetCustomersBy(
+                    request.Page,
+                    request.PerPage,
+                    request.Email,
+                    request.FirstName,
+                    request.SecondName,
+                    request.LastName,
+                    request.VisitCount,
+                    request.CustomerStateId);
 
-                if (customers == null || customers.Length == 0)
-                    return NotFound();
-
-                return Ok(customers);
+                if (customers.Any())
+                    return Ok(customers);
+                else return NotFound();
             }
             catch (ArgumentException ex)
             {

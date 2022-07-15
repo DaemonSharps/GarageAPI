@@ -1,11 +1,9 @@
-﻿using System.Collections.Generic;
-
-namespace GarageAPI.DataBase.Tables;
+﻿namespace GarageDataBase.Tables;
 
 /// <summary>
 /// Статус пользователя
 /// </summary>
-public class CustomerState : StateBase
+public class CustomerStateTable : StateBase
 {
     /// <summary>
     /// Пользователи с этим статусом
