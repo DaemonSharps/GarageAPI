@@ -1,5 +1,4 @@
-﻿using System.Linq.Expressions;
-using AutoMapper;
+﻿using AutoMapper;
 using GarageDataBase.DTO;
 using GarageDataBase.Mapping;
 using GarageDataBase.Tables;
@@ -9,9 +8,12 @@ namespace GarageDataBase.Extentions;
 
 public static class GarageDBContextExtentions
 {
-    public static async Task<Customer> GetCustomerBy(this GarageDBContext dBContext, Expression<Func<CustomerTable, bool>> predicate, CancellationToken cancellationToken = default)
+    public static async Task<Customer> GetCustomer(this GarageDBContext dBContext, string email, CancellationToken cancellationToken = default)
     {
-        var customer = await dBContext.Customers.Include(c => c.CustomerState).FirstOrDefaultAsync(predicate, cancellationToken);
+        var customer = await dBContext
+            .Customers
+            .Include(c => c.CustomerState)
+            .FirstOrDefaultAsync(c => c.Email == email, cancellationToken);
         return CreateMapper().Map<Customer>(customer);
     }
 

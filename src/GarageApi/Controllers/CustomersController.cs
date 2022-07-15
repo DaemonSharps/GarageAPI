@@ -6,6 +6,7 @@ using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace GarageAPI.Controllers
@@ -25,11 +26,11 @@ namespace GarageAPI.Controllers
         [HttpPost]
         [SwaggerResponse(200, Type = typeof(Customer))]
         [SwaggerResponse(400, Type = typeof(string))]
-        public async Task<IActionResult> Post([FromBody] GetOrSetCustomerRequest request, [FromServices] GarageDataBase.GarageDBContext context)
+        public async Task<IActionResult> Post([FromBody] GetOrSetCustomerRequest request, [FromServices] GarageDataBase.GarageDBContext context, CancellationToken cancellationToken)
         {
             try
             {
-                var customer = await context.GetCustomerBy(c => c.Email == request.Email);
+                var customer = await context.GetCustomer(request.Email, cancellationToken);
 
                 if (customer == null)
                 {
@@ -38,7 +39,8 @@ namespace GarageAPI.Controllers
                         request.Email,
                         request.FirstName,
                         request.SecondName,
-                        request.LastName);
+                        request.LastName,
+                        cancellationToken: cancellationToken);
                 }
                 return Ok(customer);
             }
