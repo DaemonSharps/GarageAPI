@@ -1,5 +1,3 @@
-using GarageAPI.Services;
-using GarageAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -33,8 +31,6 @@ public class Startup
                 builder.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")),
                 b => b.MigrationsAssembly(typeof(Startup).Assembly.GetName().Name)));
 #endif
-
-        services.AddTransient<IRecordsService, RecordsService>();
 
         services.AddCors();
 

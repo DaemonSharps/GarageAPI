@@ -1,6 +1,5 @@
 ﻿using GarageAPI.Controllers.Schemas;
 using GarageDataBase.Tables;
-using GarageAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
@@ -19,17 +18,6 @@ namespace GarageAPI.Controllers;
 [Produces("application/json")]
 public class RecordsController : ControllerBase
 {
-    private readonly IRecordsService _recordsService;
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="recordsService">Сервис записей</param>
-    public RecordsController(IRecordsService recordsService)
-    {
-        _recordsService = recordsService;
-    }
-
     /// <summary>
     /// Получить записи по фильтру
     /// </summary>
