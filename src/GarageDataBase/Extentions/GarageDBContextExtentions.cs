@@ -14,7 +14,7 @@ public static class GarageDBContextExtentions
             .Customers
             .Include(c => c.CustomerState)
             .FirstOrDefaultAsync(c => c.Email == email, cancellationToken);
-        return CreateMapper().Map<Customer>(customer);
+        return MapperHelper.CreateMapper().Map<Customer>(customer);
     }
 
     public static async Task<Customer> CreateCustomer(this GarageDBContext dBContext, string email, string firstName, string secondName, string lastName, long stateId = 1, CancellationToken cancellationToken = default)
@@ -31,7 +31,7 @@ public static class GarageDBContextExtentions
         var customerEntry = dBContext.Customers.Add(customerToCreate);
         await customerEntry.Reference(c => c.CustomerState).LoadAsync(cancellationToken);
         await dBContext.SaveChangesAsync(cancellationToken);
-        return CreateMapper().Map<Customer>(customerEntry.Entity);
+        return MapperHelper.CreateMapper().Map<Customer>(customerEntry.Entity);
 
     }
 
@@ -72,7 +72,7 @@ public static class GarageDBContextExtentions
             .Take(perPage)
             .ToArrayAsync(cancellationToken);
 
-        return CreateMapper().Map<List<Customer>>(customers);
+        return MapperHelper.CreateMapper().Map<List<Customer>>(customers);
     }
 
     public static async Task<List<Record>> GetRecordsBy(
@@ -108,7 +108,7 @@ public static class GarageDBContextExtentions
             .Take(perPage);
 
         var records = await recordQuerry.ToListAsync();
-        return CreateMapper().Map<List<Record>>(records);
+        return MapperHelper.CreateMapper().Map<List<Record>>(records);
     }
 
     public static async Task<Record> CreateRecord(this GarageDBContext dBContext, long customerId, string time, DateTime date, int place, long stateId)
@@ -126,7 +126,7 @@ public static class GarageDBContextExtentions
         await recordEntry.Reference(r => r.Customer).Query().Include(c => c.CustomerState).LoadAsync();
         await dBContext.SaveChangesAsync();
 
-        return CreateMapper().Map<Record>(recordEntry.Entity);
+        return MapperHelper.CreateMapper().Map<Record>(recordEntry.Entity);
     }
 
     public static async Task<Record> UpdateRecord(this GarageDBContext dBContext, long customerId, string time, DateTime? date, int place, long stateId)
@@ -146,12 +146,7 @@ public static class GarageDBContextExtentions
         await recordEntry.Reference(r => r.Customer).Query().Include(c => c.CustomerState).LoadAsync();
         await dBContext.SaveChangesAsync();
 
-        return CreateMapper().Map<Record>(recordEntry.Entity);
+        return MapperHelper.CreateMapper().Map<Record>(recordEntry.Entity);
     }
-
-    private static IMapper CreateMapper()
-        => new MapperConfiguration(c
-            => c.AddProfile<GarageDTOMappingProfile>())
-        .CreateMapper();
 }
 
