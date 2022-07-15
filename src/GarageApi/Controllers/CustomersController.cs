@@ -52,10 +52,6 @@ namespace GarageAPI.Controllers
                 }
                 return Ok(customer);
             }
-            catch (ArgumentException ex)
-            {
-                return BadRequest(ex.Message);
-            }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
