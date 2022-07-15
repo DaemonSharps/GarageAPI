@@ -18,16 +18,6 @@ namespace GarageAPI.Controllers
     [Produces("application/json")]
     public class CustomersController : ControllerBase
     {
-        private readonly ICustomerService _customerService;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public CustomersController(ICustomerService customerService)
-        {
-            _customerService = customerService;
-        }
-
         /// <summary>
         /// Создать или получить существующего пользователя
         /// </summary>

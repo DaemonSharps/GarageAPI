@@ -35,7 +35,6 @@ public class Startup
 #endif
 
         services.AddTransient<IRecordsService, RecordsService>();
-        services.AddTransient<ICustomerService, CustomerService>();
 
         services.AddCors();
 
