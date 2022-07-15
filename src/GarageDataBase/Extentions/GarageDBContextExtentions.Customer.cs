@@ -14,7 +14,7 @@ public static partial class GarageDBContextExtentions
             .Customers
             .Include(c => c.CustomerState)
             .FirstOrDefaultAsync(c => c.Email == email, cancellationToken);
-        return MapperHelper.CreateMapper().Map<Customer>(customer);
+        return MapperHelper.Map<Customer>(customer);
     }
 
     public static async Task<Customer> CreateCustomer(this GarageDBContext dBContext, string email, string firstName, string secondName, string lastName, long stateId = 1, CancellationToken cancellationToken = default)
@@ -31,7 +31,7 @@ public static partial class GarageDBContextExtentions
         var customerEntry = dBContext.Customers.Add(customerToCreate);
         await customerEntry.Reference(c => c.CustomerState).LoadAsync(cancellationToken);
         await dBContext.SaveChangesAsync(cancellationToken);
-        return MapperHelper.CreateMapper().Map<Customer>(customerEntry.Entity);
+        return MapperHelper.Map<Customer>(customerEntry.Entity);
 
     }
 
@@ -72,7 +72,7 @@ public static partial class GarageDBContextExtentions
             .Take(perPage)
             .ToArrayAsync(cancellationToken);
 
-        return MapperHelper.CreateMapper().Map<List<Customer>>(customers);
+        return MapperHelper.Map<List<Customer>>(customers);
     }
 }
 

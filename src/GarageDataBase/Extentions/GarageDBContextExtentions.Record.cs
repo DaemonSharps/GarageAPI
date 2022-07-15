@@ -41,7 +41,7 @@ public static partial class GarageDBContextExtentions
             .Take(perPage);
 
         var records = await recordQuerry.ToListAsync();
-        return MapperHelper.CreateMapper().Map<List<Record>>(records);
+        return MapperHelper.Map<List<Record>>(records);
     }
 
     public static async Task<Record> CreateRecord(this GarageDBContext dBContext, long customerId, string time, DateTime date, int place, long stateId)
@@ -59,7 +59,7 @@ public static partial class GarageDBContextExtentions
         await recordEntry.Reference(r => r.Customer).Query().Include(c => c.CustomerState).LoadAsync();
         await dBContext.SaveChangesAsync();
 
-        return MapperHelper.CreateMapper().Map<Record>(recordEntry.Entity);
+        return MapperHelper.Map<Record>(recordEntry.Entity);
     }
 
     public static async Task<Record> UpdateRecord(this GarageDBContext dBContext, long customerId, string time, DateTime? date, int place, long stateId)
@@ -79,7 +79,7 @@ public static partial class GarageDBContextExtentions
         await recordEntry.Reference(r => r.Customer).Query().Include(c => c.CustomerState).LoadAsync();
         await dBContext.SaveChangesAsync();
 
-        return MapperHelper.CreateMapper().Map<Record>(recordEntry.Entity);
+        return MapperHelper.Map<Record>(recordEntry.Entity);
     }
 }
 
