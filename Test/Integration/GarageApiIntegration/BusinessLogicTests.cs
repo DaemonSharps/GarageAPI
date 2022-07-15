@@ -180,4 +180,42 @@ public class BusinessLogicTests : ApiTestBase
         Assert.NotNull(result3);
         Assert.Equal(3, result3.Count);
     }
+
+    [Fact]
+    public async Task UpdateExistingRecord()
+    {
+        var dateFrom = DateTime.Today.AddDays(2);
+
+        var createRecordRequest = new CreateRecordRequest
+        {
+            CustomerId = 1,
+            Date = dateFrom,
+            PlaceNumber = 1,
+            RecordStateId = 1,
+            Time = "22:00"
+        };
+        var result2 = await Client.PostAsJsonAsync("/api/records", createRecordRequest);
+        result2.EnsureSuccessStatusCode();
+        var record = await result2.Content.ReadFromJsonAsync<RecordTable>();
+        Assert.NotNull(record);
+        Assert.Equal(createRecordRequest.Date, record.Date);
+        Assert.Equal(createRecordRequest.CustomerId, record.CustomerId);
+        Assert.Equal(createRecordRequest.PlaceNumber, record.PlaceNumber);
+        Assert.Equal(createRecordRequest.RecordStateId, record.RecordStateId);
+        Assert.Equal(createRecordRequest.Time, record.Time);
+        Assert.NotNull(record.Customer);
+
+        createRecordRequest.Time = "00:00";
+        var result3 = await Client.PostAsJsonAsync("/api/records", createRecordRequest);
+        result3.EnsureSuccessStatusCode();
+        var record3 = await result3.Content.ReadFromJsonAsync<RecordTable>();
+        Assert.NotNull(record);
+        Assert.Equal(createRecordRequest.Date, record3.Date);
+        Assert.Equal(createRecordRequest.CustomerId, record3.CustomerId);
+        Assert.Equal(createRecordRequest.PlaceNumber, record3.PlaceNumber);
+        Assert.Equal(createRecordRequest.RecordStateId, record3.RecordStateId);
+        Assert.Equal(createRecordRequest.Time, record3.Time);
+        Assert.NotNull(record3.Customer);
+
+    }
 }
