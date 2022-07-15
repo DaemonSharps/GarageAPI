@@ -17,7 +17,14 @@ public static partial class GarageDBContextExtentions
         return MapperHelper.Map<Customer>(customer);
     }
 
-    public static async Task<Customer> CreateCustomer(this GarageDBContext dBContext, string email, string firstName, string secondName, string lastName, long stateId = 1, CancellationToken cancellationToken = default)
+    public static async Task<Customer> CreateCustomer(
+        this GarageDBContext dBContext,
+        string email,
+        string firstName,
+        string secondName,
+        string lastName,
+        long stateId = 1,
+        CancellationToken cancellationToken = default)
     {
         var customerToCreate = new CustomerTable
         {

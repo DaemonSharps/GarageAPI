@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using GarageDataBase.Extentions;
 using GarageDataBase.DTO;
+using System.Threading;
 
 namespace GarageAPI.Controllers;
 
@@ -25,7 +26,7 @@ public class RecordsController : ControllerBase
     [HttpGet]
     [SwaggerResponse(200, "Records find", typeof(List<Record>))]
     [SwaggerResponse(400, Type = typeof(string))]
-    public async Task<IActionResult> Get([FromQuery] GetRecordsByFilterRequest request, [FromServices] GarageDataBase.GarageDBContext dBContext)
+    public async Task<IActionResult> Get([FromQuery] GetRecordsByFilterRequest request, [FromServices] GarageDataBase.GarageDBContext dBContext, CancellationToken cancellationToken)
     {
         try
         {
@@ -37,7 +38,8 @@ public class RecordsController : ControllerBase
             dateFrom,
             request.Date,
             request.StateId,
-            request.CustomerId);
+            request.CustomerId,
+            cancellationToken);
 
             if (records.Any())
                 return Ok(records.OrderBy(r => r.Date).ToArray());
@@ -60,12 +62,12 @@ public class RecordsController : ControllerBase
     [HttpPost]
     [SwaggerResponse(200, Type = typeof(Record))]
     [SwaggerResponse(400, Type = typeof(string))]
-    public async Task<IActionResult> Post([FromBody] CreateRecordRequest request, [FromServices] GarageDataBase.GarageDBContext dBContext)
+    public async Task<IActionResult> Post([FromBody] CreateRecordRequest request, [FromServices] GarageDataBase.GarageDBContext dBContext, CancellationToken cancellationToken)
     {
         try
         {
             var record = (await dBContext
-                .GetRecordsBy(1, 10, request.Date, request.Date, 1, request.CustomerId))
+                .GetRecordsBy(1, 10, request.Date, request.Date, 1, request.CustomerId, cancellationToken))
                 .SingleOrDefault();
 
             if (record == null)
@@ -75,11 +77,18 @@ public class RecordsController : ControllerBase
                         request.Time,
                         request.Date,
                         request.PlaceNumber,
-                        request.RecordStateId);
+                        request.RecordStateId,
+                        cancellationToken);
             }
             else
             {
-                record = await dBContext.UpdateRecord(request.CustomerId, request.Time, request.Date, request.PlaceNumber, request.RecordStateId);
+                record = await dBContext.UpdateRecord(
+                    request.CustomerId,
+                    request.Time,
+                    request.Date,
+                    request.PlaceNumber,
+                    request.RecordStateId,
+                    cancellationToken);
             }
 
             return Ok(record);

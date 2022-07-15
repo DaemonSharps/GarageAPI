@@ -23,6 +23,8 @@ namespace GarageAPI.Controllers
         /// Создать или получить существующего пользователя
         /// </summary>
         /// <param name="request">Запрос</param>
+        /// <param name="cancellationToken"></param>
+        /// <param name="context"></param>
         [HttpPost]
         [SwaggerResponse(200, Type = typeof(Customer))]
         [SwaggerResponse(400, Type = typeof(string))]
@@ -54,10 +56,12 @@ namespace GarageAPI.Controllers
         /// Получить пользователей по фильтру
         /// </summary>
         /// <param name="request">Запрос с фильтром</param>
+        /// <param name="cancellationToken"></param>
+        /// <param name="dBContext"></param>
         [HttpGet]
         [SwaggerResponse(200, Type = typeof(List<Customer>))]
         [SwaggerResponse(400, Type = typeof(string))]
-        public async Task<IActionResult> Get([FromQuery] GetCustomersByFilterRequest request, [FromServices] GarageDataBase.GarageDBContext dBContext)
+        public async Task<IActionResult> Get([FromQuery] GetCustomersByFilterRequest request, [FromServices] GarageDataBase.GarageDBContext dBContext, CancellationToken cancellationToken)
         {
             try
             {
@@ -69,7 +73,8 @@ namespace GarageAPI.Controllers
                     request.SecondName,
                     request.LastName,
                     request.VisitCount,
-                    request.CustomerStateId);
+                    request.CustomerStateId,
+                    cancellationToken);
 
                 if (customers.Any())
                     return Ok(customers);

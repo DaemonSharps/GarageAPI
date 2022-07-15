@@ -15,7 +15,8 @@ public static partial class GarageDBContextExtentions
         DateTime dateFrom,
         DateTime dateTo,
         long recordStateId = 0,
-        long customerId = 0)
+        long customerId = 0,
+        CancellationToken cancellationToken = default)
     {
         dateFrom = new DateTime(dateFrom.Year, dateFrom.Month, dateFrom.Day);
         dateTo = new DateTime(dateTo.Year, dateTo.Month, dateTo.Day + 1);
@@ -40,11 +41,18 @@ public static partial class GarageDBContextExtentions
             .Skip((page - 1) * perPage)
             .Take(perPage);
 
-        var records = await recordQuerry.ToListAsync();
+        var records = await recordQuerry.ToListAsync(cancellationToken);
         return MapperHelper.Map<List<Record>>(records);
     }
 
-    public static async Task<Record> CreateRecord(this GarageDBContext dBContext, long customerId, string time, DateTime date, int place, long stateId)
+    public static async Task<Record> CreateRecord(
+        this GarageDBContext dBContext,
+        long customerId,
+        string time,
+        DateTime date,
+        int place,
+        long stateId,
+        CancellationToken cancellationToken = default)
     {
         var newRecord = new RecordTable
         {
@@ -55,14 +63,21 @@ public static partial class GarageDBContextExtentions
             Time = time
         };
         var recordEntry = dBContext.Records.Add(newRecord);
-        await recordEntry.Reference(r => r.RecordState).LoadAsync();
-        await recordEntry.Reference(r => r.Customer).Query().Include(c => c.CustomerState).LoadAsync();
-        await dBContext.SaveChangesAsync();
+        await recordEntry.Reference(r => r.RecordState).LoadAsync(cancellationToken);
+        await recordEntry.Reference(r => r.Customer).Query().Include(c => c.CustomerState).LoadAsync(cancellationToken);
+        await dBContext.SaveChangesAsync(cancellationToken);
 
         return MapperHelper.Map<Record>(recordEntry.Entity);
     }
 
-    public static async Task<Record> UpdateRecord(this GarageDBContext dBContext, long customerId, string time, DateTime? date, int place, long stateId)
+    public static async Task<Record> UpdateRecord(
+        this GarageDBContext dBContext,
+        long customerId,
+        string time,
+        DateTime? date,
+        int place,
+        long stateId,
+        CancellationToken cancellationToken = default)
     {
         date = new DateTime(date.Value.Year, date.Value.Month, date.Value.Day);
         var originalRecord = await dBContext.Records.FirstOrDefaultAsync(r => r.CustomerId == customerId && r.Date == date.Value);
@@ -74,10 +89,11 @@ public static partial class GarageDBContextExtentions
         originalRecord.Date = date ?? originalRecord.Date;
         originalRecord.PlaceNumber = place == 0 ? originalRecord.PlaceNumber : place;
         originalRecord.RecordStateId = stateId == 0 ? originalRecord.RecordStateId : stateId;
+
         var recordEntry = dBContext.Update(originalRecord);
-        await recordEntry.Reference(r => r.RecordState).LoadAsync();
-        await recordEntry.Reference(r => r.Customer).Query().Include(c => c.CustomerState).LoadAsync();
-        await dBContext.SaveChangesAsync();
+        await recordEntry.Reference(r => r.RecordState).LoadAsync(cancellationToken);
+        await recordEntry.Reference(r => r.Customer).Query().Include(c => c.CustomerState).LoadAsync(cancellationToken);
+        await dBContext.SaveChangesAsync(cancellationToken);
 
         return MapperHelper.Map<Record>(recordEntry.Entity);
     }
