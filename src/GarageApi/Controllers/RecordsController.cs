@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using GarageDataBase.Extentions;
 
 namespace GarageAPI.Controllers;
 
@@ -35,13 +36,13 @@ public class RecordsController : ControllerBase
     [HttpGet]
     [SwaggerResponse(200, "Records find", typeof(List<RecordTable>))]
     [SwaggerResponse(400, Type = typeof(string))]
-    public async Task<IActionResult> Get([FromQuery] GetRecordsByFilterRequest request)
+    public async Task<IActionResult> Get([FromQuery] GetRecordsByFilterRequest request, [FromServices] GarageDataBase.GarageDBContext dBContext)
     {
         try
         {
             var dateFrom = request.DateFrom ?? request.Date;
 
-            var records = await _recordsService.GetRecordsByFilter(
+            var records = await dBContext.GetRecordsBy(
             request.Page,
             request.PerPage,
             dateFrom,
@@ -49,10 +50,9 @@ public class RecordsController : ControllerBase
             request.StateId,
             request.CustomerId);
 
-            if (records == null || records.Length == 0)
-                return NotFound();
-
-            return Ok(records.OrderBy(r => r.Date).ToArray());
+            if (records.Any())
+                return Ok(records.OrderBy(r => r.Date).ToArray());
+            else return NotFound();
         }
         catch (ArgumentException ex)
         {
@@ -71,17 +71,17 @@ public class RecordsController : ControllerBase
     [HttpPost]
     [SwaggerResponse(200, Type = typeof(RecordTable))]
     [SwaggerResponse(400, Type = typeof(string))]
-    public async Task<IActionResult> Post([FromBody] CreateRecordRequest request)
+    public async Task<IActionResult> Post([FromBody] CreateRecordRequest request, [FromServices] GarageDataBase.GarageDBContext dBContext)
     {
         try
         {
-            var record = (await _recordsService
-                .GetRecordsByFilter(1, 10, request.Date, request.Date, 1, request.CustomerId))
+            var record = (await dBContext
+                .GetRecordsBy(1, 10, request.Date, request.Date, 1, request.CustomerId))
                 .SingleOrDefault();
 
             if (record == null)
             {
-                record = await _recordsService.CreateRecord(
+                record = await dBContext.CreateRecord(
                         request.CustomerId,
                         request.Time,
                         request.Date,
@@ -90,16 +90,7 @@ public class RecordsController : ControllerBase
             }
             else
             {
-                record = new RecordTable
-                {
-                    Id = record.Id,
-                    CustomerId = request.CustomerId,
-                    Time = request.Time,
-                    Date = request.Date,
-                    PlaceNumber = request.PlaceNumber,
-                    RecordStateId = request.RecordStateId
-                };
-                record = await _recordsService.UpdateRecord(record);
+                record = await dBContext.UpdateRecord(request.CustomerId, request.Time, request.Date, request.PlaceNumber, request.RecordStateId);
             }
 
             return Ok(record);
