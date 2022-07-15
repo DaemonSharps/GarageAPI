@@ -65,25 +65,23 @@ namespace GarageAPI.Controllers
         [HttpGet]
         [SwaggerResponse(200, Type = typeof(List<Customer>))]
         [SwaggerResponse(400, Type = typeof(string))]
-        public async Task<IActionResult> Get([FromQuery] GetCustomersByFilterRequest request)
+        public async Task<IActionResult> Get([FromQuery] GetCustomersByFilterRequest request, [FromServices] GarageDataBase.GarageDBContext dBContext)
         {
             try
             {
-                var customers = await _customerService
-                .GetCustomersByFilter(
-                request.Page,
-                request.PerPage,
-                request.Email,
-                request.FirstName,
-                request.SecondName,
-                request.LastName,
-                request.VisitCount,
-                request.CustomerStateId);
+                var customers = await dBContext.GetCustomersBy(
+                    request.Page,
+                    request.PerPage,
+                    request.Email,
+                    request.FirstName,
+                    request.SecondName,
+                    request.LastName,
+                    request.VisitCount,
+                    request.CustomerStateId);
 
-                if (customers == null || customers.Length == 0)
-                    return NotFound();
-
-                return Ok(customers);
+                if (customers.Any())
+                    return Ok(customers);
+                else return NotFound();
             }
             catch (ArgumentException ex)
             {

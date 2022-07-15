@@ -33,14 +33,14 @@ public class BusinessLogicTests : ApiTestBase
         Assert.Equal(request.SecondName, customer.SecondName);
         Assert.Equal("Clear", customer.Status);
 
-        var result4 = await Client.GetFromJsonAsync<List<CustomerTable>>($"/api/customers?Email={customer.Email}&Page=1&PerPage=10");
+        var result4 = await Client.GetFromJsonAsync<List<Customer2>>($"/api/customers?Email={customer.Email}&Page=1&PerPage=10");
         var customer2 = Assert.Single(result4);
 
         Assert.Equal(customer2.Email, customer.Email);
         Assert.Equal(customer2.FirstName, customer.FirstName);
         Assert.Equal(customer2.LastName, customer.LastName);
         Assert.Equal(customer2.SecondName, customer.SecondName);
-        Assert.Equal(1, customer2.CustomerStateId);
+        Assert.Equal("Clear", customer2.Status);
 
         var createRecordRequest = new CreateRecordRequest
         {
