@@ -30,4 +30,9 @@
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </EmbeddedResource>
 	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\GarageDataBase\GarageDataBase.csproj">
+	    <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+	  </ProjectReference>
+	</ItemGroup>
 </Project>

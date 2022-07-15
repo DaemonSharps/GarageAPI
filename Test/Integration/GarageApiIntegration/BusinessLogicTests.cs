@@ -2,9 +2,8 @@
 using System.Net.Http.Json;
 using GarageAPI;
 using GarageAPI.Controllers.Schemas;
-using GarageAPI.DataBase.Tables;
+using GarageDataBase.Tables;
 using GarageApiIntegration.Common;
-using Tables = GarageAPI.DataBase.Tables;
 
 namespace GarageApiIntegration;
 

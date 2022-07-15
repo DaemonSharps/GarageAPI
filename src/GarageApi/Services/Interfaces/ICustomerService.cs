@@ -1,4 +1,4 @@
-﻿using GarageAPI.DataBase.Tables;
+﻿using GarageDataBase.Tables;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,13 +17,13 @@ public interface ICustomerService
     /// </summary>
     /// <param name="id">Id пользователя</param>
     /// <returns>Пользователь</returns>
-    Task<Customer> GetCustomer(long id);
+    Task<CustomerTable> GetCustomer(long id);
 
     /// <summary>
     /// Поиск пользователей по фильтру
     /// </summary>
     /// <returns>Список пользователей</returns>
-    Task<Customer[]> GetCustomersByFilter(
+    Task<CustomerTable[]> GetCustomersByFilter(
         int page,
         int perPage,
         string email,
@@ -42,7 +42,7 @@ public interface ICustomerService
     /// <param name="lastName">Отчество</param>
     /// <param name="stateId">Id статуса</param>
     /// <returns>Созданный пользователь</returns>
-    Task<Customer> CreateCustomer(
+    Task<CustomerTable> CreateCustomer(
         string email,
         string firstName,
         string secondName,
@@ -54,5 +54,5 @@ public interface ICustomerService
     /// </summary>
     /// <param name="customer">Обновленный пользователь</param>
     /// <returns>Обновленный пользователь</returns>
-    Task<Customer> UpdateCustomer(CustomerTable customer);
+    Task<CustomerTable> UpdateCustomer(CustomerTable customer);
 }

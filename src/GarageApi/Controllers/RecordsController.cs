@@ -1,5 +1,5 @@
 ﻿using GarageAPI.Controllers.Schemas;
-using GarageAPI.DataBase.Tables;
+using GarageDataBase.Tables;
 using GarageAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;

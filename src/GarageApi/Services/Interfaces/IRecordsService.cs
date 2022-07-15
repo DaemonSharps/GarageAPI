@@ -1,4 +1,4 @@
-﻿using GarageAPI.DataBase.Tables;
+﻿using GarageDataBase.Tables;
 using System;
 using System.Threading.Tasks;
 

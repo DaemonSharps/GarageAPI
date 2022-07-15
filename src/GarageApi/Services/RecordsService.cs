@@ -1,5 +1,5 @@
-﻿using GarageAPI.DataBase;
-using GarageAPI.DataBase.Tables;
+﻿using GarageDataBase;
+using GarageDataBase.Tables;
 using GarageAPI.Helpers;
 using GarageAPI.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;

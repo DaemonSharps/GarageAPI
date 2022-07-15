@@ -1,5 +1,5 @@
-﻿using GarageAPI.DataBase;
-using GarageAPI.DataBase.Tables;
+﻿using GarageDataBase;
+using GarageDataBase.Tables;
 using GarageAPI.Helpers;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -26,7 +26,7 @@ namespace GarageAPI.Services.Interfaces
         /// </summary>
         /// <param name="id">Id пользователя</param>
         /// <returns>Пользователь</returns>
-        public async Task<Customer> GetCustomer(long id)
+        public async Task<CustomerTable> GetCustomer(long id)
         {
             return await _garageBDContext
                 .Customers
@@ -38,7 +38,7 @@ namespace GarageAPI.Services.Interfaces
         /// Поиск пользователей по фильтру
         /// </summary>
         /// <returns>Список пользователей</returns>
-        public async Task<Customer[]> GetCustomersByFilter(
+        public async Task<CustomerTable[]> GetCustomersByFilter(
             int page,
             int perPage,
             string email = null,
@@ -87,7 +87,7 @@ namespace GarageAPI.Services.Interfaces
         /// <param name="lastName">Отчество</param>
         /// <param name="stateId">Id статуса</param>
         /// <returns>Созданный пользователь</returns>
-        public async Task<Customer> CreateCustomer(
+        public async Task<CustomerTable> CreateCustomer(
             string email,
             string firstName,
             string secondName,
@@ -119,7 +119,7 @@ namespace GarageAPI.Services.Interfaces
         /// </summary>
         /// <param name="newCustomer">Обновленный пользователь</param>
         /// <returns>Обновленный пользователь</returns>
-        public async Task<Customer> UpdateCustomer(CustomerTable newCustomer)
+        public async Task<CustomerTable> UpdateCustomer(CustomerTable newCustomer)
         {
             var oldCustomer = await GetCustomer(newCustomer.Id);
 
