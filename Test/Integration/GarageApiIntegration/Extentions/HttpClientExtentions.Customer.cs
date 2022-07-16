@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Net.Http.Json;
 using GarageAPI.Controllers.Schemas;
+using DeepEqual.Syntax;
 using DTO = GarageDataBase.DTO;
 namespace GarageApiIntegration.Extentions
 {
@@ -14,10 +15,12 @@ namespace GarageApiIntegration.Extentions
             var customer = await result.Content.ReadFromJsonAsync<DTO.Customer>();
 
             Assert.NotNull(customer);
-            Assert.Equal(request.Email, customer.Email);
-            Assert.Equal(request.FirstName, customer.FirstName);
-            Assert.Equal(request.LastName, customer.LastName);
-            Assert.Equal(request.SecondName, customer.SecondName);
+            customer.WithDeepEqual(request)
+                .IgnoreSourceProperty(s => s.Id)
+                .IgnoreSourceProperty(s => s.Status)
+                .IgnoreDestinationProperty(d => d.VisitCount)
+                .IgnoreDestinationProperty(d => d.CustomerStateId)
+                .Assert();
             Assert.Equal(expectedStatus, customer.Status);
 
             return customer;

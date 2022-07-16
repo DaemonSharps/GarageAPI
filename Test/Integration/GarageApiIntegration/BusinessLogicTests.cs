@@ -4,6 +4,7 @@ using GarageAPI;
 using GarageAPI.Controllers.Schemas;
 using GarageApiIntegration.Common;
 using GarageApiIntegration.Extentions;
+using DeepEqual.Syntax;
 using CustomerDTO = GarageDataBase.DTO.Customer;
 using RecordDTO = GarageDataBase.DTO.Record;
 
@@ -34,12 +35,7 @@ public class BusinessLogicTests : ApiTestBase
         };
         var filteredCustomers = await Client.GetCustomersByFilter(customerFilterRequest);
         var filteredCustomer = Assert.Single(filteredCustomers);
-
-        Assert.Equal(filteredCustomer.Email, customer.Email);
-        Assert.Equal(filteredCustomer.FirstName, customer.FirstName);
-        Assert.Equal(filteredCustomer.LastName, customer.LastName);
-        Assert.Equal(filteredCustomer.SecondName, customer.SecondName);
-        Assert.Equal(filteredCustomer.Status, customer.Status);
+        filteredCustomer.ShouldDeepEqual(customer);
 
         var createRecordRequest = new CreateRecordRequest
         {
@@ -61,17 +57,7 @@ public class BusinessLogicTests : ApiTestBase
         var filteredRecords = await Client.GetRecordsByFilter(filterRequest);
         Assert.NotEmpty(filteredRecords);
         var filteredRecord = Assert.Single(filteredRecords);
-        Assert.Equal(filteredRecord.Date, record.Date);
-        Assert.Equal(filteredRecord.Customer.Id, record.Customer.Id);
-        Assert.Equal(filteredRecord.PlaceNumber, record.PlaceNumber);
-        Assert.Equal(filteredRecord.Status, record.Status);
-        Assert.Equal(filteredRecord.Time, record.Time);
-        var recordCustomerDTO = filteredRecord.Customer;
-        Assert.Equal(recordCustomerDTO.Email, customer.Email);
-        Assert.Equal(recordCustomerDTO.FirstName, customer.FirstName);
-        Assert.Equal(recordCustomerDTO.LastName, customer.LastName);
-        Assert.Equal(recordCustomerDTO.SecondName, customer.SecondName);
-        Assert.Equal("Clear", recordCustomerDTO.Status);
+        filteredRecord.ShouldDeepEqual(record);
     }
 
     [Fact]
@@ -106,17 +92,7 @@ public class BusinessLogicTests : ApiTestBase
         };
         var filteredRecords = await Client.GetRecordsByFilter(filterRequest);
         var filteredRecord = Assert.Single(filteredRecords);
-        Assert.Equal(filteredRecord.Date, record.Date);
-        Assert.Equal(filteredRecord.Customer.Id, record.Customer.Id);
-        Assert.Equal(filteredRecord.PlaceNumber, record.PlaceNumber);
-        Assert.Equal(filteredRecord.Status, record.Status);
-        Assert.Equal(filteredRecord.Time, record.Time);
-        var recordCustomerDTO = filteredRecord.Customer;
-        Assert.Equal(recordCustomerDTO.Email, customer.Email);
-        Assert.Equal(recordCustomerDTO.FirstName, customer.FirstName);
-        Assert.Equal(recordCustomerDTO.LastName, customer.LastName);
-        Assert.Equal(recordCustomerDTO.SecondName, customer.SecondName);
-        Assert.Equal("Clear", recordCustomerDTO.Status);
+        filteredRecord.ShouldDeepEqual(record);
     }
 
     [Fact]
@@ -183,10 +159,9 @@ public class BusinessLogicTests : ApiTestBase
         createRecordRequest.Time = "00:00";
         var updatedRecord = await Client.CreateOrUpdateRecord(createRecordRequest, customer);
 
-        Assert.Equal(createdRecord.Date, updatedRecord.Date);
-        Assert.Equal(createdRecord.Customer.Id, updatedRecord.Customer.Id);
-        Assert.Equal(createdRecord.PlaceNumber, updatedRecord.PlaceNumber);
-        Assert.Equal(createdRecord.Status, updatedRecord.Status);
+        updatedRecord.WithDeepEqual(createdRecord)
+            .IgnoreProperty<RecordDTO>(r => r.Time)
+            .Assert();
         Assert.NotEqual(createdRecord.Time, updatedRecord.Time);
     }
 }
