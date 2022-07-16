@@ -1,5 +1,4 @@
 ﻿using GarageAPI.Controllers.Schemas;
-using GarageDataBase.Tables;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
@@ -12,18 +11,13 @@ using System.Threading;
 
 namespace GarageAPI.Controllers;
 
-/// <summary>
-/// Контроллер api записей
-/// </summary>
 [Route("api/[controller]")]
 [ApiController]
 [Produces("application/json")]
 public class RecordsController : ControllerBase
 {
-    /// <summary>
-    /// Получить записи по фильтру
-    /// </summary>
     [HttpGet]
+    [SwaggerOperation("Получить записи по фильтру")]
     [SwaggerResponse(200, "Records find", typeof(List<Record>))]
     [SwaggerResponse(400, Type = typeof(string))]
     public async Task<IActionResult> Get([FromQuery] GetRecordsByFilterRequest request, [FromServices] GarageDataBase.GarageDBContext dBContext, CancellationToken cancellationToken)
@@ -45,10 +39,6 @@ public class RecordsController : ControllerBase
                 return Ok(records.OrderBy(r => r.Date).ToArray());
             else return NotFound();
         }
-        catch (ArgumentException ex)
-        {
-            return BadRequest(ex.Message);
-        }
         catch (Exception ex)
         {
             return BadRequest(ex.Message);
@@ -56,10 +46,8 @@ public class RecordsController : ControllerBase
 
     }
 
-    /// <summary>
-    /// Создать или обновить запись
-    /// </summary>
     [HttpPost]
+    [SwaggerOperation("Создать или обновить запись")]
     [SwaggerResponse(200, Type = typeof(Record))]
     [SwaggerResponse(400, Type = typeof(string))]
     public async Task<IActionResult> Post([FromBody] CreateRecordRequest request, [FromServices] GarageDataBase.GarageDBContext dBContext, CancellationToken cancellationToken)
@@ -92,10 +80,6 @@ public class RecordsController : ControllerBase
             }
 
             return Ok(record);
-        }
-        catch (ArgumentException ex)
-        {
-            return BadRequest(ex.Message);
         }
         catch (Exception ex)
         {

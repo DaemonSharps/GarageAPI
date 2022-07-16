@@ -28,14 +28,15 @@ public class Startup
         services.AddDbContext<GarageDBContext>(builder => builder.UseInMemoryDatabase("Garage_DB_Test"));
 #else
         services.AddDbContext<GarageDBContext>(builder =>
-                builder.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")),
-                b => b.MigrationsAssembly(typeof(Startup).Assembly.GetName().Name)));
+                builder.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
+                    b => b.MigrationsAssembly(typeof(Startup).Assembly.GetName().Name)));
 #endif
 
         services.AddCors();
 
         services.AddSwaggerGen(setup =>
         {
+            setup.EnableAnnotations();
             setup.SwaggerDoc(
                 "v1.0",
                 new OpenApiInfo
@@ -44,7 +45,10 @@ public class Startup
                     Version = "1.0"
                 });
             setup.CustomSchemaIds(type => type.ToString());
-            var filePath = Path.Combine(AppContext.BaseDirectory, "GarageApiDocumentation.xml");
+            var basePath = AppContext.BaseDirectory + "/Documentation";
+            var filePath = Path.Combine(basePath, "GarageApiDocumentation.xml");
+            setup.IncludeXmlComments(filePath);
+            filePath = Path.Combine(basePath, "GarageDataBaseDocumentation.xml");
             setup.IncludeXmlComments(filePath);
         });
     }
