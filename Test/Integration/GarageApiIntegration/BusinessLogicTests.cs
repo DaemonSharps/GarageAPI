@@ -1,8 +1,8 @@
-﻿using System.Globalization;
-using System.Net.Http.Json;
-using GarageAPI;
+﻿using GarageAPI;
 using GarageAPI.Controllers.Schemas;
 using GarageApiIntegration.Common;
+using GarageApiIntegration.Extentions;
+using DeepEqual.Syntax;
 using CustomerDTO = GarageDataBase.DTO.Customer;
 using RecordDTO = GarageDataBase.DTO.Record;
 
@@ -23,24 +23,17 @@ public class BusinessLogicTests : ApiTestBase
             LastName = "ln",
             SecondName = "sn"
         };
-        var result = await Client.PostAsJsonAsync("/api/customers", request);
-        result.EnsureSuccessStatusCode();
-        var customer = await result.Content.ReadFromJsonAsync<CustomerDTO>();
-        Assert.NotNull(customer);
-        Assert.Equal(request.Email, customer.Email);
-        Assert.Equal(request.FirstName, customer.FirstName);
-        Assert.Equal(request.LastName, customer.LastName);
-        Assert.Equal(request.SecondName, customer.SecondName);
-        Assert.Equal("Clear", customer.Status);
+        var customer = await Client.GetOrCreateCustomer(request, "Clear");
 
-        var result4 = await Client.GetFromJsonAsync<List<CustomerDTO>>($"/api/customers?Email={customer.Email}&Page=1&PerPage=10");
-        var CustomerDTO = Assert.Single(result4);
-
-        Assert.Equal(CustomerDTO.Email, customer.Email);
-        Assert.Equal(CustomerDTO.FirstName, customer.FirstName);
-        Assert.Equal(CustomerDTO.LastName, customer.LastName);
-        Assert.Equal(CustomerDTO.SecondName, customer.SecondName);
-        Assert.Equal("Clear", CustomerDTO.Status);
+        var customerFilterRequest = new GetCustomersByFilterRequest
+        {
+            Email = customer.Email,
+            Page = 1,
+            PerPage = 10
+        };
+        var filteredCustomers = await Client.GetCustomersByFilter(customerFilterRequest);
+        var filteredCustomer = Assert.Single(filteredCustomers);
+        filteredCustomer.ShouldDeepEqual(customer);
 
         var createRecordRequest = new CreateRecordRequest
         {
@@ -50,38 +43,19 @@ public class BusinessLogicTests : ApiTestBase
             RecordStateId = 1,
             Time = "22:00"
         };
-        var result2 = await Client.PostAsJsonAsync("/api/records", createRecordRequest);
-        result2.EnsureSuccessStatusCode();
-        var record = await result2.Content.ReadFromJsonAsync<RecordDTO>();
-        Assert.NotNull(record);
-        Assert.Equal(createRecordRequest.Date, record.Date);
-        Assert.Equal(createRecordRequest.CustomerId, record.Customer.Id);
-        Assert.Equal(createRecordRequest.PlaceNumber, record.PlaceNumber);
-        Assert.Equal("Approved", record.Status);
-        Assert.Equal(createRecordRequest.Time, record.Time);
-        var recordCustomer = record.Customer;
-        Assert.Equal(recordCustomer.Email, customer.Email);
-        Assert.Equal(recordCustomer.FirstName, customer.FirstName);
-        Assert.Equal(recordCustomer.LastName, customer.LastName);
-        Assert.Equal(recordCustomer.SecondName, customer.SecondName);
-        Assert.Equal("Clear", recordCustomer.Status);
+        var record = await Client.CreateOrUpdateRecord(createRecordRequest, customer);
 
-        var date = createRecordRequest.Date.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
-        var querry = $"?CustomerId={customer.Id}&Date={date}&Page=1&PerPage=10";
-        var result3 = await Client.GetFromJsonAsync<List<RecordDTO>>($"/api/records" + querry);
-        Assert.NotNull(result3);
-        var RecordDTO = Assert.Single(result3);
-        Assert.Equal(RecordDTO.Date, record.Date);
-        Assert.Equal(RecordDTO.Customer.Id, record.Customer.Id);
-        Assert.Equal(RecordDTO.PlaceNumber, record.PlaceNumber);
-        Assert.Equal(RecordDTO.Status, record.Status);
-        Assert.Equal(RecordDTO.Time, record.Time);
-        var recordCustomerDTO = RecordDTO.Customer;
-        Assert.Equal(recordCustomerDTO.Email, customer.Email);
-        Assert.Equal(recordCustomerDTO.FirstName, customer.FirstName);
-        Assert.Equal(recordCustomerDTO.LastName, customer.LastName);
-        Assert.Equal(recordCustomerDTO.SecondName, customer.SecondName);
-        Assert.Equal("Clear", recordCustomerDTO.Status);
+        var filterRequest = new GetRecordsByFilterRequest
+        {
+            Date = createRecordRequest.Date,
+            CustomerId = customer.Id,
+            Page = 1,
+            PerPage = 10
+        };
+        var filteredRecords = await Client.GetRecordsByFilter(filterRequest);
+        Assert.NotEmpty(filteredRecords);
+        var filteredRecord = Assert.Single(filteredRecords);
+        filteredRecord.ShouldDeepEqual(record);
     }
 
     [Fact]
@@ -95,15 +69,7 @@ public class BusinessLogicTests : ApiTestBase
             CustomerStateId = 1,
             Email = "ar-seny@mail.ru"
         };
-        var result = await Client.PostAsJsonAsync("/api/customers", request);
-        result.EnsureSuccessStatusCode();
-        var customer = await result.Content.ReadFromJsonAsync<CustomerDTO>();
-        Assert.NotNull(customer);
-        Assert.Equal(request.Email, customer.Email);
-        Assert.Equal(request.FirstName, customer.FirstName);
-        Assert.Equal(request.LastName, customer.LastName);
-        Assert.Equal(request.SecondName, customer.SecondName);
-        Assert.Equal("Clear", customer.Status);
+        var customer = await Client.GetOrCreateCustomer(request, "Clear");
 
         var createRecordRequest = new CreateRecordRequest
         {
@@ -113,43 +79,31 @@ public class BusinessLogicTests : ApiTestBase
             RecordStateId = 1,
             Time = "22:00"
         };
-        var result2 = await Client.PostAsJsonAsync("/api/records", createRecordRequest);
-        result2.EnsureSuccessStatusCode();
-        var record = await result2.Content.ReadFromJsonAsync<RecordDTO>();
-        Assert.NotNull(record);
-        Assert.Equal(createRecordRequest.Date, record.Date);
-        Assert.Equal(createRecordRequest.CustomerId, record.Customer.Id);
-        Assert.Equal(createRecordRequest.PlaceNumber, record.PlaceNumber);
-        Assert.Equal("Approved", record.Status);
-        Assert.Equal(createRecordRequest.Time, record.Time);
-        var recordCustomer = record.Customer;
-        Assert.Equal(recordCustomer.Email, customer.Email);
-        Assert.Equal(recordCustomer.FirstName, customer.FirstName);
-        Assert.Equal(recordCustomer.LastName, customer.LastName);
-        Assert.Equal(recordCustomer.SecondName, customer.SecondName);
-        Assert.Equal("Clear", recordCustomer.Status);
+        var record = await Client.CreateOrUpdateRecord(createRecordRequest, customer);
 
-        var date = createRecordRequest.Date.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
-        var querry = $"?CustomerId={customer.Id}&Date={date}&Page=1&PerPage=10";
-        var result3 = await Client.GetFromJsonAsync<List<RecordDTO>>($"/api/records" + querry);
-        Assert.NotNull(result3);
-        var RecordDTO = Assert.Single(result3);
-        Assert.Equal(RecordDTO.Date, record.Date);
-        Assert.Equal(RecordDTO.Customer.Id, record.Customer.Id);
-        Assert.Equal(RecordDTO.PlaceNumber, record.PlaceNumber);
-        Assert.Equal(RecordDTO.Status, record.Status);
-        Assert.Equal(RecordDTO.Time, record.Time);
-        var recordCustomerDTO = RecordDTO.Customer;
-        Assert.Equal(recordCustomerDTO.Email, customer.Email);
-        Assert.Equal(recordCustomerDTO.FirstName, customer.FirstName);
-        Assert.Equal(recordCustomerDTO.LastName, customer.LastName);
-        Assert.Equal(recordCustomerDTO.SecondName, customer.SecondName);
-        Assert.Equal("Clear", recordCustomerDTO.Status);
+        var filterRequest = new GetRecordsByFilterRequest
+        {
+            Date = createRecordRequest.Date,
+            CustomerId = customer.Id,
+            Page = 1,
+            PerPage = 10
+        };
+        var filteredRecords = await Client.GetRecordsByFilter(filterRequest);
+        var filteredRecord = Assert.Single(filteredRecords);
+        filteredRecord.ShouldDeepEqual(record);
     }
 
     [Fact]
     public async Task CreateNumberRequestAndGet()
     {
+        var customer = new CustomerDTO
+        {
+            FirstName = "Арсений",
+            SecondName = "Васильев",
+            LastName = "Тестовый",
+            Status = "Clear",
+            Email = "ar-seny@mail.ru"
+        };
         var dateFrom = DateTime.Today.AddDays(2);
         for (int i = 0; i < 3; i++)
         {
@@ -161,30 +115,34 @@ public class BusinessLogicTests : ApiTestBase
                 RecordStateId = 1,
                 Time = "22:00"
             };
-            var result2 = await Client.PostAsJsonAsync("/api/records", createRecordRequest);
-            result2.EnsureSuccessStatusCode();
-            var record = await result2.Content.ReadFromJsonAsync<RecordDTO>();
-            Assert.NotNull(record);
-            Assert.Equal(createRecordRequest.Date, record.Date);
-            Assert.Equal(createRecordRequest.CustomerId, record.Customer.Id);
-            Assert.Equal(createRecordRequest.PlaceNumber, record.PlaceNumber);
-            Assert.Equal("Approved", record.Status);
-            Assert.Equal(createRecordRequest.Time, record.Time);
-            Assert.NotNull(record.Customer);
+            await Client.CreateOrUpdateRecord(createRecordRequest, customer);
         }
 
-        var dateFromRequest = dateFrom.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
-        var dateToRequest = dateFrom.AddDays(3).ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
-        var querry = $"?CustomerId=1&DateFrom={dateFromRequest}&Date={dateToRequest}&Page=1&PerPage=10";
-        var result3 = await Client.GetFromJsonAsync<List<RecordDTO>>($"/api/records" + querry);
-        Assert.NotNull(result3);
-        Assert.Equal(3, result3.Count);
+        var filterRequest = new GetRecordsByFilterRequest
+        {
+            DateFrom = dateFrom,
+            Date = dateFrom.AddDays(3),
+            CustomerId = customer.Id,
+            Page = 1,
+            PerPage = 10
+        };
+        var filteredRecords = await Client.GetRecordsByFilter(filterRequest);
+        Assert.Equal(3, filteredRecords.Count);
     }
 
     [Fact]
     public async Task UpdateExistingRecord()
     {
         var dateFrom = DateTime.Today.AddDays(2);
+
+        var customer = new CustomerDTO
+        {
+            FirstName = "Арсений",
+            SecondName = "Васильев",
+            LastName = "Тестовый",
+            Status = "Clear",
+            Email = "ar-seny@mail.ru"
+        };
 
         var createRecordRequest = new CreateRecordRequest
         {
@@ -194,28 +152,14 @@ public class BusinessLogicTests : ApiTestBase
             RecordStateId = 1,
             Time = "22:00"
         };
-        var result2 = await Client.PostAsJsonAsync("/api/records", createRecordRequest);
-        result2.EnsureSuccessStatusCode();
-        var record = await result2.Content.ReadFromJsonAsync<RecordDTO>();
-        Assert.NotNull(record);
-        Assert.Equal(createRecordRequest.Date, record.Date);
-        Assert.Equal(createRecordRequest.CustomerId, record.Customer.Id);
-        Assert.Equal(createRecordRequest.PlaceNumber, record.PlaceNumber);
-        Assert.Equal("Approved", record.Status);
-        Assert.Equal(createRecordRequest.Time, record.Time);
-        Assert.NotNull(record.Customer);
+        var createdRecord = await Client.CreateOrUpdateRecord(createRecordRequest, customer);
 
         createRecordRequest.Time = "00:00";
-        var result3 = await Client.PostAsJsonAsync("/api/records", createRecordRequest);
-        result3.EnsureSuccessStatusCode();
-        var record3 = await result3.Content.ReadFromJsonAsync<RecordDTO>();
-        Assert.NotNull(record);
-        Assert.Equal(createRecordRequest.Date, record3.Date);
-        Assert.Equal(createRecordRequest.CustomerId, record3.Customer.Id);
-        Assert.Equal(createRecordRequest.PlaceNumber, record3.PlaceNumber);
-        Assert.Equal("Approved", record3.Status);
-        Assert.Equal(createRecordRequest.Time, record3.Time);
-        Assert.NotNull(record3.Customer);
+        var updatedRecord = await Client.CreateOrUpdateRecord(createRecordRequest, customer);
 
+        updatedRecord.WithDeepEqual(createdRecord)
+            .IgnoreProperty<RecordDTO>(r => r.Time)
+            .Assert();
+        Assert.NotEqual(createdRecord.Time, updatedRecord.Time);
     }
 }

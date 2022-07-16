@@ -17,15 +17,13 @@
 			<PrivateAssets>all</PrivateAssets>
 		</PackageReference>
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="6.0.7" />
+		<PackageReference Include="DeepEqual" Version="2.0.0" />
 	</ItemGroup>
 	<ItemGroup>
-		<None Remove="Common\" />
 		<None Remove="Microsoft.AspNetCore.Mvc.Testing" />
+		<None Remove="DeepEqual" />
 	</ItemGroup>
 	<ItemGroup>
-		<Folder Include="Common\" />
-	</ItemGroup>
-	<ItemGroup>
-	  <ProjectReference Include="..\..\..\src\GarageApi\GarageAPI.csproj" />
+		<ProjectReference Include="..\..\..\src\GarageApi\GarageAPI.csproj" />
 	</ItemGroup>
 </Project>
