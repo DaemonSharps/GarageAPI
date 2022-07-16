@@ -31,7 +31,7 @@ public class Customer
     public string Email { get; set; }
 
     /// <summary>
-    /// Id статуса
+    /// Статус пользователя
     /// </summary>
     public string Status { get; set; }
 }

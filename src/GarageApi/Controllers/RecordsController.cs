@@ -1,5 +1,4 @@
 ﻿using GarageAPI.Controllers.Schemas;
-using GarageDataBase.Tables;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
@@ -39,10 +38,6 @@ public class RecordsController : ControllerBase
             if (records.Any())
                 return Ok(records.OrderBy(r => r.Date).ToArray());
             else return NotFound();
-        }
-        catch (ArgumentException ex)
-        {
-            return BadRequest(ex.Message);
         }
         catch (Exception ex)
         {
@@ -85,10 +80,6 @@ public class RecordsController : ControllerBase
             }
 
             return Ok(record);
-        }
-        catch (ArgumentException ex)
-        {
-            return BadRequest(ex.Message);
         }
         catch (Exception ex)
         {

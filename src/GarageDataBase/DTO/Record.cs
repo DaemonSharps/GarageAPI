@@ -23,7 +23,7 @@ public class Record
     public int PlaceNumber { get; set; }
 
     /// <summary>
-    /// Id статуса записи
+    /// Статус записи
     /// </summary>
     public string Status { get; set; }
 
