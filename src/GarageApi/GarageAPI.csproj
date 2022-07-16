@@ -5,8 +5,8 @@
 		<DocumentationFile>GarageApiDocumentation.xml</DocumentationFile>
 	</PropertyGroup>
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-	  <WarningLevel>4</WarningLevel>
-	  <NoWarn>1701;1702;1591</NoWarn>
+		<WarningLevel>4</WarningLevel>
+		<NoWarn>1701;1702;1591</NoWarn>
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.7" />
@@ -23,16 +23,20 @@
 		</PackageReference>
 	</ItemGroup>
 	<ItemGroup>
-	  <None Remove="GarageApiDocumentation.xml" />
+		<None Remove="GarageApiDocumentation.xml" />
 	</ItemGroup>
 	<ItemGroup>
-	  <EmbeddedResource Include="GarageApiDocumentation.xml">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </EmbeddedResource>
+		<EmbeddedResource Include="GarageApiDocumentation.xml">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</EmbeddedResource>
+		<EmbeddedResource Include="GarageDataBaseDocumentation.xml">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</EmbeddedResource>
 	</ItemGroup>
 	<ItemGroup>
-	  <ProjectReference Include="..\GarageDataBase\GarageDataBase.csproj">
-	    <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
-	  </ProjectReference>
+		<ProjectReference Include="..\GarageDataBase\GarageDataBase.csproj">
+			<GlobalPropertiesToRemove>
+			</GlobalPropertiesToRemove>
+		</ProjectReference>
 	</ItemGroup>
 </Project>

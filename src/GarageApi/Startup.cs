@@ -47,6 +47,8 @@ public class Startup
             setup.CustomSchemaIds(type => type.ToString());
             var filePath = Path.Combine(AppContext.BaseDirectory, "GarageApiDocumentation.xml");
             setup.IncludeXmlComments(filePath);
+            filePath = Path.Combine(AppContext.BaseDirectory, "GarageDataBaseDocumentation.xml");
+            setup.IncludeXmlComments(filePath);
         });
     }
 
