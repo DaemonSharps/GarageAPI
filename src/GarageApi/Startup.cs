@@ -45,9 +45,10 @@ public class Startup
                     Version = "1.0"
                 });
             setup.CustomSchemaIds(type => type.ToString());
-            var filePath = Path.Combine(AppContext.BaseDirectory, "GarageApiDocumentation.xml");
+            var basePath = AppContext.BaseDirectory + "/Documentation";
+            var filePath = Path.Combine(basePath, "GarageApiDocumentation.xml");
             setup.IncludeXmlComments(filePath);
-            filePath = Path.Combine(AppContext.BaseDirectory, "GarageDataBaseDocumentation.xml");
+            filePath = Path.Combine(basePath, "GarageDataBaseDocumentation.xml");
             setup.IncludeXmlComments(filePath);
         });
     }
