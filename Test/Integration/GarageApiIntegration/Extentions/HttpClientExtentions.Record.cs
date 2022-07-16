@@ -18,6 +18,7 @@ public static partial class HttpClientExtentions
         Assert.Equal(request.CustomerId, record.Customer.Id);
         Assert.Equal(request.PlaceNumber, record.PlaceNumber);
         Assert.Equal("Approved", record.Status);
+        Assert.Equal(1, record.RecordStateId);
         Assert.Equal(request.Time, record.Time);
 
         var recordCustomer = record.Customer;
@@ -27,6 +28,7 @@ public static partial class HttpClientExtentions
         Assert.Equal(recordCustomer.LastName, expectedCustomer.LastName);
         Assert.Equal(recordCustomer.SecondName, expectedCustomer.SecondName);
         Assert.Equal(recordCustomer.Status, expectedCustomer.Status);
+
 
         return record;
     }
