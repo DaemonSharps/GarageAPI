@@ -11,21 +11,13 @@ using System.Threading.Tasks;
 
 namespace GarageAPI.Controllers
 {
-    /// <summary>
-    /// Контроллер api пользователей
-    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     [Produces("application/json")]
     public class CustomersController : ControllerBase
     {
-        /// <summary>
-        /// Создать или получить существующего пользователя
-        /// </summary>
-        /// <param name="request">Запрос</param>
-        /// <param name="cancellationToken"></param>
-        /// <param name="context"></param>
         [HttpPost]
+        [SwaggerOperation("Создать или получить существующего пользователя")]
         [SwaggerResponse(200, Type = typeof(Customer))]
         [SwaggerResponse(400, Type = typeof(string))]
         public async Task<IActionResult> Post([FromBody] GetOrSetCustomerRequest request, [FromServices] GarageDataBase.GarageDBContext context, CancellationToken cancellationToken)
@@ -52,13 +44,8 @@ namespace GarageAPI.Controllers
             }
         }
 
-        /// <summary>
-        /// Получить пользователей по фильтру
-        /// </summary>
-        /// <param name="request">Запрос с фильтром</param>
-        /// <param name="cancellationToken"></param>
-        /// <param name="dBContext"></param>
         [HttpGet]
+        [SwaggerOperation("Получить пользователей по фильтру")]
         [SwaggerResponse(200, Type = typeof(List<Customer>))]
         [SwaggerResponse(400, Type = typeof(string))]
         public async Task<IActionResult> Get([FromQuery] GetCustomersByFilterRequest request, [FromServices] GarageDataBase.GarageDBContext dBContext, CancellationToken cancellationToken)

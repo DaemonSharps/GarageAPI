@@ -12,18 +12,13 @@ using System.Threading;
 
 namespace GarageAPI.Controllers;
 
-/// <summary>
-/// Контроллер api записей
-/// </summary>
 [Route("api/[controller]")]
 [ApiController]
 [Produces("application/json")]
 public class RecordsController : ControllerBase
 {
-    /// <summary>
-    /// Получить записи по фильтру
-    /// </summary>
     [HttpGet]
+    [SwaggerOperation("Получить записи по фильтру")]
     [SwaggerResponse(200, "Records find", typeof(List<Record>))]
     [SwaggerResponse(400, Type = typeof(string))]
     public async Task<IActionResult> Get([FromQuery] GetRecordsByFilterRequest request, [FromServices] GarageDataBase.GarageDBContext dBContext, CancellationToken cancellationToken)
@@ -56,10 +51,8 @@ public class RecordsController : ControllerBase
 
     }
 
-    /// <summary>
-    /// Создать или обновить запись
-    /// </summary>
     [HttpPost]
+    [SwaggerOperation("Создать или обновить запись")]
     [SwaggerResponse(200, Type = typeof(Record))]
     [SwaggerResponse(400, Type = typeof(string))]
     public async Task<IActionResult> Post([FromBody] CreateRecordRequest request, [FromServices] GarageDataBase.GarageDBContext dBContext, CancellationToken cancellationToken)

@@ -36,6 +36,7 @@ public class Startup
 
         services.AddSwaggerGen(setup =>
         {
+            setup.EnableAnnotations();
             setup.SwaggerDoc(
                 "v1.0",
                 new OpenApiInfo
