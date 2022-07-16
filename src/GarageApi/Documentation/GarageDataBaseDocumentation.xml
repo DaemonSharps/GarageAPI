@@ -31,7 +31,7 @@
         </member>
         <member name="P:GarageDataBase.DTO.Customer.Status">
             <summary>
-            Id статуса
+            Статус пользователя
             </summary>
         </member>
         <member name="P:GarageDataBase.DTO.Record.Id">
@@ -56,7 +56,7 @@
         </member>
         <member name="P:GarageDataBase.DTO.Record.Status">
             <summary>
-            Id статуса записи
+            Статус записи
             </summary>
         </member>
         <member name="P:GarageDataBase.DTO.Record.Customer">
