@@ -24,24 +24,22 @@ public class BusinessLogicTests : ApiTestBase
             LastName = "ln",
             SecondName = "sn"
         };
-        var result = await Client.PostAsJsonAsync("/api/customers", request);
-        result.EnsureSuccessStatusCode();
-        var customer = await result.Content.ReadFromJsonAsync<CustomerDTO>();
-        Assert.NotNull(customer);
-        Assert.Equal(request.Email, customer.Email);
-        Assert.Equal(request.FirstName, customer.FirstName);
-        Assert.Equal(request.LastName, customer.LastName);
-        Assert.Equal(request.SecondName, customer.SecondName);
-        Assert.Equal("Clear", customer.Status);
+        var customer = await Client.GetOrCreateCustomer(request, "Clear");
 
-        var result4 = await Client.GetFromJsonAsync<List<CustomerDTO>>($"/api/customers?Email={customer.Email}&Page=1&PerPage=10");
-        var CustomerDTO = Assert.Single(result4);
+        var customerFilterRequest = new GetCustomersByFilterRequest
+        {
+            Email = customer.Email,
+            Page = 1,
+            PerPage = 10
+        };
+        var filteredCustomers = await Client.GetCustomersByFilter(customerFilterRequest);
+        var filteredCustomer = Assert.Single(filteredCustomers);
 
-        Assert.Equal(CustomerDTO.Email, customer.Email);
-        Assert.Equal(CustomerDTO.FirstName, customer.FirstName);
-        Assert.Equal(CustomerDTO.LastName, customer.LastName);
-        Assert.Equal(CustomerDTO.SecondName, customer.SecondName);
-        Assert.Equal("Clear", CustomerDTO.Status);
+        Assert.Equal(filteredCustomer.Email, customer.Email);
+        Assert.Equal(filteredCustomer.FirstName, customer.FirstName);
+        Assert.Equal(filteredCustomer.LastName, customer.LastName);
+        Assert.Equal(filteredCustomer.SecondName, customer.SecondName);
+        Assert.Equal(filteredCustomer.Status, customer.Status);
 
         var createRecordRequest = new CreateRecordRequest
         {
@@ -87,15 +85,7 @@ public class BusinessLogicTests : ApiTestBase
             CustomerStateId = 1,
             Email = "ar-seny@mail.ru"
         };
-        var result = await Client.PostAsJsonAsync("/api/customers", request);
-        result.EnsureSuccessStatusCode();
-        var customer = await result.Content.ReadFromJsonAsync<CustomerDTO>();
-        Assert.NotNull(customer);
-        Assert.Equal(request.Email, customer.Email);
-        Assert.Equal(request.FirstName, customer.FirstName);
-        Assert.Equal(request.LastName, customer.LastName);
-        Assert.Equal(request.SecondName, customer.SecondName);
-        Assert.Equal("Clear", customer.Status);
+        var customer = await Client.GetOrCreateCustomer(request, "Clear");
 
         var createRecordRequest = new CreateRecordRequest
         {
