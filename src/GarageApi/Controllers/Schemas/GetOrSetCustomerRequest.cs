@@ -29,11 +29,6 @@ public class GetOrSetCustomerRequest
     public string Email { get; set; }
 
     /// <summary>
-    /// Количество посещений
-    /// </summary>
-    public long VisitCount { get; set; }
-
-    /// <summary>
     /// Id статуса
     /// </summary>
     public long CustomerStateId { get; set; }

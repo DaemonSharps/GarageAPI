@@ -16,7 +16,6 @@ public static partial class HttpClientExtentions
         customer.WithDeepEqual(request)
             .IgnoreSourceProperty(s => s.Id)
             .IgnoreSourceProperty(s => s.Status)
-            .IgnoreDestinationProperty(d => d.VisitCount)
             .IgnoreDestinationProperty(d => d.CustomerStateId)
             .Assert();
         Assert.Equal(expectedStatus, customer.Status);

@@ -18,4 +18,9 @@ public class GetCustomersByFilterRequest : GetOrSetCustomerRequest
     /// </summary>
     [Required]
     public int PerPage { get; set; }
+
+    /// <summary>
+    /// Количество посещений
+    /// </summary>
+    public long VisitCount { get; set; }
 }
