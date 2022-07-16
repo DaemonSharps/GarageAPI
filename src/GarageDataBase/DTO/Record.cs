@@ -28,6 +28,12 @@ public class Record
     public string Status { get; set; }
 
     /// <summary>
+    /// Id статуса записи
+    /// Устарело - использовать <see cref="Status"/>
+    /// </summary>
+    public long RecordStateId { get; set; }
+
+    /// <summary>
     /// Записавшийся пользователь
     /// </summary>
     public Customer Customer { get; set; }
