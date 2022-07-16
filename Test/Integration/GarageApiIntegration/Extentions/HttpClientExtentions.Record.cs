@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Globalization;
 using System.Net.Http.Json;
 using GarageAPI.Controllers.Schemas;
 using DTO = GarageDataBase.DTO;
 namespace GarageApiIntegration.Extentions
 {
-    public static class HttpClientExtentions
+    public static partial class HttpClientExtentions
     {
         public static async Task<DTO.Record> CreateOrUpdateRecord(this HttpClient client, CreateRecordRequest request, DTO.Customer expectedCustomer)
         {
@@ -28,6 +29,18 @@ namespace GarageApiIntegration.Extentions
             Assert.Equal(recordCustomer.Status, expectedCustomer.Status);
 
             return record;
+        }
+
+        public static async Task<List<DTO.Record>> GetRecordsByFilter(this HttpClient client, GetRecordsByFilterRequest request)
+        {
+            var dateToString = request.Date.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
+            var querry = $"?CustomerId={request.CustomerId}&Date={dateToString}&Page={request.Page}&PerPage={request.PerPage}";
+            if (request.DateFrom.HasValue)
+            {
+                var dateFromString = request.DateFrom?.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
+                querry += $"&DateFrom={dateFromString}";
+            }
+            return await client.GetFromJsonAsync<List<DTO.Record>>($"/api/records" + querry);
         }
     }
 }

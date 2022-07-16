@@ -53,17 +53,22 @@ public class BusinessLogicTests : ApiTestBase
         };
         var record = await Client.CreateOrUpdateRecord(createRecordRequest, customer);
 
-        var date = createRecordRequest.Date.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
-        var querry = $"?CustomerId={customer.Id}&Date={date}&Page=1&PerPage=10";
-        var result3 = await Client.GetFromJsonAsync<List<RecordDTO>>($"/api/records" + querry);
-        Assert.NotNull(result3);
-        var RecordDTO = Assert.Single(result3);
-        Assert.Equal(RecordDTO.Date, record.Date);
-        Assert.Equal(RecordDTO.Customer.Id, record.Customer.Id);
-        Assert.Equal(RecordDTO.PlaceNumber, record.PlaceNumber);
-        Assert.Equal(RecordDTO.Status, record.Status);
-        Assert.Equal(RecordDTO.Time, record.Time);
-        var recordCustomerDTO = RecordDTO.Customer;
+        var filterRequest = new GetRecordsByFilterRequest
+        {
+            Date = createRecordRequest.Date,
+            CustomerId = customer.Id,
+            Page = 1,
+            PerPage = 10
+        };
+        var filteredRecords = await Client.GetRecordsByFilter(filterRequest);
+        Assert.NotEmpty(filteredRecords);
+        var filteredRecord = Assert.Single(filteredRecords);
+        Assert.Equal(filteredRecord.Date, record.Date);
+        Assert.Equal(filteredRecord.Customer.Id, record.Customer.Id);
+        Assert.Equal(filteredRecord.PlaceNumber, record.PlaceNumber);
+        Assert.Equal(filteredRecord.Status, record.Status);
+        Assert.Equal(filteredRecord.Time, record.Time);
+        var recordCustomerDTO = filteredRecord.Customer;
         Assert.Equal(recordCustomerDTO.Email, customer.Email);
         Assert.Equal(recordCustomerDTO.FirstName, customer.FirstName);
         Assert.Equal(recordCustomerDTO.LastName, customer.LastName);
@@ -102,17 +107,21 @@ public class BusinessLogicTests : ApiTestBase
         };
         var record = await Client.CreateOrUpdateRecord(createRecordRequest, customer);
 
-        var date = createRecordRequest.Date.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
-        var querry = $"?CustomerId={customer.Id}&Date={date}&Page=1&PerPage=10";
-        var result3 = await Client.GetFromJsonAsync<List<RecordDTO>>($"/api/records" + querry);
-        Assert.NotNull(result3);
-        var RecordDTO = Assert.Single(result3);
-        Assert.Equal(RecordDTO.Date, record.Date);
-        Assert.Equal(RecordDTO.Customer.Id, record.Customer.Id);
-        Assert.Equal(RecordDTO.PlaceNumber, record.PlaceNumber);
-        Assert.Equal(RecordDTO.Status, record.Status);
-        Assert.Equal(RecordDTO.Time, record.Time);
-        var recordCustomerDTO = RecordDTO.Customer;
+        var filterRequest = new GetRecordsByFilterRequest
+        {
+            Date = createRecordRequest.Date,
+            CustomerId = customer.Id,
+            Page = 1,
+            PerPage = 10
+        };
+        var filteredRecords = await Client.GetRecordsByFilter(filterRequest);
+        var filteredRecord = Assert.Single(filteredRecords);
+        Assert.Equal(filteredRecord.Date, record.Date);
+        Assert.Equal(filteredRecord.Customer.Id, record.Customer.Id);
+        Assert.Equal(filteredRecord.PlaceNumber, record.PlaceNumber);
+        Assert.Equal(filteredRecord.Status, record.Status);
+        Assert.Equal(filteredRecord.Time, record.Time);
+        var recordCustomerDTO = filteredRecord.Customer;
         Assert.Equal(recordCustomerDTO.Email, customer.Email);
         Assert.Equal(recordCustomerDTO.FirstName, customer.FirstName);
         Assert.Equal(recordCustomerDTO.LastName, customer.LastName);
@@ -145,12 +154,16 @@ public class BusinessLogicTests : ApiTestBase
             await Client.CreateOrUpdateRecord(createRecordRequest, customer);
         }
 
-        var dateFromRequest = dateFrom.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
-        var dateToRequest = dateFrom.AddDays(3).ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
-        var querry = $"?CustomerId=1&DateFrom={dateFromRequest}&Date={dateToRequest}&Page=1&PerPage=10";
-        var result3 = await Client.GetFromJsonAsync<List<RecordDTO>>($"/api/records" + querry);
-        Assert.NotNull(result3);
-        Assert.Equal(3, result3.Count);
+        var filterRequest = new GetRecordsByFilterRequest
+        {
+            DateFrom = dateFrom,
+            Date = dateFrom.AddDays(3),
+            CustomerId = customer.Id,
+            Page = 1,
+            PerPage = 10
+        };
+        var filteredRecords = await Client.GetRecordsByFilter(filterRequest);
+        Assert.Equal(3, filteredRecords.Count);
     }
 
     [Fact]
