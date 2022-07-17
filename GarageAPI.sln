@@ -1,4 +1,4 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31515.178
@@ -12,6 +12,19 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GarageAPI", "src\GarageApi\GarageAPI.csproj", "{165857D7-2F38-4AAE-9383-3758CB73059C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GarageDataBase", "src\GarageDataBase\GarageDataBase.csproj", "{93B7D319-D1A1-46EB-9551-2C3872887C92}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{BE79CAC8-2E0E-42B1-8170-5786B40C21E1}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+		.gitignore = .gitignore
+		.gitattributes = .gitattributes
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{A0B9C86E-1EE8-4566-A7A9-387C74F5E5BE}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\Build_PR.yml = .github\workflows\Build_PR.yml
+		.github\workflows\Build.yml = .github\workflows\Build.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,5 +54,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{5D74CEC1-0D2B-44DB-BA34-3D6DE93B87B2} = {E297D658-39F8-44F6-BCCA-60E393022CC6}
 		{2BBF7E86-4C10-4952-9285-8768DBD5F565} = {5D74CEC1-0D2B-44DB-BA34-3D6DE93B87B2}
+		{A0B9C86E-1EE8-4566-A7A9-387C74F5E5BE} = {BE79CAC8-2E0E-42B1-8170-5786B40C21E1}
 	EndGlobalSection
 EndGlobal
