@@ -1,0 +1,15 @@
+name: "Verify pull request labels"
+
+on:
+  pull_request:
+    branches: [ master ]
+    types: [opened, reopened, synchronize]
+
+jobs:
+  triage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: zwaldowski/match-label-action@v4
+        with:
+          allowed: bug, enhancement, documentation
+          allowed_multiple: major, minor, patch
