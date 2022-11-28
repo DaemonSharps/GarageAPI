@@ -365,3 +365,6 @@ FodyWeavers.xsd
 
 # documentation - auto generated
 **/Documentation/*.xml
+
+#Mac OS
+**/.DS_Store
