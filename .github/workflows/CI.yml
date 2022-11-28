@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ master ]
+
+jobs:
+
+  build:
+    name: Сборка .NET
+    uses: DaemonSharps/CI-CD/.github/workflows/build.yml@stable
+      
+  update_draft_release:
+    name: Обновление черновика релиза
+    runs-on: ubuntu-latest
+    outputs:
+      release_tag: ${{ steps.release-drafter.outputs.tag_name }}
+    steps:
+
+      - id: release-drafter
+        uses: release-drafter/release-drafter@v5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
