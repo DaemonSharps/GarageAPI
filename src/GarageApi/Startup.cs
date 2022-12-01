@@ -61,11 +61,6 @@ public class Startup
         {
             app.UseDeveloperExceptionPage();
         }
-#if DEBUG
-        using (var scope = app.ApplicationServices.CreateScope())
-        using (var context = scope.ServiceProvider.GetRequiredService<GarageDBContext>())
-            context.Database.EnsureCreated();
-#endif
 
         app.UseSwagger();
         app.UseRouting();
