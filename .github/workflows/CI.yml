@@ -27,6 +27,7 @@ jobs:
     name: Загрузка в Docker hub
     needs:
      - build
+     - update_draft_release
     uses: DaemonSharps/CI-CD/.github/workflows/docker-deploy.yml@stable
     with:
       version_tags: |
