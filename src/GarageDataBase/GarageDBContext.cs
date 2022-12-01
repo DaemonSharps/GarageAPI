@@ -12,8 +12,7 @@ public class GarageDBContext : DbContext
     /// 
     /// </summary>
     /// <param name="options"></param>
-    public GarageDBContext(DbContextOptions<GarageDBContext> options)
-        : base(options)
+    public GarageDBContext(DbContextOptions options) : base(options)
     {
     }
 
