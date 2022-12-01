@@ -23,3 +23,18 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+  upload_on_hub:
+    name: Загрузка в Docker hub
+    needs:
+     - build
+    uses: DaemonSharps/CI-CD/.github/workflows/docker-deploy.yml@stable
+    with:
+      version_tags: |
+        daemonsharps/garage-api:dev-${{ github.run_number }}.${{ github.run_id }}.${{ github.run_attempt }}
+        daemonsharps/garage-api:dev-latest
+        daemonsharps/garage-api:${{ needs.update_draft_release.outputs.release_tag }}
+        daemonsharps/garage-api:latest
+    secrets:
+      DOCKER_LOGIN: ${{ secrets.DOCKER_USER_LOGIN }}
+      DOCKER_TOKEN: ${{ secrets.DOCKER_USER_AUTH_TOKEN }}
+
