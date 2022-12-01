@@ -28,7 +28,7 @@ public class Startup
         services.AddDbContext<GarageDBContext>(builder => builder.UseInMemoryDatabase("Garage_DB_Test"));
 #else
         services.AddDbContext<GarageDBContext>(builder =>
-                builder.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
+                builder.UseSqlServer(Environment.GetEnvironmentVariable("GARAGE_DB_CONNECTION_STRING"),
                     b => b.MigrationsAssembly(typeof(Startup).Assembly.GetName().Name)));
 #endif
 
