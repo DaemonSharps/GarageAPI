@@ -1,0 +1,241 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>GarageDataBase</name>
+    </assembly>
+    <members>
+        <member name="P:GarageDataBase.DTO.Customer.Id">
+            <summary>
+            Id пользователя
+            </summary>
+        </member>
+        <member name="P:GarageDataBase.DTO.Customer.FirstName">
+            <summary>
+            Имя
+            </summary>
+        </member>
+        <member name="P:GarageDataBase.DTO.Customer.SecondName">
+            <summary>
+            Фамилия
+            </summary>
+        </member>
+        <member name="P:GarageDataBase.DTO.Customer.LastName">
+            <summary>
+            Отчество
+            </summary>
+        </member>
+        <member name="P:GarageDataBase.DTO.Customer.Email">
+            <summary>
+            Почта
+            </summary>
+        </member>
+        <member name="P:GarageDataBase.DTO.Customer.Status">
+            <summary>
+            Статус пользователя
+            </summary>
+        </member>
+        <member name="P:GarageDataBase.DTO.Record.Id">
+            <summary>
+            Id записи
+            </summary>
+        </member>
+        <member name="P:GarageDataBase.DTO.Record.Time">
+            <summary>
+            Время записи
+            </summary>
+        </member>
+        <member name="P:GarageDataBase.DTO.Record.Date">
+            <summary>
+            Дата записи
+            </summary>
+        </member>
+        <member name="P:GarageDataBase.DTO.Record.PlaceNumber">
+            <summary>
+            Номер места
+            </summary>
+        </member>
+        <member name="P:GarageDataBase.DTO.Record.Status">
+            <summary>
+            Статус записи
+            </summary>
+        </member>
+        <member name="P:GarageDataBase.DTO.Record.RecordStateId">
+            <summary>
+            Id статуса записи
+            Устарело - использовать <see cref="P:GarageDataBase.DTO.Record.Status"/>
+            </summary>
+        </member>
+        <member name="P:GarageDataBase.DTO.Record.Customer">
+            <summary>
+            Записавшийся пользователь
+            </summary>
+        </member>
+        <member name="T:GarageDataBase.GarageDBContext">
+            <summary>
+            Контекст БД
+            </summary>
+        </member>
+        <member name="M:GarageDataBase.GarageDBContext.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions)">
+            <summary>
+            
+            </summary>
+            <param name="options"></param>
+        </member>
+        <member name="P:GarageDataBase.GarageDBContext.Customers">
+            <summary>
+            Пользователи
+            </summary>
+        </member>
+        <member name="P:GarageDataBase.GarageDBContext.CustomerStates">
+            <summary>
+            Статусы пользователей
+            </summary>
+        </member>
+        <member name="P:GarageDataBase.GarageDBContext.Records">
+            <summary>
+            Записи
+            </summary>
+        </member>
+        <member name="P:GarageDataBase.GarageDBContext.RecordStates">
+            <summary>
+            Статусы записей
+            </summary>
+        </member>
+        <member name="M:GarageDataBase.GarageDBContext.OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <summary>
+            
+            </summary>
+            <param name="builder"></param>
+        </member>
+        <member name="T:GarageDataBase.Tables.CustomerStateTable">
+            <summary>
+            Статус пользователя
+            </summary>
+        </member>
+        <member name="P:GarageDataBase.Tables.CustomerStateTable.Customers">
+            <summary>
+            Пользователи с этим статусом
+            </summary>
+        </member>
+        <member name="T:GarageDataBase.Tables.CustomerTable">
+            <summary>
+            Пользователь
+            </summary>
+        </member>
+        <member name="P:GarageDataBase.Tables.CustomerTable.Id">
+            <summary>
+            Id пользователя
+            </summary>
+        </member>
+        <member name="P:GarageDataBase.Tables.CustomerTable.FirstName">
+            <summary>
+            Имя
+            </summary>
+        </member>
+        <member name="P:GarageDataBase.Tables.CustomerTable.SecondName">
+            <summary>
+            Фамилия
+            </summary>
+        </member>
+        <member name="P:GarageDataBase.Tables.CustomerTable.LastName">
+            <summary>
+            Отчество
+            </summary>
+        </member>
+        <member name="P:GarageDataBase.Tables.CustomerTable.Email">
+            <summary>
+            Почта
+            </summary>
+        </member>
+        <member name="P:GarageDataBase.Tables.CustomerTable.VisitCount">
+            <summary>
+            Количество посещений
+            </summary>
+        </member>
+        <member name="P:GarageDataBase.Tables.CustomerTable.CustomerStateId">
+            <summary>
+            Id статуса
+            </summary>
+        </member>
+        <member name="P:GarageDataBase.Tables.CustomerTable.CustomerState">
+            <summary>
+            Статус пользователя
+            </summary>
+        </member>
+        <member name="P:GarageDataBase.Tables.CustomerTable.Records">
+            <summary>
+            Записи пользователя
+            </summary>
+        </member>
+        <member name="T:GarageDataBase.Tables.RecordStateTable">
+            <summary>
+            Статус записи
+            </summary>
+        </member>
+        <member name="P:GarageDataBase.Tables.RecordStateTable.Records">
+            <summary>
+            Список записей с этим статусом
+            </summary>
+        </member>
+        <member name="T:GarageDataBase.Tables.RecordTable">
+            <summary>
+            Запись
+            </summary>
+        </member>
+        <member name="P:GarageDataBase.Tables.RecordTable.Id">
+            <summary>
+            Id записи
+            </summary>
+        </member>
+        <member name="P:GarageDataBase.Tables.RecordTable.CustomerId">
+            <summary>
+            Id пользователя
+            </summary>
+        </member>
+        <member name="P:GarageDataBase.Tables.RecordTable.Time">
+            <summary>
+            Время записи
+            </summary>
+        </member>
+        <member name="P:GarageDataBase.Tables.RecordTable.Date">
+            <summary>
+            Дата записи
+            </summary>
+        </member>
+        <member name="P:GarageDataBase.Tables.RecordTable.PlaceNumber">
+            <summary>
+            Номер места
+            </summary>
+        </member>
+        <member name="P:GarageDataBase.Tables.RecordTable.RecordStateId">
+            <summary>
+            Id статуса записи
+            </summary>
+        </member>
+        <member name="P:GarageDataBase.Tables.RecordTable.Customer">
+            <summary>
+            Записавшийся пользователь
+            </summary>
+        </member>
+        <member name="P:GarageDataBase.Tables.RecordTable.RecordState">
+            <summary>
+            Статус записи
+            </summary>
+        </member>
+        <member name="T:GarageDataBase.Tables.StateBase">
+            <summary>
+            Класс родитель для статусов
+            </summary>
+        </member>
+        <member name="P:GarageDataBase.Tables.StateBase.Id">
+            <summary>
+            Id Статуса
+            </summary>
+        </member>
+        <member name="P:GarageDataBase.Tables.StateBase.Name">
+            <summary>
+            Имя статуса
+            </summary>
+        </member>
+    </members>
+</doc>

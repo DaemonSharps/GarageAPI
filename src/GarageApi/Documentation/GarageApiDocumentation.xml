@@ -1,0 +1,136 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>GarageAPI</name>
+    </assembly>
+    <members>
+        <member name="T:GarageAPI.Controllers.Schemas.CreateRecordRequest">
+            <summary>
+            Запрос для обновления записей
+            </summary>
+        </member>
+        <member name="P:GarageAPI.Controllers.Schemas.CreateRecordRequest.CustomerId">
+            <summary>
+            Новое Id пользователя
+            </summary>
+        </member>
+        <member name="P:GarageAPI.Controllers.Schemas.CreateRecordRequest.Time">
+            <summary>
+            Новое время записи
+            </summary>
+        </member>
+        <member name="P:GarageAPI.Controllers.Schemas.CreateRecordRequest.Date">
+            <summary>
+            Новая дата записи год-день-месяц
+            </summary>
+        </member>
+        <member name="P:GarageAPI.Controllers.Schemas.CreateRecordRequest.PlaceNumber">
+            <summary>
+            Новое место посадки
+            </summary>
+        </member>
+        <member name="P:GarageAPI.Controllers.Schemas.CreateRecordRequest.RecordStateId">
+            <summary>
+            Новый Id статуса записи
+            </summary>
+        </member>
+        <member name="T:GarageAPI.Controllers.Schemas.GetCustomersByFilterRequest">
+            <summary>
+            Запрос для получения пользователей по фильтру
+            </summary>
+        </member>
+        <member name="P:GarageAPI.Controllers.Schemas.GetCustomersByFilterRequest.Page">
+            <summary>
+            Номер страницы
+            </summary>
+        </member>
+        <member name="P:GarageAPI.Controllers.Schemas.GetCustomersByFilterRequest.PerPage">
+            <summary>
+            Пользователей на страницу
+            </summary>
+        </member>
+        <member name="P:GarageAPI.Controllers.Schemas.GetCustomersByFilterRequest.VisitCount">
+            <summary>
+            Количество посещений
+            </summary>
+        </member>
+        <member name="T:GarageAPI.Controllers.Schemas.GetOrSetCustomerRequest">
+            <summary>
+            Запрос для получения или создания пользователя
+            </summary>
+        </member>
+        <member name="P:GarageAPI.Controllers.Schemas.GetOrSetCustomerRequest.FirstName">
+            <summary>
+            Имя
+            </summary>
+        </member>
+        <member name="P:GarageAPI.Controllers.Schemas.GetOrSetCustomerRequest.SecondName">
+            <summary>
+            Фамилия
+            </summary>
+        </member>
+        <member name="P:GarageAPI.Controllers.Schemas.GetOrSetCustomerRequest.LastName">
+            <summary>
+            Отчество
+            </summary>
+        </member>
+        <member name="P:GarageAPI.Controllers.Schemas.GetOrSetCustomerRequest.Email">
+            <summary>
+            Почта
+            </summary>
+        </member>
+        <member name="P:GarageAPI.Controllers.Schemas.GetOrSetCustomerRequest.CustomerStateId">
+            <summary>
+            Id статуса
+            </summary>
+        </member>
+        <member name="T:GarageAPI.Controllers.Schemas.GetRecordsByFilterRequest">
+            <summary>
+            Запрос для получения записей по фильтру
+            </summary>
+        </member>
+        <member name="P:GarageAPI.Controllers.Schemas.GetRecordsByFilterRequest.DateFrom">
+            <summary>
+            Дата записи от год-день-месяц
+            </summary>
+        </member>
+        <member name="P:GarageAPI.Controllers.Schemas.GetRecordsByFilterRequest.Date">
+            <summary>
+            Дата записи до год-день-месяц или конкретная дата заявок если передана только она
+            </summary>
+        </member>
+        <member name="P:GarageAPI.Controllers.Schemas.GetRecordsByFilterRequest.Page">
+            <summary>
+            Страница
+            </summary>
+        </member>
+        <member name="P:GarageAPI.Controllers.Schemas.GetRecordsByFilterRequest.PerPage">
+            <summary>
+            Результатов на страницу
+            </summary>
+        </member>
+        <member name="P:GarageAPI.Controllers.Schemas.GetRecordsByFilterRequest.StateId">
+            <summary>
+            Id Статуса записи
+            </summary>
+        </member>
+        <member name="P:GarageAPI.Controllers.Schemas.GetRecordsByFilterRequest.CustomerId">
+            <summary>
+            Id пользователя
+            </summary>
+        </member>
+        <member name="T:GarageAPI.Helpers.DataHelper">
+            <summary>
+            Помошник в работе с данными
+            </summary>
+        </member>
+        <member name="M:GarageAPI.Helpers.DataHelper.IsDefault``1(``0)">
+            <summary>
+            Проверка на дефолтное значение
+            </summary>
+            <typeparam name="T">Структура</typeparam>
+            <param name="value">Переменная</param>
+            <returns>True если value имеет дефолтное значение, иначе - false</returns>
+        </member>
+    </members>
+</doc>
