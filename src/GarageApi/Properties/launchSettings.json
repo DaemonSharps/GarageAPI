@@ -13,8 +13,8 @@
       "commandName": "IISExpress",
       "launchBrowser": true,
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development",
-        "GARAGE_DB_CONNECTION_STRING": ""
+        "DOTNET_ENVIRONMENT": "Development",
+        "GARAGE_DB_CONNECTION_STRING": "Host=localhost;Port=4432;Database=garage_db;Username=root;Password=1;"
       }
     },
     "GarageAPI": {
@@ -22,8 +22,17 @@
       "launchBrowser": true,
       "applicationUrl": "http://localhost:5000",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development",
-        "GARAGE_DB_CONNECTION_STRING": ""
+        "DOTNET_ENVIRONMENT": "Development",
+        "GARAGE_DB_CONNECTION_STRING": "Host=localhost;Port=4432;Database=garage_db;Username=root;Password=1;"
+      }
+    },
+    "Docker": {
+      "commandName": "Docker",
+      "launchBrowser": true,
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development",
+        "GARAGE_DB_CONNECTION_STRING": "Host=localhost;Port=4432;Database=garage_db;Username=root;Password=1;"
       }
     }
   }

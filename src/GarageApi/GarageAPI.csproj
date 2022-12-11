@@ -11,7 +11,6 @@
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.7" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.7" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.2" />
 		<PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.3.2" />
 		<PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.3.2" />
@@ -22,10 +21,12 @@
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 			<PrivateAssets>all</PrivateAssets>
 		</PackageReference>
+		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.7" />
 	</ItemGroup>
 	<ItemGroup>
 		<None Remove="Documentation\GarageApiDocumentation.xml" />
 		<None Remove="Documentation\GarageDataBaseDocumentation.xml" />
+		<None Remove="Npgsql.EntityFrameworkCore.PostgreSQL" />
 	</ItemGroup>
 	<ItemGroup>
 		<EmbeddedResource Include="Documentation\GarageApiDocumentation.xml">

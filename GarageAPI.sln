@@ -23,7 +23,13 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{A0B9C86E-1EE8-4566-A7A9-387C74F5E5BE}"
 	ProjectSection(SolutionItems) = preProject
 		.github\workflows\Build_PR.yml = .github\workflows\Build_PR.yml
-		.github\workflows\Build.yml = .github\workflows\Build.yml
+		.github\workflows\CI.yml = .github\workflows\CI.yml
+		.github\workflows\Labeler.yml = .github\workflows\Labeler.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "github", "github", "{86107C69-880C-4E20-995B-BABE478C1572}"
+	ProjectSection(SolutionItems) = preProject
+		.github\release-drafter.yml = .github\release-drafter.yml
 	EndProjectSection
 EndProject
 Global
@@ -54,6 +60,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{5D74CEC1-0D2B-44DB-BA34-3D6DE93B87B2} = {E297D658-39F8-44F6-BCCA-60E393022CC6}
 		{2BBF7E86-4C10-4952-9285-8768DBD5F565} = {5D74CEC1-0D2B-44DB-BA34-3D6DE93B87B2}
-		{A0B9C86E-1EE8-4566-A7A9-387C74F5E5BE} = {BE79CAC8-2E0E-42B1-8170-5786B40C21E1}
+		{A0B9C86E-1EE8-4566-A7A9-387C74F5E5BE} = {86107C69-880C-4E20-995B-BABE478C1572}
+		{86107C69-880C-4E20-995B-BABE478C1572} = {BE79CAC8-2E0E-42B1-8170-5786B40C21E1}
 	EndGlobalSection
 EndGlobal
