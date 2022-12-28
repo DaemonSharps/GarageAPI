@@ -52,7 +52,7 @@ jobs:
     uses: DaemonSharps/CI-CD/.github/workflows/docker-deploy.yml@stable-2
     with:
       version_tags: |
-        daemonsharps/garage-api:dev-${{ github.run_number }}.${{ github.run_id }}.${{ github.run_attempt }}
+        daemonsharps/garage-api:dev-${{ github.run_number }}.${{ github.run_id }}
         daemonsharps/garage-api:dev-latest
         daemonsharps/garage-api:${{ needs.update_draft_release.outputs.release_tag }}
         daemonsharps/garage-api:latest
@@ -100,7 +100,7 @@ jobs:
         enviroment_name: [ development, production ]
         include:
           - enviroment_name: development
-            image_tag: dev-${{ github.run_number }}.${{ github.run_id }}.${{ github.run_attempt }}
+            image_tag: dev-${{ github.run_number }}.${{ github.run_id }}
             image_port: 4000
           - enviroment_name: production
             image_tag: ${{ needs.update_draft_release.outputs.release_tag }}
