@@ -60,3 +60,32 @@ jobs:
       DOCKER_LOGIN: ${{ secrets.DOCKER_USER_LOGIN }}
       DOCKER_TOKEN: ${{ secrets.DOCKER_USER_AUTH_TOKEN }}
 
+  deploy_db:
+    name: Проливка на VPS DB
+    needs:
+      - dump_postgres
+    strategy:
+      matrix:
+        enviroment_name: [ development, production ]
+        include:
+          - enviroment_name: development
+            image_tag: alpine3.16
+            image_port: 5435
+          - enviroment_name: production
+            image_tag: alpine3.16
+            image_port: 5436
+    uses: DaemonSharps/CI-CD/.github/workflows/docker-release.yml@stable-2
+    with:
+      compose_folder: GarageSite
+      env_file_name: GarageApi/db.env
+      compose_service_name: garage-db
+      image_tag_env: GARAGE_DB_TAG=${{ matrix.image_tag }}
+      image_port_env: GARAGE_DB_PORT=${{ matrix.image_port }}
+      environment_name: ${{ matrix.enviroment_name }}
+      project_name: garage-site
+    secrets:
+      SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      SSH_HOST: ${{ secrets.SSH_HOST }}
+      SSH_USER: ${{ secrets.SSH_USER }}
+      ENV_TEXT: ${{ secrets[format('{0}_DB_ENV_TEXT', matrix.enviroment_name)] }}
+
