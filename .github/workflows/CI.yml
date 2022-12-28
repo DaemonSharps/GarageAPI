@@ -89,3 +89,34 @@ jobs:
       SSH_USER: ${{ secrets.SSH_USER }}
       ENV_TEXT: ${{ secrets[format('{0}_DB_ENV_TEXT', matrix.enviroment_name)] }}
 
+  deploy_api:
+    name: Проливка на VPS API
+    needs:
+      - dump_postgres
+      - upload_on_hub
+      - update_draft_release
+    strategy:
+      matrix:
+        enviroment_name: [ development, production ]
+        include:
+          - enviroment_name: development
+            image_tag: dev-${{ github.run_number }}.${{ github.run_id }}.${{ github.run_attempt }}
+            image_port: 4000
+          - enviroment_name: production
+            image_tag: ${{ needs.update_draft_release.outputs.release_tag }}
+            image_port: 4001
+    uses: DaemonSharps/CI-CD/.github/workflows/docker-release.yml@stable-2
+    with:
+      compose_folder: GarageSite
+      env_file_name: GarageApi/api.env
+      compose_service_name: garage-api
+      image_tag_env: GARAGE_API_TAG=${{ matrix.image_tag }}
+      image_port_env: GARAGE_API_PORT=${{ matrix.image_port }}
+      environment_name: ${{ matrix.enviroment_name }}
+      project_name: garage-site
+    secrets:
+      SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      SSH_HOST: ${{ secrets.SSH_HOST }}
+      SSH_USER: ${{ secrets.SSH_USER }}
+      ENV_TEXT: ${{ secrets[format('{0}_ENV_TEXT', matrix.enviroment_name)] }}
+
