@@ -9,7 +9,7 @@ jobs:
 
   build:
     name: Сборка .NET
-    uses: DaemonSharps/CI-CD/.github/workflows/build.yml@stable
+    uses: DaemonSharps/CI-CD/.github/workflows/build.yml@stable-2
       
   update_draft_release:
     name: Обновление черновика релиза
@@ -23,12 +23,33 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+  dump_postgres:
+      name: Бекаб базы постгреса
+      needs:
+        - build
+        - update_draft_release
+      strategy:
+        matrix:
+          enviroment_name: [ development, production ]
+      uses: DaemonSharps/CI-CD/.github/workflows/docker-postgres-dump.yml@stable-2
+      with:
+        compose_folder: GarageSite
+        env_file_name: GarageApi/db.env
+        environment_name: ${{ matrix.enviroment_name }}
+        project_name: garage-site
+        compose_service_name: garage-db
+      secrets:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        SSH_HOST: ${{ secrets.SSH_HOST }}
+        SSH_USER: ${{ secrets.SSH_USER }}
+        ENV_TEXT: ${{ secrets[format('{0}_DB_ENV_TEXT', matrix.enviroment_name)] }}
+
   upload_on_hub:
     name: Загрузка в Docker hub
     needs:
      - build
      - update_draft_release
-    uses: DaemonSharps/CI-CD/.github/workflows/docker-deploy.yml@stable
+    uses: DaemonSharps/CI-CD/.github/workflows/docker-deploy.yml@stable-2
     with:
       version_tags: |
         daemonsharps/garage-api:dev-${{ github.run_number }}.${{ github.run_id }}.${{ github.run_attempt }}
@@ -38,4 +59,64 @@ jobs:
     secrets:
       DOCKER_LOGIN: ${{ secrets.DOCKER_USER_LOGIN }}
       DOCKER_TOKEN: ${{ secrets.DOCKER_USER_AUTH_TOKEN }}
+
+  deploy_db:
+    name: Проливка на VPS DB
+    needs:
+      - dump_postgres
+    strategy:
+      matrix:
+        enviroment_name: [ development, production ]
+        include:
+          - enviroment_name: development
+            image_tag: alpine3.16
+            image_port: 5435
+          - enviroment_name: production
+            image_tag: alpine3.16
+            image_port: 5436
+    uses: DaemonSharps/CI-CD/.github/workflows/docker-release.yml@stable-2
+    with:
+      compose_folder: GarageSite
+      env_file_name: GarageApi/db.env
+      compose_service_name: garage-db
+      image_tag_env: GARAGE_DB_TAG=${{ matrix.image_tag }}
+      image_port_env: GARAGE_DB_PORT=${{ matrix.image_port }}
+      environment_name: ${{ matrix.enviroment_name }}
+      project_name: garage-site
+    secrets:
+      SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      SSH_HOST: ${{ secrets.SSH_HOST }}
+      SSH_USER: ${{ secrets.SSH_USER }}
+      ENV_TEXT: ${{ secrets[format('{0}_DB_ENV_TEXT', matrix.enviroment_name)] }}
+
+  deploy_api:
+    name: Проливка на VPS API
+    needs:
+      - dump_postgres
+      - upload_on_hub
+      - update_draft_release
+    strategy:
+      matrix:
+        enviroment_name: [ development, production ]
+        include:
+          - enviroment_name: development
+            image_tag: dev-${{ github.run_number }}.${{ github.run_id }}.${{ github.run_attempt }}
+            image_port: 4000
+          - enviroment_name: production
+            image_tag: ${{ needs.update_draft_release.outputs.release_tag }}
+            image_port: 4001
+    uses: DaemonSharps/CI-CD/.github/workflows/docker-release.yml@stable-2
+    with:
+      compose_folder: GarageSite
+      env_file_name: GarageApi/api.env
+      compose_service_name: garage-api
+      image_tag_env: GARAGE_API_TAG=${{ matrix.image_tag }}
+      image_port_env: GARAGE_API_PORT=${{ matrix.image_port }}
+      environment_name: ${{ matrix.enviroment_name }}
+      project_name: garage-site
+    secrets:
+      SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      SSH_HOST: ${{ secrets.SSH_HOST }}
+      SSH_USER: ${{ secrets.SSH_USER }}
+      ENV_TEXT: ${{ secrets[format('{0}_ENV_TEXT', matrix.enviroment_name)] }}
 

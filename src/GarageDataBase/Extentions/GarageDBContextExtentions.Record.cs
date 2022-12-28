@@ -19,7 +19,8 @@ public static partial class GarageDBContextExtentions
         CancellationToken cancellationToken = default)
     {
         dateFrom = new DateTime(dateFrom.Year, dateFrom.Month, dateFrom.Day);
-        dateTo = new DateTime(dateTo.Year, dateTo.Month, dateTo.Day + 1);
+        dateTo = dateTo.AddDays(1);
+        dateTo = new DateTime(dateTo.Year, dateTo.Month, dateTo.Day);
 
         var recordQuerry = dBContext
             .Records
