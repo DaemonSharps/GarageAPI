@@ -130,8 +130,8 @@ public class GarageDBContext : DbContext
             {
                 Id=1,
                 FirstName = "Арсений",
-                SecondName = "Васильев",
-                LastName = "Тестовый",
+                LastName = "Васильев",
+                Patronymic = "Тестовый",
                 StateId = 1,
                 Email = "ar-seny@mail.ru",
                 VisitCount = 0

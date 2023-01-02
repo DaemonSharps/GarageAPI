@@ -25,14 +25,14 @@ public class UserTable : Timestamp
     /// </summary>
     [Required]
     [MaxLength(200)]
-    public string SecondName { get; set; }
+    public string LastName { get; set; }
 
     /// <summary>
     /// Отчество
     /// </summary>
     [Required]
     [MaxLength(200)]
-    public string LastName { get; set; }
+    public string Patronymic { get; set; }
 
     /// <summary>
     /// Почта

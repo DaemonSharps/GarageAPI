@@ -14,12 +14,12 @@
             Имя
             </summary>
         </member>
-        <member name="P:GarageDataBase.DTO.User.SecondName">
+        <member name="P:GarageDataBase.DTO.User.LastName">
             <summary>
             Фамилия
             </summary>
         </member>
-        <member name="P:GarageDataBase.DTO.User.LastName">
+        <member name="P:GarageDataBase.DTO.User.Patronymic">
             <summary>
             Отчество
             </summary>
@@ -132,12 +132,12 @@
             Имя
             </summary>
         </member>
-        <member name="P:GarageDataBase.Tables.UserTable.SecondName">
+        <member name="P:GarageDataBase.Tables.UserTable.LastName">
             <summary>
             Фамилия
             </summary>
         </member>
-        <member name="P:GarageDataBase.Tables.UserTable.LastName">
+        <member name="P:GarageDataBase.Tables.UserTable.Patronymic">
             <summary>
             Отчество
             </summary>

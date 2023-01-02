@@ -17,12 +17,12 @@ public class User
     /// <summary>
     /// Фамилия
     /// </summary>
-    public string SecondName { get; set; }
+    public string LastName { get; set; }
 
     /// <summary>
     /// Отчество
     /// </summary>
-    public string LastName { get; set; }
+    public string Patronymic { get; set; }
 
     /// <summary>
     /// Почта

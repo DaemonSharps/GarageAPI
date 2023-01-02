@@ -32,8 +32,8 @@ public class UsersController : ControllerBase
                     .CreateUser(
                     request.Email,
                     request.FirstName,
-                    request.SecondName,
                     request.LastName,
+                    request.Patronymic,
                     cancellationToken: cancellationToken);
             }
             return Ok(user);
@@ -57,8 +57,8 @@ public class UsersController : ControllerBase
                 request.PerPage,
                 request.Email,
                 request.FirstName,
-                request.SecondName,
                 request.LastName,
+                request.Patronymic,
                 request.VisitCount,
                 request.StateId,
                 cancellationToken);

@@ -20,8 +20,8 @@ public static partial class GarageDBContextExtentions
         this GarageDBContext dBContext,
         string email,
         string firstName,
-        string secondName,
         string lastName,
+        string patronymic,
         long stateId = 1,
         CancellationToken cancellationToken = default)
     {
@@ -30,8 +30,8 @@ public static partial class GarageDBContextExtentions
             Email = email,
             StateId = stateId,
             FirstName = firstName,
-            LastName = lastName,
-            SecondName = secondName
+            Patronymic = patronymic,
+            LastName = lastName
         };
 
         var userEntry = dBContext.Users.Add(userToCreate);
@@ -47,8 +47,8 @@ public static partial class GarageDBContextExtentions
         int perPage,
         string email = null,
         string firstName = null,
-        string secondName = null,
         string lastName = null,
+        string patronymic = null,
         long visitCount = 0,
         long stateId = 0,
         CancellationToken cancellationToken = default)
@@ -62,10 +62,10 @@ public static partial class GarageDBContextExtentions
             usersQuerry = usersQuerry.Where(c => c.Email == email);
         if (!string.IsNullOrEmpty(firstName))
             usersQuerry = usersQuerry.Where(c => c.FirstName == firstName);
-        if (!string.IsNullOrEmpty(secondName))
-            usersQuerry = usersQuerry.Where(c => c.SecondName == secondName);
         if (!string.IsNullOrEmpty(lastName))
             usersQuerry = usersQuerry.Where(c => c.LastName == lastName);
+        if (!string.IsNullOrEmpty(patronymic))
+            usersQuerry = usersQuerry.Where(c => c.Patronymic == patronymic);
         if (visitCount != 0)
             usersQuerry = usersQuerry.Where(c => c.VisitCount == visitCount);
         if (stateId != 0)
