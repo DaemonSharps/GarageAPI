@@ -65,7 +65,7 @@ public class RecordsController : ControllerBase
                         request.Time,
                         request.Date,
                         request.PlaceNumber,
-                        request.RecordStateId,
+                        request.StateId,
                         cancellationToken);
             }
             else
@@ -75,7 +75,7 @@ public class RecordsController : ControllerBase
                     request.Time,
                     request.Date,
                     request.PlaceNumber,
-                    request.RecordStateId,
+                    request.StateId,
                     cancellationToken);
             }
 

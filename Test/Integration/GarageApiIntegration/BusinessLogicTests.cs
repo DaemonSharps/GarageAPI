@@ -40,7 +40,7 @@ public class BusinessLogicTests : ApiTestBase
             UserId = user.Id,
             Date = DateTime.Today.AddDays(1),
             PlaceNumber = 1,
-            RecordStateId = 1,
+            StateId = 1,
             Time = "22:00"
         };
         var record = await Client.CreateOrUpdateRecord(createRecordRequest, user);
@@ -76,7 +76,7 @@ public class BusinessLogicTests : ApiTestBase
             UserId = user.Id,
             Date = DateTime.Today.AddDays(1),
             PlaceNumber = 1,
-            RecordStateId = 1,
+            StateId = 1,
             Time = "22:00"
         };
         var record = await Client.CreateOrUpdateRecord(createRecordRequest, user);
@@ -112,7 +112,7 @@ public class BusinessLogicTests : ApiTestBase
                 UserId = 1,
                 Date = dateFrom.AddDays(i),
                 PlaceNumber = 1,
-                RecordStateId = 1,
+                StateId = 1,
                 Time = "22:00"
             };
             await Client.CreateOrUpdateRecord(createRecordRequest, user);
@@ -149,7 +149,7 @@ public class BusinessLogicTests : ApiTestBase
             UserId = 1,
             Date = dateFrom,
             PlaceNumber = 1,
-            RecordStateId = 1,
+            StateId = 1,
             Time = "22:00"
         };
         var createdRecord = await Client.CreateOrUpdateRecord(createRecordRequest, user);

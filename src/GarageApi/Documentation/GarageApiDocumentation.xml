@@ -29,7 +29,7 @@
             Новое место посадки
             </summary>
         </member>
-        <member name="P:GarageAPI.Controllers.Schemas.CreateRecordRequest.RecordStateId">
+        <member name="P:GarageAPI.Controllers.Schemas.CreateRecordRequest.StateId">
             <summary>
             Новый Id статуса записи
             </summary>

@@ -18,7 +18,7 @@ public static partial class HttpClientExtentions
         Assert.Equal(request.UserId, record.User.Id);
         Assert.Equal(request.PlaceNumber, record.PlaceNumber);
         Assert.Equal("Approved", record.Status);
-        Assert.Equal(1, record.RecordStateId);
+        Assert.Equal(1, record.StateId);
         Assert.Equal(request.Time, record.Time);
 
         var recordUser = record.User;

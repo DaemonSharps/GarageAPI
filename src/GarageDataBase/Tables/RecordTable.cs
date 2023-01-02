@@ -20,6 +20,11 @@ public class RecordTable : Timestamp
     public long UserId { get; set; }
 
     /// <summary>
+    /// Записавшийся пользователь
+    /// </summary>
+    public UserTable User { get; set; }
+
+    /// <summary>
     /// Время записи
     /// </summary>
     [Required]
@@ -42,16 +47,11 @@ public class RecordTable : Timestamp
     /// Id статуса записи
     /// </summary>
     [Required]
-    public long RecordStateId { get; set; }
-
-    /// <summary>
-    /// Записавшийся пользователь
-    /// </summary>
-    public UserTable User { get; set; }
+    public long StateId { get; set; }
 
     /// <summary>
     /// Статус записи
     /// </summary>
     [JsonIgnore]
-    public RecordStateTable RecordState { get; set; }
+    public RecordStateTable State { get; set; }
 }

@@ -37,5 +37,5 @@ public class CreateRecordRequest
     /// Новый Id статуса записи
     /// </summary>
     [Required]
-    public long RecordStateId { get; set; }
+    public long StateId { get; set; }
 }

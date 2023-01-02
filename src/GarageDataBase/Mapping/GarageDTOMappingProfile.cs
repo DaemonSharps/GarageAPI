@@ -12,7 +12,7 @@ public class GarageDTOMappingProfile : Profile
             .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.State.Name));
 
         CreateMap<RecordTable, Record>()
-            .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.RecordState.Name));
+            .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.State.Name));
     }
 }
 

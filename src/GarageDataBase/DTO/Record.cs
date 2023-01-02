@@ -31,7 +31,7 @@ public class Record
     /// Id статуса записи
     /// Устарело - использовать <see cref="Status"/>
     /// </summary>
-    public long RecordStateId { get; set; }
+    public long StateId { get; set; }
 
     /// <summary>
     /// Записавшийся пользователь

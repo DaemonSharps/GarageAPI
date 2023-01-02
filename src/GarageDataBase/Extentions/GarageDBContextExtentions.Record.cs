@@ -25,13 +25,13 @@ public static partial class GarageDBContextExtentions
             .Records
             .Include(r => r.User)
             .ThenInclude(c => c.State)
-            .Include(r => r.RecordState)
+            .Include(r => r.State)
             .Where(r =>
                 r.Date >= dateFrom
                 && r.Date < dateTo);
 
         if (recordStateId != 0)
-            recordQuerry = recordQuerry.Where(r => r.RecordStateId == recordStateId);
+            recordQuerry = recordQuerry.Where(r => r.StateId == recordStateId);
 
         if (userId != 0)
             recordQuerry = recordQuerry.Where(r => r.UserId == userId);
@@ -58,11 +58,11 @@ public static partial class GarageDBContextExtentions
             UserId = userId,
             Date = date,
             PlaceNumber = place,
-            RecordStateId = stateId,
+            StateId = stateId,
             Time = time
         };
         var recordEntry = dBContext.Records.Add(newRecord);
-        await recordEntry.Reference(r => r.RecordState).LoadAsync(cancellationToken);
+        await recordEntry.Reference(r => r.State).LoadAsync(cancellationToken);
         await recordEntry.Reference(r => r.User).Query().Include(c => c.State).LoadAsync(cancellationToken);
         await dBContext.SaveChangesAsync(cancellationToken);
 
@@ -87,10 +87,10 @@ public static partial class GarageDBContextExtentions
         originalRecord.Time = string.IsNullOrEmpty(time) ? originalRecord.Time : time;
         originalRecord.Date = date ?? originalRecord.Date;
         originalRecord.PlaceNumber = place == 0 ? originalRecord.PlaceNumber : place;
-        originalRecord.RecordStateId = stateId == 0 ? originalRecord.RecordStateId : stateId;
+        originalRecord.StateId = stateId == 0 ? originalRecord.StateId : stateId;
 
         var recordEntry = dBContext.Update(originalRecord);
-        await recordEntry.Reference(r => r.RecordState).LoadAsync(cancellationToken);
+        await recordEntry.Reference(r => r.State).LoadAsync(cancellationToken);
         await recordEntry.Reference(r => r.User).Query().Include(c => c.State).LoadAsync(cancellationToken);
         await dBContext.SaveChangesAsync(cancellationToken);
 

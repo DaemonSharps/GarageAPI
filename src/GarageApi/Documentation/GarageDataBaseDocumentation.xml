@@ -59,7 +59,7 @@
             Статус записи
             </summary>
         </member>
-        <member name="P:GarageDataBase.DTO.Record.RecordStateId">
+        <member name="P:GarageDataBase.DTO.Record.StateId">
             <summary>
             Id статуса записи
             Устарело - использовать <see cref="P:GarageDataBase.DTO.Record.Status"/>
@@ -157,7 +157,7 @@
             Id статуса
             </summary>
         </member>
-        <member name="P:GarageDataBase.Tables.UserTable.UserState">
+        <member name="P:GarageDataBase.Tables.UserTable.State">
             <summary>
             Статус пользователя
             </summary>
@@ -192,6 +192,11 @@
             Id пользователя
             </summary>
         </member>
+        <member name="P:GarageDataBase.Tables.RecordTable.User">
+            <summary>
+            Записавшийся пользователь
+            </summary>
+        </member>
         <member name="P:GarageDataBase.Tables.RecordTable.Time">
             <summary>
             Время записи
@@ -207,17 +212,12 @@
             Номер места
             </summary>
         </member>
-        <member name="P:GarageDataBase.Tables.RecordTable.RecordStateId">
+        <member name="P:GarageDataBase.Tables.RecordTable.StateId">
             <summary>
             Id статуса записи
             </summary>
         </member>
-        <member name="P:GarageDataBase.Tables.RecordTable.User">
-            <summary>
-            Записавшийся пользователь
-            </summary>
-        </member>
-        <member name="P:GarageDataBase.Tables.RecordTable.RecordState">
+        <member name="P:GarageDataBase.Tables.RecordTable.State">
             <summary>
             Статус записи
             </summary>
