@@ -26,7 +26,7 @@ public class RecordsController : ControllerBase
         {
             var dateFrom = request.DateFrom ?? request.Date;
 
-            var records = await dBContext.GetRecordsBy(
+            var records = await dBContext.GetRecordsByFilter(
             request.Page,
             request.PerPage,
             dateFrom,
@@ -55,8 +55,8 @@ public class RecordsController : ControllerBase
         try
         {
             var record = (await dBContext
-                .GetRecordsBy(1, 10, request.Date, request.Date, 1, request.CustomerId, cancellationToken))
-                .SingleOrDefault();
+                .GetRecordsByFilter(1, 10, request.Date, request.Date, 1, request.CustomerId, cancellationToken))
+                .FirstOrDefault();
 
             if (record == null)
             {

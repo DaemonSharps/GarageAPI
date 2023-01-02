@@ -7,7 +7,7 @@ namespace GarageDataBase.Extentions;
 
 public static partial class GarageDBContextExtentions
 {
-    public static async Task<List<Record>> GetRecordsBy(
+    public static async Task<List<Record>> GetRecordsByFilter(
         this GarageDBContext dBContext,
         int page,
         int perPage,

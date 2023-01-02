@@ -52,7 +52,7 @@ public class CustomersController : ControllerBase
     {
         try
         {
-            var customers = await dBContext.GetCustomersBy(
+            var customers = await dBContext.GetCustomersByFilter(
                 request.Page,
                 request.PerPage,
                 request.Email,
