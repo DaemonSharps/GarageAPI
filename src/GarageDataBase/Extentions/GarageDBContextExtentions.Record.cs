@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using GarageDataBase.DTO;
+﻿using GarageDataBase.DTO;
 using GarageDataBase.Mapping;
 using GarageDataBase.Tables;
 using Microsoft.EntityFrameworkCore;

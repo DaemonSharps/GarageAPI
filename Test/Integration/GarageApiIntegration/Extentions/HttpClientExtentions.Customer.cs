@@ -1,6 +1,6 @@
-﻿using System.Net.Http.Json;
+﻿using DeepEqual.Syntax;
 using GarageAPI.Controllers.Schemas;
-using DeepEqual.Syntax;
+using System.Net.Http.Json;
 using DTO = GarageDataBase.DTO;
 namespace GarageApiIntegration.Extentions;
 

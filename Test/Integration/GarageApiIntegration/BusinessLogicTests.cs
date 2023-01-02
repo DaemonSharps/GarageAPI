@@ -1,8 +1,8 @@
-﻿using GarageAPI;
+﻿using DeepEqual.Syntax;
+using GarageAPI;
 using GarageAPI.Controllers.Schemas;
 using GarageApiIntegration.Common;
 using GarageApiIntegration.Extentions;
-using DeepEqual.Syntax;
 using CustomerDTO = GarageDataBase.DTO.Customer;
 using RecordDTO = GarageDataBase.DTO.Record;
 
