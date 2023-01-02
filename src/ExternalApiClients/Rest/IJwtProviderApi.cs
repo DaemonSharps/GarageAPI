@@ -10,7 +10,7 @@ namespace ExternalApiClients.Rest;
 public interface IJwtProviderApi
 {
     [Post("/users")]
-    public TokenResponse RegisterUser([Body] RegisterUserRequest request);
+    public Task<ApiResponse<TokenResponse>> RegisterUser([Body] RegisterUserRequest request);
 }
 
 public class RegisterUserRequest
@@ -31,4 +31,11 @@ public class TokenResponse
     public string AccessToken { get; set; }
 
     public Guid RefreshToken { get; set; }
+}
+
+public class JwtError
+{
+    public string ErrorCode { get; set; }
+
+    public string ErrorMessage { get; set; }
 }
