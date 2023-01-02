@@ -14,7 +14,8 @@
       "launchBrowser": true,
       "environmentVariables": {
         "DOTNET_ENVIRONMENT": "Development",
-        "GARAGE_DB_CONNECTION_STRING": "Host=localhost;Port=4432;Database=garage_db;Username=root;Password=1;"
+        "GARAGE_DB_CONNECTION_STRING": "Host=localhost;Port=4432;Database=garage_db;Username=root;Password=1;",
+        "JWT_PROVIDER_URI": "http://localhost:3000"
       }
     },
     "GarageAPI": {
@@ -23,7 +24,8 @@
       "applicationUrl": "http://localhost:5000",
       "environmentVariables": {
         "DOTNET_ENVIRONMENT": "Development",
-        "GARAGE_DB_CONNECTION_STRING": "Host=localhost;Port=4432;Database=garage_db;Username=root;Password=1;"
+        "GARAGE_DB_CONNECTION_STRING": "Host=localhost;Port=4432;Database=garage_db;Username=root;Password=1;",
+        "JWT_PROVIDER_URI": "http://localhost:3000"
       }
     },
     "Docker": {
@@ -32,7 +34,8 @@
       "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/",
       "environmentVariables": {
         "DOTNET_ENVIRONMENT": "Development",
-        "GARAGE_DB_CONNECTION_STRING": "Host=localhost;Port=4432;Database=garage_db;Username=root;Password=1;"
+        "GARAGE_DB_CONNECTION_STRING": "Host=localhost;Port=4432;Database=garage_db;Username=root;Password=1;",
+        "JWT_PROVIDER_URI": "http://localhost:3000"
       }
     }
   }
