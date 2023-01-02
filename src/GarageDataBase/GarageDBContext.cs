@@ -1,5 +1,6 @@
 ﻿using GarageDataBase.Tables;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace GarageDataBase;
 
@@ -37,6 +38,53 @@ public class GarageDBContext : DbContext
     /// </summary>
     public DbSet<RecordStateTable> RecordStates { get; set; }
     #endregion
+
+    public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+    {
+        var changedEntries = this.ChangeTracker
+            .Entries()
+            .Where(e => e.Entity is Timestamp)
+            .Select(e => (e.State, e.Entity as Timestamp))
+            .ToArray<(EntityState State, Timestamp Timestamp)>();
+
+        foreach (var entry in changedEntries)
+        {
+            if (entry.State == EntityState.Added)
+            {
+                entry.Timestamp.CreationDate
+                    = entry.Timestamp.LastUpdate
+                    = DateTimeOffset.UtcNow;
+            }
+            if (entry.State == EntityState.Modified)
+            {
+                entry.Timestamp.LastUpdate = DateTimeOffset.UtcNow;
+            }
+        }
+
+        return base.SaveChangesAsync(cancellationToken);
+    }
+
+    public EntityEntry Remove(Timestamp entity)
+    {
+        entity.FinishDate = DateTimeOffset.UtcNow;
+        this.Attach(entity);
+        var entry = this.Entry(entity);
+        //из-за тестов
+        if (entry != null)
+        {
+            entry.State = EntityState.Modified;
+        }
+
+        return entry;
+    }
+
+    public void RemoveRange(IEnumerable<Timestamp> entities)
+    {
+        foreach (var entity in entities)
+        {
+            Remove(entity);
+        }
+    }
 
     /// <summary>
     /// 

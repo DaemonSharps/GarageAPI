@@ -237,5 +237,17 @@
             Имя статуса
             </summary>
         </member>
+        <member name="T:GarageDataBase.Tables.Timestamp">
+            <summary> Класс для поддержки soft delete </summary>
+        </member>
+        <member name="P:GarageDataBase.Tables.Timestamp.CreationDate">
+            <summary> Время создания сущности </summary>
+        </member>
+        <member name="P:GarageDataBase.Tables.Timestamp.LastUpdate">
+            <summary> Время последнего обновления сущности </summary>
+        </member>
+        <member name="P:GarageDataBase.Tables.Timestamp.FinishDate">
+            <summary> Время удаления суности </summary>
+        </member>
     </members>
 </doc>

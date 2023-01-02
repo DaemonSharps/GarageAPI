@@ -30,7 +30,6 @@ public static partial class GarageDBContextExtentions
                 r.Date >= dateFrom
                 && r.Date < dateTo);
 
-
         if (recordStateId != 0)
             recordQuerry = recordQuerry.Where(r => r.RecordStateId == recordStateId);
 

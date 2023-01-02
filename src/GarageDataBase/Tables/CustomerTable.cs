@@ -6,7 +6,7 @@ namespace GarageDataBase.Tables;
 /// <summary>
 /// Пользователь
 /// </summary>
-public class CustomerTable
+public class CustomerTable : Timestamp
 {
     /// <summary>
     /// Id пользователя

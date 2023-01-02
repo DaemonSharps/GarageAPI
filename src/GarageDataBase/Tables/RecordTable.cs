@@ -6,7 +6,7 @@ namespace GarageDataBase.Tables;
 /// <summary>
 /// Запись
 /// </summary>
-public class RecordTable
+public class RecordTable : Timestamp
 {
     /// <summary>
     /// Id записи
