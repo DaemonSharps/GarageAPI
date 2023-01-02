@@ -50,12 +50,13 @@ public class UserTable : Timestamp
     /// <summary>
     /// Id статуса
     /// </summary>
-    public long UserStateId { get; set; }
+    public long StateId { get; set; }
+
     /// <summary>
     /// Статус пользователя
     /// </summary>
     [JsonIgnore]
-    public UserStateTable UserState { get; set; }
+    public UserStateTable State { get; set; }
 
     /// <summary>
     /// Записи пользователя

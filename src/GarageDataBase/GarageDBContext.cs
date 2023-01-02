@@ -132,7 +132,7 @@ public class GarageDBContext : DbContext
                 FirstName = "Арсений",
                 SecondName = "Васильев",
                 LastName = "Тестовый",
-                UserStateId = 1,
+                StateId = 1,
                 Email = "ar-seny@mail.ru",
                 VisitCount = 0
             }

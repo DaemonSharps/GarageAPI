@@ -24,7 +24,7 @@ public static partial class GarageDBContextExtentions
         var recordQuerry = dBContext
             .Records
             .Include(r => r.User)
-            .ThenInclude(c => c.UserState)
+            .ThenInclude(c => c.State)
             .Include(r => r.RecordState)
             .Where(r =>
                 r.Date >= dateFrom
@@ -63,7 +63,7 @@ public static partial class GarageDBContextExtentions
         };
         var recordEntry = dBContext.Records.Add(newRecord);
         await recordEntry.Reference(r => r.RecordState).LoadAsync(cancellationToken);
-        await recordEntry.Reference(r => r.User).Query().Include(c => c.UserState).LoadAsync(cancellationToken);
+        await recordEntry.Reference(r => r.User).Query().Include(c => c.State).LoadAsync(cancellationToken);
         await dBContext.SaveChangesAsync(cancellationToken);
 
         return MapperHelper.Map<Record>(recordEntry.Entity);
@@ -91,7 +91,7 @@ public static partial class GarageDBContextExtentions
 
         var recordEntry = dBContext.Update(originalRecord);
         await recordEntry.Reference(r => r.RecordState).LoadAsync(cancellationToken);
-        await recordEntry.Reference(r => r.User).Query().Include(c => c.UserState).LoadAsync(cancellationToken);
+        await recordEntry.Reference(r => r.User).Query().Include(c => c.State).LoadAsync(cancellationToken);
         await dBContext.SaveChangesAsync(cancellationToken);
 
         return MapperHelper.Map<Record>(recordEntry.Entity);

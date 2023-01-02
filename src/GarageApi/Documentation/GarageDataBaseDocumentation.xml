@@ -152,7 +152,7 @@
             Количество посещений
             </summary>
         </member>
-        <member name="P:GarageDataBase.Tables.UserTable.UserStateId">
+        <member name="P:GarageDataBase.Tables.UserTable.StateId">
             <summary>
             Id статуса
             </summary>

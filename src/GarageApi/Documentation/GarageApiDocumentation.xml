@@ -59,7 +59,7 @@
             Почта
             </summary>
         </member>
-        <member name="P:GarageAPI.Controllers.Schemas.GetOrSetUserRequest.UserStateId">
+        <member name="P:GarageAPI.Controllers.Schemas.GetOrSetUserRequest.StateId">
             <summary>
             Id статуса
             </summary>

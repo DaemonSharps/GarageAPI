@@ -18,7 +18,7 @@ public class BusinessLogicTests : ApiTestBase
         var request = new GetOrSetUserRequest
         {
             Email = "test@mail.ru",
-            UserStateId = 1,
+            StateId = 1,
             FirstName = "fn",
             LastName = "ln",
             SecondName = "sn"
@@ -66,7 +66,7 @@ public class BusinessLogicTests : ApiTestBase
             FirstName = "Арсений",
             SecondName = "Васильев",
             LastName = "Тестовый",
-            UserStateId = 1,
+            StateId = 1,
             Email = "ar-seny@mail.ru"
         };
         var user = await Client.GetOrCreateUser(request, "Clear");

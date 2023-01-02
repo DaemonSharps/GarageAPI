@@ -11,7 +11,7 @@ public static partial class GarageDBContextExtentions
     {
         var user = await dBContext
             .Users
-            .Include(c => c.UserState)
+            .Include(c => c.State)
             .FirstOrDefaultAsync(c => c.Email == email, cancellationToken);
         return MapperHelper.Map<User>(user);
     }
@@ -28,14 +28,14 @@ public static partial class GarageDBContextExtentions
         var userToCreate = new UserTable
         {
             Email = email,
-            UserStateId = stateId,
+            StateId = stateId,
             FirstName = firstName,
             LastName = lastName,
             SecondName = secondName
         };
 
         var userEntry = dBContext.Users.Add(userToCreate);
-        await userEntry.Reference(c => c.UserState).LoadAsync(cancellationToken);
+        await userEntry.Reference(c => c.State).LoadAsync(cancellationToken);
         await dBContext.SaveChangesAsync(cancellationToken);
         return MapperHelper.Map<User>(userEntry.Entity);
 
@@ -55,7 +55,7 @@ public static partial class GarageDBContextExtentions
     {
         var usersQuerry = dBContext
             .Users
-            .Include(c => c.UserState)
+            .Include(c => c.State)
             .AsQueryable();
 
         if (!string.IsNullOrEmpty(email))
@@ -69,7 +69,7 @@ public static partial class GarageDBContextExtentions
         if (visitCount != 0)
             usersQuerry = usersQuerry.Where(c => c.VisitCount == visitCount);
         if (stateId != 0)
-            usersQuerry = usersQuerry.Where(c => c.UserStateId == stateId);
+            usersQuerry = usersQuerry.Where(c => c.StateId == stateId);
 
         var takeFromPage = (page - 1) * perPage;
 

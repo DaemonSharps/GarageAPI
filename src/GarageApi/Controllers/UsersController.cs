@@ -60,7 +60,7 @@ public class UsersController : ControllerBase
                 request.SecondName,
                 request.LastName,
                 request.VisitCount,
-                request.UserStateId,
+                request.StateId,
                 cancellationToken);
 
             if (users.Any())

@@ -31,5 +31,5 @@ public class GetOrSetUserRequest
     /// <summary>
     /// Id статуса
     /// </summary>
-    public long UserStateId { get; set; }
+    public long StateId { get; set; }
 }
