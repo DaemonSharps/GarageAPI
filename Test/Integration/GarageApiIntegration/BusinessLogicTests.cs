@@ -21,7 +21,7 @@ public class BusinessLogicTests : ApiTestBase
             StateId = 1,
             FirstName = "fn",
             LastName = "ln",
-            SecondName = "sn"
+            Patronymic = "sn"
         };
         var user = await Client.GetOrCreateUser(request, "Clear");
 
@@ -64,8 +64,8 @@ public class BusinessLogicTests : ApiTestBase
         var request = new GetOrSetUserRequest
         {
             FirstName = "Арсений",
-            SecondName = "Васильев",
-            LastName = "Тестовый",
+            LastName = "Васильев",
+            Patronymic = "Тестовый",
             StateId = 1,
             Email = "ar-seny@mail.ru"
         };
@@ -99,8 +99,8 @@ public class BusinessLogicTests : ApiTestBase
         var user = new UserDTO
         {
             FirstName = "Арсений",
-            SecondName = "Васильев",
-            LastName = "Тестовый",
+            LastName = "Васильев",
+            Patronymic = "Тестовый",
             Status = "Clear",
             Email = "ar-seny@mail.ru"
         };
@@ -138,8 +138,8 @@ public class BusinessLogicTests : ApiTestBase
         var user = new UserDTO
         {
             FirstName = "Арсений",
-            SecondName = "Васильев",
-            LastName = "Тестовый",
+            LastName = "Васильев",
+            Patronymic = "Тестовый",
             Status = "Clear",
             Email = "ar-seny@mail.ru"
         };

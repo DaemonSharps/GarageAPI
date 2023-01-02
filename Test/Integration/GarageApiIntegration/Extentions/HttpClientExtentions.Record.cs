@@ -26,9 +26,8 @@ public static partial class HttpClientExtentions
         Assert.Equal(recordUser.Email, expectedUser.Email);
         Assert.Equal(recordUser.FirstName, expectedUser.FirstName);
         Assert.Equal(recordUser.LastName, expectedUser.LastName);
-        Assert.Equal(recordUser.SecondName, expectedUser.SecondName);
+        Assert.Equal(recordUser.Patronymic, expectedUser.Patronymic);
         Assert.Equal(recordUser.Status, expectedUser.Status);
-
 
         return record;
     }
