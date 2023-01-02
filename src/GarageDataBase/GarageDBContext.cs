@@ -21,12 +21,12 @@ public class GarageDBContext : DbContext
     /// <summary>
     /// Пользователи
     /// </summary>
-    public DbSet<CustomerTable> Customers { get; set; }
+    public DbSet<UserTable> Users { get; set; }
 
     /// <summary>
     /// Статусы пользователей
     /// </summary>
-    public DbSet<CustomerStateTable> CustomerStates { get; set; }
+    public DbSet<UserStateTable> UserStates { get; set; }
 
     /// <summary>
     /// Записи
@@ -92,12 +92,12 @@ public class GarageDBContext : DbContext
     /// <param name="builder"></param>
     protected override void OnModelCreating(ModelBuilder builder)
     {
-        builder.Entity<CustomerTable>(customer =>
+        builder.Entity<UserTable>(user =>
         {
-            customer.HasIndex(c => c.Email).IsUnique();
+            user.HasIndex(c => c.Email).IsUnique();
         });
 
-        builder.Entity<CustomerStateTable>(cs =>
+        builder.Entity<UserStateTable>(cs =>
         {
             cs.HasIndex(c => c.Name).IsUnique();
         });
@@ -116,23 +116,23 @@ public class GarageDBContext : DbContext
             new RecordStateTable { Id=3, Name="Rejected"}
         });
 
-        builder.Entity<CustomerStateTable>().HasData(
-        new CustomerStateTable[]
+        builder.Entity<UserStateTable>().HasData(
+        new UserStateTable[]
         {
-            new CustomerStateTable { Id=1, Name="Clear"},
-            new CustomerStateTable { Id=2, Name="Banned"}
+            new UserStateTable { Id=1, Name="Clear"},
+            new UserStateTable { Id=2, Name="Banned"}
         });
 
-        builder.Entity<CustomerTable>().HasData(
-        new CustomerTable[]
+        builder.Entity<UserTable>().HasData(
+        new UserTable[]
         {
-            new CustomerTable
+            new UserTable
             {
                 Id=1,
                 FirstName = "Арсений",
                 SecondName = "Васильев",
                 LastName = "Тестовый",
-                CustomerStateId = 1,
+                UserStateId = 1,
                 Email = "ar-seny@mail.ru",
                 VisitCount = 0
             }

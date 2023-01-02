@@ -9,7 +9,7 @@
             Запрос для обновления записей
             </summary>
         </member>
-        <member name="P:GarageAPI.Controllers.Schemas.CreateRecordRequest.CustomerId">
+        <member name="P:GarageAPI.Controllers.Schemas.CreateRecordRequest.UserId">
             <summary>
             Новое Id пользователя
             </summary>
@@ -34,52 +34,32 @@
             Новый Id статуса записи
             </summary>
         </member>
-        <member name="T:GarageAPI.Controllers.Schemas.GetCustomersByFilterRequest">
-            <summary>
-            Запрос для получения пользователей по фильтру
-            </summary>
-        </member>
-        <member name="P:GarageAPI.Controllers.Schemas.GetCustomersByFilterRequest.Page">
-            <summary>
-            Номер страницы
-            </summary>
-        </member>
-        <member name="P:GarageAPI.Controllers.Schemas.GetCustomersByFilterRequest.PerPage">
-            <summary>
-            Пользователей на страницу
-            </summary>
-        </member>
-        <member name="P:GarageAPI.Controllers.Schemas.GetCustomersByFilterRequest.VisitCount">
-            <summary>
-            Количество посещений
-            </summary>
-        </member>
-        <member name="T:GarageAPI.Controllers.Schemas.GetOrSetCustomerRequest">
+        <member name="T:GarageAPI.Controllers.Schemas.GetOrSetUserRequest">
             <summary>
             Запрос для получения или создания пользователя
             </summary>
         </member>
-        <member name="P:GarageAPI.Controllers.Schemas.GetOrSetCustomerRequest.FirstName">
+        <member name="P:GarageAPI.Controllers.Schemas.GetOrSetUserRequest.FirstName">
             <summary>
             Имя
             </summary>
         </member>
-        <member name="P:GarageAPI.Controllers.Schemas.GetOrSetCustomerRequest.SecondName">
+        <member name="P:GarageAPI.Controllers.Schemas.GetOrSetUserRequest.SecondName">
             <summary>
             Фамилия
             </summary>
         </member>
-        <member name="P:GarageAPI.Controllers.Schemas.GetOrSetCustomerRequest.LastName">
+        <member name="P:GarageAPI.Controllers.Schemas.GetOrSetUserRequest.LastName">
             <summary>
             Отчество
             </summary>
         </member>
-        <member name="P:GarageAPI.Controllers.Schemas.GetOrSetCustomerRequest.Email">
+        <member name="P:GarageAPI.Controllers.Schemas.GetOrSetUserRequest.Email">
             <summary>
             Почта
             </summary>
         </member>
-        <member name="P:GarageAPI.Controllers.Schemas.GetOrSetCustomerRequest.CustomerStateId">
+        <member name="P:GarageAPI.Controllers.Schemas.GetOrSetUserRequest.UserStateId">
             <summary>
             Id статуса
             </summary>
@@ -114,9 +94,29 @@
             Id Статуса записи
             </summary>
         </member>
-        <member name="P:GarageAPI.Controllers.Schemas.GetRecordsByFilterRequest.CustomerId">
+        <member name="P:GarageAPI.Controllers.Schemas.GetRecordsByFilterRequest.UserId">
             <summary>
             Id пользователя
+            </summary>
+        </member>
+        <member name="T:GarageAPI.Controllers.Schemas.GetUsersByFilterRequest">
+            <summary>
+            Запрос для получения пользователей по фильтру
+            </summary>
+        </member>
+        <member name="P:GarageAPI.Controllers.Schemas.GetUsersByFilterRequest.Page">
+            <summary>
+            Номер страницы
+            </summary>
+        </member>
+        <member name="P:GarageAPI.Controllers.Schemas.GetUsersByFilterRequest.PerPage">
+            <summary>
+            Пользователей на страницу
+            </summary>
+        </member>
+        <member name="P:GarageAPI.Controllers.Schemas.GetUsersByFilterRequest.VisitCount">
+            <summary>
+            Количество посещений
             </summary>
         </member>
     </members>

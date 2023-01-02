@@ -14,29 +14,29 @@ namespace GarageAPI.Controllers;
 [Route("api/[controller]")]
 [ApiController]
 [Produces("application/json")]
-public class CustomersController : ControllerBase
+public class UsersController : ControllerBase
 {
     [HttpPost]
     [SwaggerOperation("Создать или получить существующего пользователя")]
-    [SwaggerResponse(200, Type = typeof(Customer))]
+    [SwaggerResponse(200, Type = typeof(User))]
     [SwaggerResponse(400, Type = typeof(string))]
-    public async Task<IActionResult> Post([FromBody] GetOrSetCustomerRequest request, [FromServices] GarageDataBase.GarageDBContext context, CancellationToken cancellationToken)
+    public async Task<IActionResult> Post([FromBody] GetOrSetUserRequest request, [FromServices] GarageDataBase.GarageDBContext context, CancellationToken cancellationToken)
     {
         try
         {
-            var customer = await context.GetCustomer(request.Email, cancellationToken);
+            var user = await context.GetUser(request.Email, cancellationToken);
 
-            if (customer == null)
+            if (user == null)
             {
-                customer = await context
-                    .CreateCustomer(
+                user = await context
+                    .CreateUser(
                     request.Email,
                     request.FirstName,
                     request.SecondName,
                     request.LastName,
                     cancellationToken: cancellationToken);
             }
-            return Ok(customer);
+            return Ok(user);
         }
         catch (Exception ex)
         {
@@ -46,13 +46,13 @@ public class CustomersController : ControllerBase
 
     [HttpGet]
     [SwaggerOperation("Получить пользователей по фильтру")]
-    [SwaggerResponse(200, Type = typeof(List<Customer>))]
+    [SwaggerResponse(200, Type = typeof(List<User>))]
     [SwaggerResponse(400, Type = typeof(string))]
-    public async Task<IActionResult> Get([FromQuery] GetCustomersByFilterRequest request, [FromServices] GarageDataBase.GarageDBContext dBContext, CancellationToken cancellationToken)
+    public async Task<IActionResult> Get([FromQuery] GetUsersByFilterRequest request, [FromServices] GarageDataBase.GarageDBContext dBContext, CancellationToken cancellationToken)
     {
         try
         {
-            var customers = await dBContext.GetCustomersByFilter(
+            var users = await dBContext.GetUsersByFilter(
                 request.Page,
                 request.PerPage,
                 request.Email,
@@ -60,11 +60,11 @@ public class CustomersController : ControllerBase
                 request.SecondName,
                 request.LastName,
                 request.VisitCount,
-                request.CustomerStateId,
+                request.UserStateId,
                 cancellationToken);
 
-            if (customers.Any())
-                return Ok(customers);
+            if (users.Any())
+                return Ok(users);
             else return NotFound();
         }
         catch (Exception ex)

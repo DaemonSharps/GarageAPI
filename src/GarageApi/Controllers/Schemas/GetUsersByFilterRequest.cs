@@ -5,7 +5,7 @@ namespace GarageAPI.Controllers.Schemas;
 /// <summary>
 /// Запрос для получения пользователей по фильтру
 /// </summary>
-public class GetCustomersByFilterRequest : GetOrSetCustomerRequest
+public class GetUsersByFilterRequest : GetOrSetUserRequest
 {
     /// <summary>
     /// Номер страницы

@@ -4,32 +4,32 @@
         <name>GarageDataBase</name>
     </assembly>
     <members>
-        <member name="P:GarageDataBase.DTO.Customer.Id">
+        <member name="P:GarageDataBase.DTO.User.Id">
             <summary>
             Id пользователя
             </summary>
         </member>
-        <member name="P:GarageDataBase.DTO.Customer.FirstName">
+        <member name="P:GarageDataBase.DTO.User.FirstName">
             <summary>
             Имя
             </summary>
         </member>
-        <member name="P:GarageDataBase.DTO.Customer.SecondName">
+        <member name="P:GarageDataBase.DTO.User.SecondName">
             <summary>
             Фамилия
             </summary>
         </member>
-        <member name="P:GarageDataBase.DTO.Customer.LastName">
+        <member name="P:GarageDataBase.DTO.User.LastName">
             <summary>
             Отчество
             </summary>
         </member>
-        <member name="P:GarageDataBase.DTO.Customer.Email">
+        <member name="P:GarageDataBase.DTO.User.Email">
             <summary>
             Почта
             </summary>
         </member>
-        <member name="P:GarageDataBase.DTO.Customer.Status">
+        <member name="P:GarageDataBase.DTO.User.Status">
             <summary>
             Статус пользователя
             </summary>
@@ -65,7 +65,7 @@
             Устарело - использовать <see cref="P:GarageDataBase.DTO.Record.Status"/>
             </summary>
         </member>
-        <member name="P:GarageDataBase.DTO.Record.Customer">
+        <member name="P:GarageDataBase.DTO.Record.User">
             <summary>
             Записавшийся пользователь
             </summary>
@@ -81,12 +81,12 @@
             </summary>
             <param name="options"></param>
         </member>
-        <member name="P:GarageDataBase.GarageDBContext.Customers">
+        <member name="P:GarageDataBase.GarageDBContext.Users">
             <summary>
             Пользователи
             </summary>
         </member>
-        <member name="P:GarageDataBase.GarageDBContext.CustomerStates">
+        <member name="P:GarageDataBase.GarageDBContext.UserStates">
             <summary>
             Статусы пользователей
             </summary>
@@ -107,62 +107,62 @@
             </summary>
             <param name="builder"></param>
         </member>
-        <member name="T:GarageDataBase.Tables.CustomerStateTable">
+        <member name="T:GarageDataBase.Tables.UserStateTable">
             <summary>
             Статус пользователя
             </summary>
         </member>
-        <member name="P:GarageDataBase.Tables.CustomerStateTable.Customers">
+        <member name="P:GarageDataBase.Tables.UserStateTable.Users">
             <summary>
             Пользователи с этим статусом
             </summary>
         </member>
-        <member name="T:GarageDataBase.Tables.CustomerTable">
+        <member name="T:GarageDataBase.Tables.UserTable">
             <summary>
             Пользователь
             </summary>
         </member>
-        <member name="P:GarageDataBase.Tables.CustomerTable.Id">
+        <member name="P:GarageDataBase.Tables.UserTable.Id">
             <summary>
             Id пользователя
             </summary>
         </member>
-        <member name="P:GarageDataBase.Tables.CustomerTable.FirstName">
+        <member name="P:GarageDataBase.Tables.UserTable.FirstName">
             <summary>
             Имя
             </summary>
         </member>
-        <member name="P:GarageDataBase.Tables.CustomerTable.SecondName">
+        <member name="P:GarageDataBase.Tables.UserTable.SecondName">
             <summary>
             Фамилия
             </summary>
         </member>
-        <member name="P:GarageDataBase.Tables.CustomerTable.LastName">
+        <member name="P:GarageDataBase.Tables.UserTable.LastName">
             <summary>
             Отчество
             </summary>
         </member>
-        <member name="P:GarageDataBase.Tables.CustomerTable.Email">
+        <member name="P:GarageDataBase.Tables.UserTable.Email">
             <summary>
             Почта
             </summary>
         </member>
-        <member name="P:GarageDataBase.Tables.CustomerTable.VisitCount">
+        <member name="P:GarageDataBase.Tables.UserTable.VisitCount">
             <summary>
             Количество посещений
             </summary>
         </member>
-        <member name="P:GarageDataBase.Tables.CustomerTable.CustomerStateId">
+        <member name="P:GarageDataBase.Tables.UserTable.UserStateId">
             <summary>
             Id статуса
             </summary>
         </member>
-        <member name="P:GarageDataBase.Tables.CustomerTable.CustomerState">
+        <member name="P:GarageDataBase.Tables.UserTable.UserState">
             <summary>
             Статус пользователя
             </summary>
         </member>
-        <member name="P:GarageDataBase.Tables.CustomerTable.Records">
+        <member name="P:GarageDataBase.Tables.UserTable.Records">
             <summary>
             Записи пользователя
             </summary>
@@ -187,7 +187,7 @@
             Id записи
             </summary>
         </member>
-        <member name="P:GarageDataBase.Tables.RecordTable.CustomerId">
+        <member name="P:GarageDataBase.Tables.RecordTable.UserId">
             <summary>
             Id пользователя
             </summary>
@@ -212,7 +212,7 @@
             Id статуса записи
             </summary>
         </member>
-        <member name="P:GarageDataBase.Tables.RecordTable.Customer">
+        <member name="P:GarageDataBase.Tables.RecordTable.User">
             <summary>
             Записавшийся пользователь
             </summary>

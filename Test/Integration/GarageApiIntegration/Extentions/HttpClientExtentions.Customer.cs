@@ -6,29 +6,29 @@ namespace GarageApiIntegration.Extentions;
 
 public static partial class HttpClientExtentions
 {
-    public static async Task<DTO.Customer> GetOrCreateCustomer(this HttpClient client, GetOrSetCustomerRequest request, string expectedStatus)
+    public static async Task<DTO.User> GetOrCreateUser(this HttpClient client, GetOrSetUserRequest request, string expectedStatus)
     {
-        var result = await client.PostAsJsonAsync("/api/customers", request);
+        var result = await client.PostAsJsonAsync("/api/users", request);
         result.EnsureSuccessStatusCode();
-        var customer = await result.Content.ReadFromJsonAsync<DTO.Customer>();
+        var user = await result.Content.ReadFromJsonAsync<DTO.User>();
 
-        Assert.NotNull(customer);
-        customer.WithDeepEqual(request)
+        Assert.NotNull(user);
+        user.WithDeepEqual(request)
             .IgnoreSourceProperty(s => s.Id)
             .IgnoreSourceProperty(s => s.Status)
-            .IgnoreDestinationProperty(d => d.CustomerStateId)
+            .IgnoreDestinationProperty(d => d.UserStateId)
             .Assert();
-        Assert.Equal(expectedStatus, customer.Status);
+        Assert.Equal(expectedStatus, user.Status);
 
-        return customer;
+        return user;
     }
 
-    public static async Task<List<DTO.Customer>> GetCustomersByFilter(this HttpClient client, GetCustomersByFilterRequest request)
+    public static async Task<List<DTO.User>> GetUsersByFilter(this HttpClient client, GetUsersByFilterRequest request)
     {
-        var querry = $"/api/customers?Email={request.Email}&Page={request.Page}&PerPage={request.PerPage}";
-        var customers = await client.GetFromJsonAsync<List<DTO.Customer>>(querry);
-        Assert.NotEmpty(customers);
-        return customers;
+        var querry = $"/api/users?Email={request.Email}&Page={request.Page}&PerPage={request.PerPage}";
+        var users = await client.GetFromJsonAsync<List<DTO.User>>(querry);
+        Assert.NotEmpty(users);
+        return users;
     }
 }
 

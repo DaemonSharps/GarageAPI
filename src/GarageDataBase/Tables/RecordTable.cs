@@ -17,7 +17,7 @@ public class RecordTable : Timestamp
     /// Id пользователя
     /// </summary>
     [Required]
-    public long CustomerId { get; set; }
+    public long UserId { get; set; }
 
     /// <summary>
     /// Время записи
@@ -47,7 +47,7 @@ public class RecordTable : Timestamp
     /// <summary>
     /// Записавшийся пользователь
     /// </summary>
-    public CustomerTable Customer { get; set; }
+    public UserTable User { get; set; }
 
     /// <summary>
     /// Статус записи

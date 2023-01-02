@@ -2,7 +2,7 @@
 
 namespace GarageDataBase.DTO;
 
-public class Customer
+public class User
 {
     /// <summary>
     /// Id пользователя

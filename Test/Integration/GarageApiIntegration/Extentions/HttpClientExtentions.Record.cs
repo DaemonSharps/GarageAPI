@@ -7,7 +7,7 @@ namespace GarageApiIntegration.Extentions;
 
 public static partial class HttpClientExtentions
 {
-    public static async Task<DTO.Record> CreateOrUpdateRecord(this HttpClient client, CreateRecordRequest request, DTO.Customer expectedCustomer)
+    public static async Task<DTO.Record> CreateOrUpdateRecord(this HttpClient client, CreateRecordRequest request, DTO.User expectedUser)
     {
         var response = await client.PostAsJsonAsync("/api/records", request);
         response.EnsureSuccessStatusCode();
@@ -15,19 +15,19 @@ public static partial class HttpClientExtentions
 
         Assert.NotNull(record);
         Assert.Equal(request.Date, record.Date);
-        Assert.Equal(request.CustomerId, record.Customer.Id);
+        Assert.Equal(request.UserId, record.User.Id);
         Assert.Equal(request.PlaceNumber, record.PlaceNumber);
         Assert.Equal("Approved", record.Status);
         Assert.Equal(1, record.RecordStateId);
         Assert.Equal(request.Time, record.Time);
 
-        var recordCustomer = record.Customer;
-        Assert.NotNull(recordCustomer);
-        Assert.Equal(recordCustomer.Email, expectedCustomer.Email);
-        Assert.Equal(recordCustomer.FirstName, expectedCustomer.FirstName);
-        Assert.Equal(recordCustomer.LastName, expectedCustomer.LastName);
-        Assert.Equal(recordCustomer.SecondName, expectedCustomer.SecondName);
-        Assert.Equal(recordCustomer.Status, expectedCustomer.Status);
+        var recordUser = record.User;
+        Assert.NotNull(recordUser);
+        Assert.Equal(recordUser.Email, expectedUser.Email);
+        Assert.Equal(recordUser.FirstName, expectedUser.FirstName);
+        Assert.Equal(recordUser.LastName, expectedUser.LastName);
+        Assert.Equal(recordUser.SecondName, expectedUser.SecondName);
+        Assert.Equal(recordUser.Status, expectedUser.Status);
 
 
         return record;
@@ -36,7 +36,7 @@ public static partial class HttpClientExtentions
     public static async Task<List<DTO.Record>> GetRecordsByFilter(this HttpClient client, GetRecordsByFilterRequest request)
     {
         var dateToString = request.Date.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
-        var querry = $"?CustomerId={request.CustomerId}&Date={dateToString}&Page={request.Page}&PerPage={request.PerPage}";
+        var querry = $"?UserId={request.UserId}&Date={dateToString}&Page={request.Page}&PerPage={request.PerPage}";
         if (request.DateFrom.HasValue)
         {
             var dateFromString = request.DateFrom?.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);

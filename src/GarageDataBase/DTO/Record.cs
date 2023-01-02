@@ -36,6 +36,6 @@ public class Record
     /// <summary>
     /// Записавшийся пользователь
     /// </summary>
-    public Customer Customer { get; set; }
+    public User User { get; set; }
 }
 

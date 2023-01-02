@@ -7,16 +7,16 @@ namespace GarageDataBase.Extentions;
 
 public static partial class GarageDBContextExtentions
 {
-    public static async Task<Customer> GetCustomer(this GarageDBContext dBContext, string email, CancellationToken cancellationToken = default)
+    public static async Task<User> GetUser(this GarageDBContext dBContext, string email, CancellationToken cancellationToken = default)
     {
-        var customer = await dBContext
-            .Customers
-            .Include(c => c.CustomerState)
+        var user = await dBContext
+            .Users
+            .Include(c => c.UserState)
             .FirstOrDefaultAsync(c => c.Email == email, cancellationToken);
-        return MapperHelper.Map<Customer>(customer);
+        return MapperHelper.Map<User>(user);
     }
 
-    public static async Task<Customer> CreateCustomer(
+    public static async Task<User> CreateUser(
         this GarageDBContext dBContext,
         string email,
         string firstName,
@@ -25,23 +25,23 @@ public static partial class GarageDBContextExtentions
         long stateId = 1,
         CancellationToken cancellationToken = default)
     {
-        var customerToCreate = new CustomerTable
+        var userToCreate = new UserTable
         {
             Email = email,
-            CustomerStateId = stateId,
+            UserStateId = stateId,
             FirstName = firstName,
             LastName = lastName,
             SecondName = secondName
         };
 
-        var customerEntry = dBContext.Customers.Add(customerToCreate);
-        await customerEntry.Reference(c => c.CustomerState).LoadAsync(cancellationToken);
+        var userEntry = dBContext.Users.Add(userToCreate);
+        await userEntry.Reference(c => c.UserState).LoadAsync(cancellationToken);
         await dBContext.SaveChangesAsync(cancellationToken);
-        return MapperHelper.Map<Customer>(customerEntry.Entity);
+        return MapperHelper.Map<User>(userEntry.Entity);
 
     }
 
-    public static async Task<List<Customer>> GetCustomersByFilter(
+    public static async Task<List<User>> GetUsersByFilter(
         this GarageDBContext dBContext,
         int page,
         int perPage,
@@ -53,32 +53,32 @@ public static partial class GarageDBContextExtentions
         long stateId = 0,
         CancellationToken cancellationToken = default)
     {
-        var customersQuerry = dBContext
-            .Customers
-            .Include(c => c.CustomerState)
+        var usersQuerry = dBContext
+            .Users
+            .Include(c => c.UserState)
             .AsQueryable();
 
         if (!string.IsNullOrEmpty(email))
-            customersQuerry = customersQuerry.Where(c => c.Email == email);
+            usersQuerry = usersQuerry.Where(c => c.Email == email);
         if (!string.IsNullOrEmpty(firstName))
-            customersQuerry = customersQuerry.Where(c => c.FirstName == firstName);
+            usersQuerry = usersQuerry.Where(c => c.FirstName == firstName);
         if (!string.IsNullOrEmpty(secondName))
-            customersQuerry = customersQuerry.Where(c => c.SecondName == secondName);
+            usersQuerry = usersQuerry.Where(c => c.SecondName == secondName);
         if (!string.IsNullOrEmpty(lastName))
-            customersQuerry = customersQuerry.Where(c => c.LastName == lastName);
+            usersQuerry = usersQuerry.Where(c => c.LastName == lastName);
         if (visitCount != 0)
-            customersQuerry = customersQuerry.Where(c => c.VisitCount == visitCount);
+            usersQuerry = usersQuerry.Where(c => c.VisitCount == visitCount);
         if (stateId != 0)
-            customersQuerry = customersQuerry.Where(c => c.CustomerStateId == stateId);
+            usersQuerry = usersQuerry.Where(c => c.UserStateId == stateId);
 
         var takeFromPage = (page - 1) * perPage;
 
-        var customers = await customersQuerry
+        var users = await usersQuerry
             .Skip(takeFromPage)
             .Take(perPage)
             .ToArrayAsync(cancellationToken);
 
-        return MapperHelper.Map<List<Customer>>(customers);
+        return MapperHelper.Map<List<User>>(users);
     }
 }
 
