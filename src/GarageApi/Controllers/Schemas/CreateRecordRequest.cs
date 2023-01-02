@@ -13,7 +13,7 @@ public class CreateRecordRequest
     /// Новое Id пользователя
     /// </summary>
     [Required]
-    public long CustomerId { get; set; }
+    public long UserId { get; set; }
 
     /// <summary>
     /// Новое время записи
@@ -37,5 +37,5 @@ public class CreateRecordRequest
     /// Новый Id статуса записи
     /// </summary>
     [Required]
-    public long RecordStateId { get; set; }
+    public long StateId { get; set; }
 }

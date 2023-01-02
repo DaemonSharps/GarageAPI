@@ -32,7 +32,7 @@ public class RecordsController : ControllerBase
             dateFrom,
             request.Date,
             request.StateId,
-            request.CustomerId,
+            request.UserId,
             cancellationToken);
 
             if (records.Any())
@@ -55,27 +55,27 @@ public class RecordsController : ControllerBase
         try
         {
             var record = (await dBContext
-                .GetRecordsByFilter(1, 10, request.Date, request.Date, 1, request.CustomerId, cancellationToken))
+                .GetRecordsByFilter(1, 10, request.Date, request.Date, 1, request.UserId, cancellationToken))
                 .FirstOrDefault();
 
             if (record == null)
             {
                 record = await dBContext.CreateRecord(
-                        request.CustomerId,
+                        request.UserId,
                         request.Time,
                         request.Date,
                         request.PlaceNumber,
-                        request.RecordStateId,
+                        request.StateId,
                         cancellationToken);
             }
             else
             {
                 record = await dBContext.UpdateRecord(
-                    request.CustomerId,
+                    request.UserId,
                     request.Time,
                     request.Date,
                     request.PlaceNumber,
-                    request.RecordStateId,
+                    request.StateId,
                     cancellationToken);
             }
 

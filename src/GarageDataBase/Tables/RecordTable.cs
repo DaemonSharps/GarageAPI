@@ -6,7 +6,7 @@ namespace GarageDataBase.Tables;
 /// <summary>
 /// Запись
 /// </summary>
-public class RecordTable
+public class RecordTable : Timestamp
 {
     /// <summary>
     /// Id записи
@@ -17,7 +17,12 @@ public class RecordTable
     /// Id пользователя
     /// </summary>
     [Required]
-    public long CustomerId { get; set; }
+    public long UserId { get; set; }
+
+    /// <summary>
+    /// Записавшийся пользователь
+    /// </summary>
+    public UserTable User { get; set; }
 
     /// <summary>
     /// Время записи
@@ -42,16 +47,11 @@ public class RecordTable
     /// Id статуса записи
     /// </summary>
     [Required]
-    public long RecordStateId { get; set; }
-
-    /// <summary>
-    /// Записавшийся пользователь
-    /// </summary>
-    public CustomerTable Customer { get; set; }
+    public long StateId { get; set; }
 
     /// <summary>
     /// Статус записи
     /// </summary>
     [JsonIgnore]
-    public RecordStateTable RecordState { get; set; }
+    public RecordStateTable State { get; set; }
 }

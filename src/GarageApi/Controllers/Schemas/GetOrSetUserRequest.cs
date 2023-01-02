@@ -5,7 +5,7 @@ namespace GarageAPI.Controllers.Schemas;
 /// <summary>
 /// Запрос для получения или создания пользователя
 /// </summary>
-public class GetOrSetCustomerRequest
+public class GetOrSetUserRequest
 {
     /// <summary>
     /// Имя
@@ -15,12 +15,12 @@ public class GetOrSetCustomerRequest
     /// <summary>
     /// Фамилия
     /// </summary>
-    public string SecondName { get; set; }
+    public string LastName { get; set; }
 
     /// <summary>
     /// Отчество
     /// </summary>
-    public string LastName { get; set; }
+    public string Patronymic { get; set; }
 
     /// <summary>
     /// Почта
@@ -31,5 +31,5 @@ public class GetOrSetCustomerRequest
     /// <summary>
     /// Id статуса
     /// </summary>
-    public long CustomerStateId { get; set; }
+    public long StateId { get; set; }
 }

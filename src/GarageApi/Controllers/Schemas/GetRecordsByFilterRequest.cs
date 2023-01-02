@@ -39,5 +39,5 @@ public class GetRecordsByFilterRequest
     /// <summary>
     /// Id пользователя
     /// </summary>
-    public long CustomerId { get; set; }
+    public long UserId { get; set; }
 }

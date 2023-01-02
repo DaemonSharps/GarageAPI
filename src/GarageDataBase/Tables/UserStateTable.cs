@@ -3,10 +3,10 @@
 /// <summary>
 /// Статус пользователя
 /// </summary>
-public class CustomerStateTable : StateBase
+public class UserStateTable : StateBase
 {
     /// <summary>
     /// Пользователи с этим статусом
     /// </summary>
-    public List<CustomerTable> Customers { get; set; } = new List<CustomerTable>();
+    public List<UserTable> Users { get; set; } = new List<UserTable>();
 }

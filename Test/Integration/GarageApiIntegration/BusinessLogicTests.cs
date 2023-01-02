@@ -3,7 +3,7 @@ using GarageAPI;
 using GarageAPI.Controllers.Schemas;
 using GarageApiIntegration.Common;
 using GarageApiIntegration.Extentions;
-using CustomerDTO = GarageDataBase.DTO.Customer;
+using UserDTO = GarageDataBase.DTO.User;
 using RecordDTO = GarageDataBase.DTO.Record;
 
 namespace GarageApiIntegration;
@@ -13,42 +13,42 @@ public class BusinessLogicTests : ApiTestBase
     public BusinessLogicTests(GarageApiTestFixture<Startup> fixture) : base(fixture) { }
 
     [Fact]
-    public async Task CreateCustomerAndRequest()
+    public async Task CreateUserAndRequest()
     {
-        var request = new GetOrSetCustomerRequest
+        var request = new GetOrSetUserRequest
         {
             Email = "test@mail.ru",
-            CustomerStateId = 1,
+            StateId = 1,
             FirstName = "fn",
             LastName = "ln",
-            SecondName = "sn"
+            Patronymic = "sn"
         };
-        var customer = await Client.GetOrCreateCustomer(request, "Clear");
+        var user = await Client.GetOrCreateUser(request, "Clear");
 
-        var customerFilterRequest = new GetCustomersByFilterRequest
+        var userFilterRequest = new GetUsersByFilterRequest
         {
-            Email = customer.Email,
+            Email = user.Email,
             Page = 1,
             PerPage = 10
         };
-        var filteredCustomers = await Client.GetCustomersByFilter(customerFilterRequest);
-        var filteredCustomer = Assert.Single(filteredCustomers);
-        filteredCustomer.ShouldDeepEqual(customer);
+        var filteredUsers = await Client.GetUsersByFilter(userFilterRequest);
+        var filteredUser = Assert.Single(filteredUsers);
+        filteredUser.ShouldDeepEqual(user);
 
         var createRecordRequest = new CreateRecordRequest
         {
-            CustomerId = customer.Id,
+            UserId = user.Id,
             Date = DateTime.Today.AddDays(1),
             PlaceNumber = 1,
-            RecordStateId = 1,
+            StateId = 1,
             Time = "22:00"
         };
-        var record = await Client.CreateOrUpdateRecord(createRecordRequest, customer);
+        var record = await Client.CreateOrUpdateRecord(createRecordRequest, user);
 
         var filterRequest = new GetRecordsByFilterRequest
         {
             Date = createRecordRequest.Date,
-            CustomerId = customer.Id,
+            UserId = user.Id,
             Page = 1,
             PerPage = 10
         };
@@ -59,32 +59,32 @@ public class BusinessLogicTests : ApiTestBase
     }
 
     [Fact]
-    public async Task GetCustomerAndCreateRequest()
+    public async Task GetUserAndCreateRequest()
     {
-        var request = new GetOrSetCustomerRequest
+        var request = new GetOrSetUserRequest
         {
             FirstName = "Арсений",
-            SecondName = "Васильев",
-            LastName = "Тестовый",
-            CustomerStateId = 1,
+            LastName = "Васильев",
+            Patronymic = "Тестовый",
+            StateId = 1,
             Email = "ar-seny@mail.ru"
         };
-        var customer = await Client.GetOrCreateCustomer(request, "Clear");
+        var user = await Client.GetOrCreateUser(request, "Clear");
 
         var createRecordRequest = new CreateRecordRequest
         {
-            CustomerId = customer.Id,
+            UserId = user.Id,
             Date = DateTime.Today.AddDays(1),
             PlaceNumber = 1,
-            RecordStateId = 1,
+            StateId = 1,
             Time = "22:00"
         };
-        var record = await Client.CreateOrUpdateRecord(createRecordRequest, customer);
+        var record = await Client.CreateOrUpdateRecord(createRecordRequest, user);
 
         var filterRequest = new GetRecordsByFilterRequest
         {
             Date = createRecordRequest.Date,
-            CustomerId = customer.Id,
+            UserId = user.Id,
             Page = 1,
             PerPage = 10
         };
@@ -96,11 +96,11 @@ public class BusinessLogicTests : ApiTestBase
     [Fact]
     public async Task CreateNumberRequestAndGet()
     {
-        var customer = new CustomerDTO
+        var user = new UserDTO
         {
             FirstName = "Арсений",
-            SecondName = "Васильев",
-            LastName = "Тестовый",
+            LastName = "Васильев",
+            Patronymic = "Тестовый",
             Status = "Clear",
             Email = "ar-seny@mail.ru"
         };
@@ -109,20 +109,20 @@ public class BusinessLogicTests : ApiTestBase
         {
             var createRecordRequest = new CreateRecordRequest
             {
-                CustomerId = 1,
+                UserId = 1,
                 Date = dateFrom.AddDays(i),
                 PlaceNumber = 1,
-                RecordStateId = 1,
+                StateId = 1,
                 Time = "22:00"
             };
-            await Client.CreateOrUpdateRecord(createRecordRequest, customer);
+            await Client.CreateOrUpdateRecord(createRecordRequest, user);
         }
 
         var filterRequest = new GetRecordsByFilterRequest
         {
             DateFrom = dateFrom,
             Date = dateFrom.AddDays(3),
-            CustomerId = customer.Id,
+            UserId = user.Id,
             Page = 1,
             PerPage = 10
         };
@@ -135,27 +135,27 @@ public class BusinessLogicTests : ApiTestBase
     {
         var dateFrom = DateTime.Today.AddDays(2);
 
-        var customer = new CustomerDTO
+        var user = new UserDTO
         {
             FirstName = "Арсений",
-            SecondName = "Васильев",
-            LastName = "Тестовый",
+            LastName = "Васильев",
+            Patronymic = "Тестовый",
             Status = "Clear",
             Email = "ar-seny@mail.ru"
         };
 
         var createRecordRequest = new CreateRecordRequest
         {
-            CustomerId = 1,
+            UserId = 1,
             Date = dateFrom,
             PlaceNumber = 1,
-            RecordStateId = 1,
+            StateId = 1,
             Time = "22:00"
         };
-        var createdRecord = await Client.CreateOrUpdateRecord(createRecordRequest, customer);
+        var createdRecord = await Client.CreateOrUpdateRecord(createRecordRequest, user);
 
         createRecordRequest.Time = "00:00";
-        var updatedRecord = await Client.CreateOrUpdateRecord(createRecordRequest, customer);
+        var updatedRecord = await Client.CreateOrUpdateRecord(createRecordRequest, user);
 
         updatedRecord.WithDeepEqual(createdRecord)
             .IgnoreProperty<RecordDTO>(r => r.Time)

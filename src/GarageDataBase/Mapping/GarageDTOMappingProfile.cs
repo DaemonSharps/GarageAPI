@@ -8,11 +8,11 @@ public class GarageDTOMappingProfile : Profile
 {
     public GarageDTOMappingProfile()
     {
-        CreateMap<CustomerTable, Customer>()
-            .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.CustomerState.Name));
+        CreateMap<UserTable, User>()
+            .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.State.Name));
 
         CreateMap<RecordTable, Record>()
-            .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.RecordState.Name));
+            .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.State.Name));
     }
 }
 
