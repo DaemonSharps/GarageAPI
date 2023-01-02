@@ -1,17 +1,13 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace GarageAPI
 {
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public class Program
 
     {
@@ -50,5 +46,4 @@ namespace GarageAPI
             return webHost;
         }
     }
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

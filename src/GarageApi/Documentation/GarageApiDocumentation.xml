@@ -119,18 +119,5 @@
             Id пользователя
             </summary>
         </member>
-        <member name="T:GarageAPI.Helpers.DataHelper">
-            <summary>
-            Помошник в работе с данными
-            </summary>
-        </member>
-        <member name="M:GarageAPI.Helpers.DataHelper.IsDefault``1(``0)">
-            <summary>
-            Проверка на дефолтное значение
-            </summary>
-            <typeparam name="T">Структура</typeparam>
-            <param name="value">Переменная</param>
-            <returns>True если value имеет дефолтное значение, иначе - false</returns>
-        </member>
     </members>
 </doc>

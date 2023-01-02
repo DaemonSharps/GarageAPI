@@ -41,7 +41,7 @@ public static partial class GarageDBContextExtentions
 
     }
 
-    public static async Task<List<Customer>> GetCustomersBy(
+    public static async Task<List<Customer>> GetCustomersByFilter(
         this GarageDBContext dBContext,
         int page,
         int perPage,
