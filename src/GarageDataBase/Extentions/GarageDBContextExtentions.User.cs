@@ -81,5 +81,31 @@ public static partial class GarageDBContextExtentions
 
         return MapperHelper.Map<List<User>>(users);
     }
+
+    public static async Task<User> UpdateUser(
+        this GarageDBContext dBContext,
+        string email,
+        string firstName,
+        string lastName,
+        string patronymic,
+        long stateId = 1,
+        CancellationToken cancellationToken = default)
+    {
+        var originalUser = await dBContext.Users.FirstOrDefaultAsync(r => r.Email == email && r.FinishDate != null, cancellationToken);
+        if (originalUser == null)
+            throw new NullReferenceException("Can`t find record to update");
+
+        originalUser.Email = string.IsNullOrEmpty(email) ? originalUser.Email : email;
+        originalUser.FirstName = string.IsNullOrEmpty(firstName) ? originalUser.FirstName : firstName;
+        originalUser.LastName = string.IsNullOrEmpty(lastName) ? originalUser.LastName : lastName;
+        originalUser.Patronymic = string.IsNullOrEmpty(patronymic) ? originalUser.Patronymic : patronymic;
+        originalUser.StateId = stateId == 0 ? originalUser.StateId : stateId;
+
+        var recordEntry = dBContext.Update(originalUser);
+        await recordEntry.Reference(r => r.State).LoadAsync(cancellationToken);
+        await dBContext.SaveChangesAsync(cancellationToken);
+
+        return MapperHelper.Map<User>(recordEntry.Entity);
+    }
 }
 

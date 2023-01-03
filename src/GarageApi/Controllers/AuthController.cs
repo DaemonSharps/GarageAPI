@@ -32,7 +32,7 @@ public class AuthController : ControllerBase
 
         if (user != null)
         {
-            //update user
+            await context.UpdateUser(request.Email, request.FirstName, request.LastName, request.Patronymic, cancellationToken: cancellationToken);
         }
         if (user == null) 
         {
