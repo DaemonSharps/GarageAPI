@@ -1,5 +1,6 @@
 ﻿using ExternalApiClients.Rest;
 using GarageAPI.Controllers.Schemas;
+using GarageDataBase;
 using GarageDataBase.DTO;
 using GarageDataBase.Extentions;
 using Microsoft.AspNetCore.Mvc;
@@ -18,19 +19,27 @@ namespace GarageAPI.Controllers;
 public class AuthController : ControllerBase
 {
     [HttpPost]
-    public async Task<IActionResult> RegisterUser(string email, [FromServices] IJwtProviderApi jwtProvider)
+    public async Task<IActionResult> RegisterUser(RegisterUserRequest request, [FromServices] IJwtProviderApi jwtProvider, [FromServices] GarageDBContext context, CancellationToken cancellationToken)
     {
-        var request = new RegisterUserRequest
+        var response = await jwtProvider.RegisterUser(request, cancellationToken);
+
+        if (!response.IsSuccessStatusCode)
         {
-            Email = $"{email}@mail.ru",
-            FirstName = "fn",
-            LastName = "ln",
-            Patronymic = "mn",
-            Password = "1"
-        };
-        var response = await jwtProvider.RegisterUser(request);
-        return response.IsSuccessStatusCode 
-            ? Ok(response.Content) 
-            : BadRequest(await response.Error.GetContentAsAsync<JwtError>());
+            return BadRequest(await response.Error.GetContentAsAsync<JwtError>());
+        }
+
+        var user = await context.GetUser(request.Email, includeDeleted: true, cancellationToken);
+
+        if (user != null)
+        {
+            //update user
+        }
+        if (user == null) 
+        {
+            await context.CreateUser(request.Email, request.FirstName, request.LastName, request.Patronymic, cancellationToken: cancellationToken);
+        }
+
+        HttpContext.Response.Cookies.Append("garage-api-refresh-token", response.Content.RefreshToken.ToString());
+        return Ok(response.Content.AccessToken);
     }
 }
