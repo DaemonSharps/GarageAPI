@@ -28,7 +28,7 @@ public class AuthController : ControllerBase
             return BadRequest(await response.Error.GetContentAsAsync<JwtError>());
         }
 
-        var user = await context.GetUser(request.Email, includeDeleted: true, cancellationToken);
+        var user = await context.GetUser(request.Email, skipDeleted: false, cancellationToken);
 
         if (user != null)
         {

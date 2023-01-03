@@ -2,17 +2,25 @@
 using GarageDataBase.Mapping;
 using GarageDataBase.Tables;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 
 namespace GarageDataBase.Extentions;
 
 public static partial class GarageDBContextExtentions
 {
-    public static async Task<User> GetUser(this GarageDBContext dBContext, string email, bool includeDeleted = false, CancellationToken cancellationToken = default)
+    public static IQueryable<T> SkipDeleted<T>(this IQueryable<T> timestamps, bool ignoreExpression = false)
+        where T : Timestamp
     {
-        var user = await dBContext
-            .Users
+        return ignoreExpression 
+            ? timestamps 
+            : timestamps.Where(t => t.FinishDate == null);
+    }
+
+    public static async Task<User> GetUser(this GarageDBContext dBContext, string email, bool skipDeleted = true, CancellationToken cancellationToken = default)
+    {
+        var users = dBContext.Users.SkipDeleted(skipDeleted);
+        var user = await users
             .Include(c => c.State)
-            .Where(c => (c.FinishDate != null) == includeDeleted)
             .FirstOrDefaultAsync(c => c.Email == email, cancellationToken);
         return MapperHelper.Map<User>(user);
     }
