@@ -39,7 +39,7 @@ public class AuthController : ControllerBase
             await context.CreateUser(request.Email, request.FirstName, request.LastName, request.Patronymic, cancellationToken: cancellationToken);
         }
 
-        HttpContext.Response.Cookies.Append("garage-api-refresh-token", response.Content.RefreshToken.ToString());
+        Response.Cookies.Append("_g_rt", response.Content.RefreshToken.ToString());
         return Ok(response.Content.AccessToken);
     }
 }
