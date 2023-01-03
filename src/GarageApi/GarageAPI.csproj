@@ -37,6 +37,7 @@
 		</EmbeddedResource>
 	</ItemGroup>
 	<ItemGroup>
+		<ProjectReference Include="..\ExternalApiClients\ExternalApiClients.csproj" />
 		<ProjectReference Include="..\GarageDataBase\GarageDataBase.csproj">
 			<GlobalPropertiesToRemove>
 			</GlobalPropertiesToRemove>

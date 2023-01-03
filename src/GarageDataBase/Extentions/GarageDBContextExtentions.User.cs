@@ -7,11 +7,12 @@ namespace GarageDataBase.Extentions;
 
 public static partial class GarageDBContextExtentions
 {
-    public static async Task<User> GetUser(this GarageDBContext dBContext, string email, CancellationToken cancellationToken = default)
+    public static async Task<User> GetUser(this GarageDBContext dBContext, string email, bool includeDeleted = false, CancellationToken cancellationToken = default)
     {
         var user = await dBContext
             .Users
             .Include(c => c.State)
+            .Where(c => (c.FinishDate != null) == includeDeleted)
             .FirstOrDefaultAsync(c => c.Email == email, cancellationToken);
         return MapperHelper.Map<User>(user);
     }
@@ -79,6 +80,32 @@ public static partial class GarageDBContextExtentions
             .ToArrayAsync(cancellationToken);
 
         return MapperHelper.Map<List<User>>(users);
+    }
+
+    public static async Task<User> UpdateUser(
+        this GarageDBContext dBContext,
+        string email,
+        string firstName,
+        string lastName,
+        string patronymic,
+        long stateId = 1,
+        CancellationToken cancellationToken = default)
+    {
+        var originalUser = await dBContext.Users.FirstOrDefaultAsync(r => r.Email == email && r.FinishDate != null, cancellationToken);
+        if (originalUser == null)
+            throw new NullReferenceException("Can`t find record to update");
+
+        originalUser.Email = string.IsNullOrEmpty(email) ? originalUser.Email : email;
+        originalUser.FirstName = string.IsNullOrEmpty(firstName) ? originalUser.FirstName : firstName;
+        originalUser.LastName = string.IsNullOrEmpty(lastName) ? originalUser.LastName : lastName;
+        originalUser.Patronymic = string.IsNullOrEmpty(patronymic) ? originalUser.Patronymic : patronymic;
+        originalUser.StateId = stateId == 0 ? originalUser.StateId : stateId;
+
+        var recordEntry = dBContext.Update(originalUser);
+        await recordEntry.Reference(r => r.State).LoadAsync(cancellationToken);
+        await dBContext.SaveChangesAsync(cancellationToken);
+
+        return MapperHelper.Map<User>(recordEntry.Entity);
     }
 }
 

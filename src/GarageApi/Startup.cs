@@ -1,3 +1,4 @@
+using ExternalApiClients.Extentions;
 using GarageDataBase;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -51,6 +52,8 @@ public class Startup
             filePath = Path.Combine(basePath, "GarageDataBaseDocumentation.xml");
             setup.IncludeXmlComments(filePath);
         });
+
+        services.AddJwtProviderClient();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

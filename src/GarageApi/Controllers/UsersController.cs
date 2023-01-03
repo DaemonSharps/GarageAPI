@@ -24,7 +24,7 @@ public class UsersController : ControllerBase
     {
         try
         {
-            var user = await context.GetUser(request.Email, cancellationToken);
+            var user = await context.GetUser(request.Email, includeDeleted: true, cancellationToken);
 
             if (user == null)
             {
