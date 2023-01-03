@@ -18,10 +18,17 @@ public class AuthTests : ApiTestBase
 {
     public AuthTests(GarageApiTestFixture<Startup> fixture) : base(fixture) { }
 
-    private IJwtProviderApi CreateJwtMock()
+    public override void UpdateServices(IServiceCollection services)
+    {
+        base.UpdateServices(services);
+
+        services.Replace(ServiceDescriptor.Transient(s => CreateJwtMock()));
+    }
+
+    private static IJwtProviderApi CreateJwtMock()
     {
         var jwtProviderMock = new Mock<IJwtProviderApi>();
-        jwtProviderMock.Setup(j => j.RegisterUser(It.IsAny<RegisterUserRequest>(), default))
+        jwtProviderMock.Setup(j => j.RegisterUser(It.IsAny<RegisterUserRequest>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(new Refit.ApiResponse<TokenResponse>(
                 new HttpResponseMessage(System.Net.HttpStatusCode.OK),
                 new TokenResponse
@@ -52,7 +59,9 @@ public class AuthTests : ApiTestBase
 
         var filterRequest = new GetUsersByFilterRequest
         {
-            Email = registrationRequest.Email
+            Email = registrationRequest.Email,
+            Page = 1,
+            PerPage = 10
         };
         var users = await Client.GetUsersByFilter(filterRequest);
 
