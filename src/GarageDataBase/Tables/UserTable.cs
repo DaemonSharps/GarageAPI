@@ -16,21 +16,18 @@ public class UserTable : Timestamp
     /// <summary>
     /// Имя
     /// </summary>
-    [Required]
     [MaxLength(200)]
     public string FirstName { get; set; }
 
     /// <summary>
     /// Фамилия
     /// </summary>
-    [Required]
     [MaxLength(200)]
     public string LastName { get; set; }
 
     /// <summary>
     /// Отчество
     /// </summary>
-    [Required]
     [MaxLength(200)]
     public string Patronymic { get; set; }
 

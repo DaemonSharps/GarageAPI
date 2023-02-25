@@ -12,6 +12,9 @@ public interface IJwtProviderApi
 {
     [Post("/users")]
     public Task<ApiResponse<TokenResponse>> RegisterUser([Body] RegisterUserRequest request, CancellationToken cancellationToken);
+
+    [Post("/sessions")]
+    public Task<ApiResponse<TokenResponse>> CreateSession([Body] CreateSessionRequest request, CancellationToken cancellationToken);
 }
 
 public class RegisterUserRequest
@@ -22,6 +25,15 @@ public class RegisterUserRequest
 
     public string Patronymic { get; set; }
 
+    [EmailAddress]
+    public string Email { get; set; }
+
+    [Required]
+    public string Password { get; set; }
+}
+
+public class CreateSessionRequest
+{
     [EmailAddress]
     public string Email { get; set; }
 
