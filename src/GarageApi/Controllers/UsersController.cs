@@ -1,6 +1,8 @@
-﻿using GarageAPI.Controllers.Schemas;
+﻿using ExternalApiClients.Rest;
+using GarageAPI.Controllers.Schemas;
 using GarageDataBase.DTO;
 using GarageDataBase.Extentions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
@@ -71,6 +73,12 @@ public class UsersController : ControllerBase
         {
             return BadRequest(ex.Message);
         }
+    }
 
+    [HttpDelete, Authorize]
+    public async Task<IActionResult> Delete([FromServices] IJwtProviderApi jwtProvider, CancellationToken cancellationToken)
+    {
+
+        return Ok();
     }
 }
