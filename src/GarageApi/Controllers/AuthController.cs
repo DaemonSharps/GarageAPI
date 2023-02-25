@@ -1,4 +1,4 @@
-﻿using ExternalApiClients.Rest;
+﻿using ExternalApiClients.Rest.JwtProvider;
 using GarageAPI.Controllers.Schemas;
 using GarageDataBase;
 using GarageDataBase.DTO;
