@@ -18,6 +18,9 @@ public interface IJwtProviderApi
 
     [Put("/sessions")]
     public Task<ApiResponse<TokenResponse>> RefreshToken([Body] RefreshTokenRequest request, CancellationToken cancellationToken);
+
+    [Delete("/users")]
+    public Task<IApiResponse> CloseAccount([Authorize("Bearer")] Guid accessToken);
 }
 
 public class RegisterUserRequest
