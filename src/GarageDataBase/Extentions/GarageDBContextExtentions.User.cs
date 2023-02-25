@@ -107,5 +107,15 @@ public static partial class GarageDBContextExtentions
 
         return MapperHelper.Map<User>(recordEntry.Entity);
     }
+
+    public static async Task CloseUser(this GarageDBContext dBContext, string email, CancellationToken cancellationToken)
+    {
+        var user = await dBContext.Users.FirstOrDefaultAsync(u => u.Email == email && u.FinishDate != null, cancellationToken);
+        if (user != null)
+        {
+            dBContext.Remove(user);
+            await dBContext.SaveChangesAsync(cancellationToken);
+        }
+    }
 }
 
