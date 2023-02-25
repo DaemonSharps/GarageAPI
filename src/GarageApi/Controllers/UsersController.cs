@@ -1,11 +1,16 @@
-﻿using GarageAPI.Controllers.Schemas;
+﻿using ExternalApiClients.Rest;
+using ExternalApiClients.Rest.JwtProvider;
+using GarageAPI.Controllers.Schemas;
 using GarageDataBase.DTO;
 using GarageDataBase.Extentions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -71,6 +76,21 @@ public class UsersController : ControllerBase
         {
             return BadRequest(ex.Message);
         }
+    }
 
+    [HttpDelete, Authorize]
+    public async Task<IActionResult> Delete([FromServices] IJwtProviderApi jwtProvider, [FromServices] GarageDataBase.GarageDBContext dBContext, CancellationToken cancellationToken)
+    {
+        var accessToken = Request.Headers.Authorization.First().Split(" ")[1];
+        var jwtResponse = await jwtProvider.CloseAccount(accessToken);
+
+        if (!jwtResponse.IsSuccessStatusCode)
+        {
+            return BadRequest(await jwtResponse.Error.GetContentAsAsync<JwtError>());
+        }
+
+        var email = User.FindFirstValue(JwtRegisteredClaimNames.Email);
+        await dBContext.CloseUser(email, cancellationToken: cancellationToken);
+        return Ok();
     }
 }

@@ -1,4 +1,5 @@
 ﻿using ExternalApiClients.Rest;
+using ExternalApiClients.Rest.JwtProvider;
 using GarageAPI;
 using GarageAPI.Controllers.Schemas;
 using GarageApiIntegration.Common;

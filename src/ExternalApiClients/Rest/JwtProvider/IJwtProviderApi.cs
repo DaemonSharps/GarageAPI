@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExternalApiClients.Rest;
+namespace ExternalApiClients.Rest.JwtProvider;
 
 public interface IJwtProviderApi
 {
@@ -18,6 +18,9 @@ public interface IJwtProviderApi
 
     [Put("/sessions")]
     public Task<ApiResponse<TokenResponse>> RefreshToken([Body] RefreshTokenRequest request, CancellationToken cancellationToken);
+
+    [Delete("/users")]
+    public Task<IApiResponse> CloseAccount([Authorize("Bearer")] string accessToken);
 }
 
 public class RegisterUserRequest

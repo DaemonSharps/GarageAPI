@@ -1,4 +1,4 @@
-﻿using ExternalApiClients.Rest;
+﻿using ExternalApiClients.Rest.JwtProvider;
 using Microsoft.Extensions.DependencyInjection;
 using Refit;
 using System;
@@ -16,7 +16,7 @@ public static class ServiceCollectionExtentions
     {
         services
             .AddRefitClient<TRestService>()
-            .ConfigureHttpClient(c => 
+            .ConfigureHttpClient(c =>
             {
                 if (!string.IsNullOrEmpty(baseAddress))
                 {

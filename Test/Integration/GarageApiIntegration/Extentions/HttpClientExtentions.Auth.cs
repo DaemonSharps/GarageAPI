@@ -1,4 +1,5 @@
 ﻿using ExternalApiClients.Rest;
+using ExternalApiClients.Rest.JwtProvider;
 using GarageAPI.Controllers.Schemas;
 using System.Globalization;
 using System.Net.Http.Json;
@@ -16,8 +17,8 @@ public static partial class HttpClientExtentions
         var refreshToken = response.Content.Headers.FirstOrDefault(h => h.Key == "Set-Cookie").Value;
 
         return new TokenResponse
-        { 
-            AccessToken = accessToken 
+        {
+            AccessToken = accessToken
         };
     }
 }
