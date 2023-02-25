@@ -15,6 +15,9 @@ public interface IJwtProviderApi
 
     [Post("/sessions")]
     public Task<ApiResponse<TokenResponse>> CreateSession([Body] CreateSessionRequest request, CancellationToken cancellationToken);
+
+    [Put("/sessions")]
+    public Task<ApiResponse<TokenResponse>> RefreshToken([Body] RefreshTokenRequest request, CancellationToken cancellationToken);
 }
 
 public class RegisterUserRequest
@@ -39,6 +42,12 @@ public class CreateSessionRequest
 
     [Required]
     public string Password { get; set; }
+}
+
+public class RefreshTokenRequest
+{
+    [Required]
+    public string RefreshToken { get; set; }
 }
 
 public class TokenResponse

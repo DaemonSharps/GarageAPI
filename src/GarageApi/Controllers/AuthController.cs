@@ -43,7 +43,7 @@ public class AuthController : ControllerBase
         return Ok(jwtResponse.Content.AccessToken);
     }
 
-    [HttpPost("authorize")]
+    [HttpPost]
     public async Task<IActionResult> Authorize(CreateSessionRequest request, [FromServices] IJwtProviderApi jwtProvider, [FromServices] GarageDBContext context, CancellationToken cancellationToken)
     {
         var jwtResponse = await jwtProvider.CreateSession(request, cancellationToken);
@@ -66,5 +66,19 @@ public class AuthController : ControllerBase
             AccessToken = jwtResponse.Content.AccessToken,
             User = user
         });
+    }
+
+    [HttpPut]
+    public async Task<IActionResult> RefreshToken(RefreshTokenRequest request, [FromServices] IJwtProviderApi jwtProvider, CancellationToken cancellationToken)
+    {
+        var jwtResponse = await jwtProvider.RefreshToken(request, cancellationToken);
+
+        if (!jwtResponse.IsSuccessStatusCode)
+        {
+            return BadRequest(await jwtResponse.Error.GetContentAsAsync<JwtError>());
+        }
+
+        Response.Cookies.Append("_g_rt", jwtResponse.Content.RefreshToken.ToString());
+        return Ok(jwtResponse.Content.AccessToken);
     }
 }
