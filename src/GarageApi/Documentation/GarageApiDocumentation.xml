@@ -119,5 +119,20 @@
             Количество посещений
             </summary>
         </member>
+        <member name="F:GarageAPI.Options.TokenOptions.Section">
+            <summary>
+            Секция в appsettings.json
+            </summary>
+        </member>
+        <member name="P:GarageAPI.Options.TokenOptions.AccessKey">
+            <summary>
+            Ключ для генерации токена доступа
+            </summary>
+        </member>
+        <member name="P:GarageAPI.Options.TokenOptions.Issuer">
+            <summary>
+            Униальный ключ издателя токена
+            </summary>
+        </member>
     </members>
 </doc>
