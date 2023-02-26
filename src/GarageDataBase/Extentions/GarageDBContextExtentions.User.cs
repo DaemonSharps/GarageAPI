@@ -91,7 +91,7 @@ public static partial class GarageDBContextExtentions
         long stateId = 1,
         CancellationToken cancellationToken = default)
     {
-        var originalUser = await dBContext.Users.FirstOrDefaultAsync(r => r.Email == email && r.FinishDate != null, cancellationToken);
+        var originalUser = await dBContext.Users.FirstOrDefaultAsync(r => r.Email == email && r.FinishDate == null, cancellationToken);
         if (originalUser == null)
             throw new NullReferenceException("Can`t find record to update");
 
@@ -110,7 +110,7 @@ public static partial class GarageDBContextExtentions
 
     public static async Task CloseUser(this GarageDBContext dBContext, string email, CancellationToken cancellationToken)
     {
-        var user = await dBContext.Users.FirstOrDefaultAsync(u => u.Email == email && u.FinishDate != null, cancellationToken);
+        var user = await dBContext.Users.FirstOrDefaultAsync(u => u.Email == email && u.FinishDate == null, cancellationToken);
         if (user != null)
         {
             dBContext.Remove(user);

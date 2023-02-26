@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace GarageAPI.Controllers;
 
-[Route("api/[controller]")]
+[Route("[controller]")]
 [ApiController]
 [Produces("application/json")]
 public class UsersController : ControllerBase
@@ -91,6 +91,22 @@ public class UsersController : ControllerBase
 
         var email = User.FindFirstValue(JwtRegisteredClaimNames.Email);
         await dBContext.CloseUser(email, cancellationToken: cancellationToken);
+        return Ok();
+    }
+
+    [HttpPut, Authorize]
+    public async Task<IActionResult> UpdateUser(UpdateUserRequest request, [FromServices] IJwtProviderApi jwtProvider, [FromServices] GarageDataBase.GarageDBContext dBContext, CancellationToken cancellationToken)
+    {
+        var accessToken = Request.Headers.Authorization.First().Split(" ")[1];
+        var jwtResponse = await jwtProvider.UpdateUser(request, accessToken);
+
+        if (!jwtResponse.IsSuccessStatusCode)
+        {
+            return BadRequest(await jwtResponse.Error.GetContentAsAsync<JwtError>());
+        }
+
+        var email = User.FindFirstValue(JwtRegisteredClaimNames.Email);
+        await dBContext.UpdateUser(email, request.FirstName, request.LastName, request.Patronymic, cancellationToken: cancellationToken);
         return Ok();
     }
 }
