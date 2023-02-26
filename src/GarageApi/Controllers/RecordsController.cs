@@ -3,6 +3,7 @@ using GarageDataBase.DTO;
 using GarageDataBase.Extentions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
@@ -105,6 +106,21 @@ public class RecordsController : ControllerBase
                             request.PlaceNumber,
                             1,
                             cancellationToken);
+            return Ok(record);
+        }
+        else
+        {
+            return NotFound();
+        }
+    }
+
+    [HttpPut, Authorize]
+    public async Task<IActionResult> UpdateRecord([FromBody] UpdateRecordRequest request, [FromServices] GarageDataBase.GarageDBContext dBContext, CancellationToken cancellationToken)
+    {
+        var oldRecord = await dBContext.Records.FirstOrDefaultAsync(r => r.Id == request.RecordId, cancellationToken);
+        if (oldRecord != null)
+        {
+            var record = await dBContext.UpdateRecord(oldRecord.UserId, request.Time, oldRecord.Date, request.PlaceNumber, 1, cancellationToken);
             return Ok(record);
         }
         else
