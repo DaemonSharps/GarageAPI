@@ -1,11 +1,14 @@
 ﻿using GarageAPI.Controllers.Schemas;
 using GarageDataBase.DTO;
 using GarageDataBase.Extentions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -50,7 +53,7 @@ public class RecordsController : ControllerBase
     [SwaggerOperation("Создать или обновить запись")]
     [SwaggerResponse(200, Type = typeof(Record))]
     [SwaggerResponse(400, Type = typeof(string))]
-    public async Task<IActionResult> Post([FromBody] CreateRecordRequest request, [FromServices] GarageDataBase.GarageDBContext dBContext, CancellationToken cancellationToken)
+    public async Task<IActionResult> Post([FromBody] CreateOrUpdateRecordRequest request, [FromServices] GarageDataBase.GarageDBContext dBContext, CancellationToken cancellationToken)
     {
         try
         {
@@ -84,6 +87,29 @@ public class RecordsController : ControllerBase
         catch (Exception ex)
         {
             return BadRequest(ex.Message);
+        }
+    }
+
+    [HttpPost("create"), Authorize]
+    public async Task<IActionResult> CreateRecord([FromBody] CreateRecordRequest request, [FromServices] GarageDataBase.GarageDBContext dBContext, CancellationToken cancellationToken)
+    {
+        var email = User.FindFirstValue(JwtRegisteredClaimNames.Email);
+        var user = await dBContext.GetUser(email, cancellationToken);
+        if (user != null)
+        {
+
+            var record = await dBContext.CreateRecord(
+                            user.Id,
+                            request.Time,
+                            request.Date,
+                            request.PlaceNumber,
+                            1,
+                            cancellationToken);
+            return Ok(record);
+        }
+        else
+        {
+            return NotFound();
         }
     }
 }
