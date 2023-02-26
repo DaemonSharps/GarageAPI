@@ -134,6 +134,16 @@
             Количество посещений
             </summary>
         </member>
+        <member name="P:GarageAPI.Controllers.Schemas.UpdateRecordRequest.Time">
+            <summary>
+            Время записи
+            </summary>
+        </member>
+        <member name="P:GarageAPI.Controllers.Schemas.UpdateRecordRequest.PlaceNumber">
+            <summary>
+            Место посадки
+            </summary>
+        </member>
         <member name="F:GarageAPI.Options.TokenOptions.Section">
             <summary>
             Секция в appsettings.json
