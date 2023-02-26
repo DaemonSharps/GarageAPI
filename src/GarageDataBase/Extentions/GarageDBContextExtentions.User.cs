@@ -7,12 +7,11 @@ namespace GarageDataBase.Extentions;
 
 public static partial class GarageDBContextExtentions
 {
-    public static async Task<User> GetUser(this GarageDBContext dBContext, string email, bool includeDeleted = false, CancellationToken cancellationToken = default)
+    public static async Task<User> GetUser(this GarageDBContext dBContext, string email, CancellationToken cancellationToken = default)
     {
         var user = await dBContext
             .Users
             .Include(c => c.State)
-            .Where(c => (c.FinishDate != null) == includeDeleted)
             .FirstOrDefaultAsync(c => c.Email == email, cancellationToken);
         return MapperHelper.Map<User>(user);
     }

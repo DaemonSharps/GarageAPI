@@ -28,7 +28,7 @@ public class AuthController : ControllerBase
             return BadRequest(await jwtResponse.Error.GetContentAsAsync<JwtError>());
         }
 
-        var user = await context.GetUser(request.Email, includeDeleted: true, cancellationToken);
+        var user = await context.GetUser(request.Email, cancellationToken);
 
         if (user != null)
         {
@@ -53,7 +53,7 @@ public class AuthController : ControllerBase
             return BadRequest(await jwtResponse.Error.GetContentAsAsync<JwtError>());
         }
 
-        var user = await context.GetUser(request.Email, includeDeleted: true, cancellationToken);
+        var user = await context.GetUser(request.Email, cancellationToken);
 
         if (user == null)
         {
