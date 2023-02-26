@@ -13,14 +13,17 @@ public interface IJwtProviderApi
     [Post("/users")]
     public Task<ApiResponse<TokenResponse>> RegisterUser([Body] RegisterUserRequest request, CancellationToken cancellationToken);
 
+    [Delete("/users")]
+    public Task<IApiResponse> CloseAccount([Authorize("Bearer")] string accessToken);
+
+    [Put("/users")]
+    public Task<IApiResponse> UpdateUser(UpdateUserRequest request, [Authorize("Bearer")] string accessToken);
+
     [Post("/sessions")]
     public Task<ApiResponse<TokenResponse>> CreateSession([Body] CreateSessionRequest request, CancellationToken cancellationToken);
 
     [Put("/sessions")]
     public Task<ApiResponse<TokenResponse>> RefreshToken([Body] RefreshTokenRequest request, CancellationToken cancellationToken);
-
-    [Delete("/users")]
-    public Task<IApiResponse> CloseAccount([Authorize("Bearer")] string accessToken);
 }
 
 public class RegisterUserRequest
@@ -51,6 +54,15 @@ public class RefreshTokenRequest
 {
     [Required]
     public Guid RefreshToken { get; set; }
+}
+
+public class UpdateUserRequest
+{
+    public string FirstName { get; set; }
+
+    public string LastName { get; set; }
+
+    public string Patronymic { get; set; }
 }
 
 public class TokenResponse
