@@ -7,7 +7,7 @@ namespace GarageApiIntegration.Extentions;
 
 public static partial class HttpClientExtentions
 {
-    public static async Task<DTO.Record> CreateOrUpdateRecord(this HttpClient client, CreateRecordRequest request, DTO.User expectedUser)
+    public static async Task<DTO.Record> CreateOrUpdateRecord(this HttpClient client, CreateOrUpdateRecordRequest request, DTO.User expectedUser)
     {
         var response = await client.PostAsJsonAsync("/api/records", request);
         response.EnsureSuccessStatusCode();
