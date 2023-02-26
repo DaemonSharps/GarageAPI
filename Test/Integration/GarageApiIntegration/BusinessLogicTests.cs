@@ -35,7 +35,7 @@ public class BusinessLogicTests : ApiTestBase
         var filteredUser = Assert.Single(filteredUsers);
         filteredUser.ShouldDeepEqual(user);
 
-        var createRecordRequest = new CreateRecordRequest
+        var createRecordRequest = new CreateOrUpdateRecordRequest
         {
             UserId = user.Id,
             Date = DateTime.Today.AddDays(1),
@@ -71,7 +71,7 @@ public class BusinessLogicTests : ApiTestBase
         };
         var user = await Client.GetOrCreateUser(request, "Clear");
 
-        var createRecordRequest = new CreateRecordRequest
+        var createRecordRequest = new CreateOrUpdateRecordRequest
         {
             UserId = user.Id,
             Date = DateTime.Today.AddDays(1),
@@ -107,7 +107,7 @@ public class BusinessLogicTests : ApiTestBase
         var dateFrom = DateTime.Today.AddDays(2);
         for (int i = 0; i < 3; i++)
         {
-            var createRecordRequest = new CreateRecordRequest
+            var createRecordRequest = new CreateOrUpdateRecordRequest
             {
                 UserId = 1,
                 Date = dateFrom.AddDays(i),
@@ -144,7 +144,7 @@ public class BusinessLogicTests : ApiTestBase
             Email = "ar-seny@mail.ru"
         };
 
-        var createRecordRequest = new CreateRecordRequest
+        var createRecordRequest = new CreateOrUpdateRecordRequest
         {
             UserId = 1,
             Date = dateFrom,

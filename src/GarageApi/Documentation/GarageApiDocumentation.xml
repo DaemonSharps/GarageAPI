@@ -4,34 +4,49 @@
         <name>GarageAPI</name>
     </assembly>
     <members>
-        <member name="T:GarageAPI.Controllers.Schemas.CreateRecordRequest">
+        <member name="T:GarageAPI.Controllers.Schemas.CreateOrUpdateRecordRequest">
             <summary>
             Запрос для обновления записей
             </summary>
         </member>
-        <member name="P:GarageAPI.Controllers.Schemas.CreateRecordRequest.UserId">
+        <member name="P:GarageAPI.Controllers.Schemas.CreateOrUpdateRecordRequest.UserId">
             <summary>
             Новое Id пользователя
             </summary>
         </member>
-        <member name="P:GarageAPI.Controllers.Schemas.CreateRecordRequest.Time">
+        <member name="P:GarageAPI.Controllers.Schemas.CreateOrUpdateRecordRequest.Time">
             <summary>
             Новое время записи
             </summary>
         </member>
-        <member name="P:GarageAPI.Controllers.Schemas.CreateRecordRequest.Date">
+        <member name="P:GarageAPI.Controllers.Schemas.CreateOrUpdateRecordRequest.Date">
             <summary>
             Новая дата записи год-день-месяц
             </summary>
         </member>
-        <member name="P:GarageAPI.Controllers.Schemas.CreateRecordRequest.PlaceNumber">
+        <member name="P:GarageAPI.Controllers.Schemas.CreateOrUpdateRecordRequest.PlaceNumber">
             <summary>
             Новое место посадки
             </summary>
         </member>
-        <member name="P:GarageAPI.Controllers.Schemas.CreateRecordRequest.StateId">
+        <member name="P:GarageAPI.Controllers.Schemas.CreateOrUpdateRecordRequest.StateId">
             <summary>
             Новый Id статуса записи
+            </summary>
+        </member>
+        <member name="P:GarageAPI.Controllers.Schemas.CreateRecordRequest.Time">
+            <summary>
+            Время записи
+            </summary>
+        </member>
+        <member name="P:GarageAPI.Controllers.Schemas.CreateRecordRequest.Date">
+            <summary>
+            Дата записи год-день-месяц
+            </summary>
+        </member>
+        <member name="P:GarageAPI.Controllers.Schemas.CreateRecordRequest.PlaceNumber">
+            <summary>
+            Место посадки
             </summary>
         </member>
         <member name="T:GarageAPI.Controllers.Schemas.GetOrSetUserRequest">
